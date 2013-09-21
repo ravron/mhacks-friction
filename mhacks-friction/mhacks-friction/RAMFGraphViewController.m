@@ -45,11 +45,11 @@
     
     
     // Get the (default) plotspace from the graph so we can set its x/y ranges
-    CPTXYPlotSpace *plotSpace = (CPTXYPlotSpace *) graph.defaultPlotSpace;
+    self.plotSpace = (CPTXYPlotSpace *) graph.defaultPlotSpace;
     
     // Note that these CPTPlotRange are defined by START and LENGTH (not START and END) !!
-    [plotSpace setYRange: [CPTPlotRange plotRangeWithLocation:CPTDecimalFromFloat( -5 ) length:CPTDecimalFromFloat( 10 )]];
-    [plotSpace setXRange: [CPTPlotRange plotRangeWithLocation:CPTDecimalFromFloat( 0 ) length:CPTDecimalFromFloat( 20 )]];
+    [self.plotSpace setYRange: [CPTPlotRange plotRangeWithLocation:CPTDecimalFromFloat( -5 ) length:CPTDecimalFromFloat( 10 )]];
+    [self.plotSpace setXRange: [CPTPlotRange plotRangeWithLocation:CPTDecimalFromFloat( 0 ) length:CPTDecimalFromFloat( 20 )]];
     
     // Create the plot (we do not define actual x/y values yet, these will be supplied by the datasource...)
     self.plot = [[CPTScatterPlot alloc] initWithFrame:CGRectZero];
@@ -89,6 +89,11 @@
 
 - (void)accelDataUpdateAvailable
 {
+//    self.xMax++;
+//    self.yMax++;
+    
+    [self.plotSpace setXRange: [CPTPlotRange plotRangeWithLocation:CPTDecimalFromFloat( 0 ) length:CPTDecimalFromFloat( xMax + 1 )]];
+    [self.plotSpace setXRange: [CPTPlotRange plotRangeWithLocation:CPTDecimalFromFloat( 0 ) length:CPTDecimalFromFloat( yMax + 1 )]];
     [self.plot reloadData];
 }
 

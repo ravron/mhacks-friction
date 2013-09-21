@@ -20,4 +20,10 @@
 
 - (void)accelDataUpdateAvailable;
 
+@property CPTXYPlotSpace *plotSpace;
+
+@property CPTPlotRange *xRange;
+
+@property CPTPlotRange *yRange;
+
 @end
