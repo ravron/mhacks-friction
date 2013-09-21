@@ -34,6 +34,11 @@
     // Dispose of any resources that can be recreated.
 }
 
+- (void)accelDataUpdateAvailable
+{
+    
+}
+
 - (IBAction)startAction:(id)sender {
 }
 @end
