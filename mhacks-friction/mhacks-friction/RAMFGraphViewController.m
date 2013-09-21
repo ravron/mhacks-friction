@@ -32,13 +32,23 @@
 
     // Create a CPTGraph object and add to hostView
     CPTGraph* graph = [[CPTXYGraph alloc] initWithFrame:self.hostView.bounds];
+    
     self.hostView.hostedGraph = graph;
+    
+    CPTXYAxisSet *axisSet = (CPTXYAxisSet *) self.hostView.hostedGraph.axisSet;
+    CPTAxis *x = axisSet.xAxis;
+    CPTAxis *y = axisSet.yAxis;
+    
+    x.labelingPolicy = CPTAxisLabelingPolicyAutomatic;
+    y.labelingPolicy = CPTAxisLabelingPolicyAutomatic;
+
+    
     
     // Get the (default) plotspace from the graph so we can set its x/y ranges
     CPTXYPlotSpace *plotSpace = (CPTXYPlotSpace *) graph.defaultPlotSpace;
     
     // Note that these CPTPlotRange are defined by START and LENGTH (not START and END) !!
-    [plotSpace setYRange: [CPTPlotRange plotRangeWithLocation:CPTDecimalFromFloat( -10 ) length:CPTDecimalFromFloat( 20 )]];
+    [plotSpace setYRange: [CPTPlotRange plotRangeWithLocation:CPTDecimalFromFloat( -5 ) length:CPTDecimalFromFloat( 10 )]];
     [plotSpace setXRange: [CPTPlotRange plotRangeWithLocation:CPTDecimalFromFloat( 0 ) length:CPTDecimalFromFloat( 20 )]];
     
     // Create the plot (we do not define actual x/y values yet, these will be supplied by the datasource...)
@@ -48,6 +58,7 @@
     self.plot.dataSource = [(RAMFFirstViewController *)[self presentingViewController] getModel];
     [[(RAMFFirstViewController *)[self presentingViewController] getModel] setDelegate:self];
 
+    
     
     // Finally, add the created plot to the default plot space of the CPTGraph object we created before
     [graph addPlot:self.plot toPlotSpace:graph.defaultPlotSpace];
