@@ -49,7 +49,7 @@
     [self setRawAccel:xyAccel];
     
     if (self.isUpdating) {
-        NSTimeInterval delay = 0.25;
+        NSTimeInterval delay = 0.1;
         [self performSelector:@selector(updateAccelerometerData) withObject:nil afterDelay:delay];
     }
     
