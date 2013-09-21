@@ -43,7 +43,9 @@
     yAccel = accelStruct.y;
     
     xyAccel = sqrt(pow(xAccel, 2) + pow(yAccel, 2));
-    [self setRawAccel:xyAccel];
+    //[self setRawAccel:xyAccel];
+#warning "Fix me"
+    [self setRawAccel:1.0];
     
     if (self.isUpdating) {
         NSTimeInterval delay = 1;

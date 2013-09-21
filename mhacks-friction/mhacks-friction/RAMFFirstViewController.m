@@ -31,17 +31,18 @@
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
 }
 
 - (void)accelDataUpdateAvailable
 {
-    //double accelData = [[self accModel] rawAccel];
-    //NSString *accelDataString = [[NSString alloc] initWithFormat:@"%lf", accelData];
+    double accelData = [[self accModel] rawAccel];
+    NSString *accelDataString = [[NSString alloc] initWithFormat:@"%lf", accelData];
+    //[[self dataField] setText:accelDataString];
+}
+
+- (IBAction)unwindGraphView:(UIStoryboardSegue *)unwindSegue
+{
     
-    double dummyData = arc4random();
-    NSString *accelDataString = [[NSString alloc] initWithFormat:@"%lf", dummyData];
-    [[self dataField] setText:accelDataString];
 }
 
 - (IBAction)swapTextFieldColor:(UIButton *)sender {

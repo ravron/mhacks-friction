@@ -15,7 +15,7 @@
 @property (weak, nonatomic) IBOutlet UITextView *dataField;
 @property RAMFAccelerometerModel * accModel;
 
-
 - (IBAction)swapTextFieldColor:(UIButton *)sender;
+- (RAMFAccelerometerModel *) getModel;
 
 @end
