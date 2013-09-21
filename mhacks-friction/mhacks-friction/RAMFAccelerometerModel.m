@@ -15,6 +15,7 @@
 @property double rawAccel;
 
 @property (nonatomic) NSMutableArray *dataset;
+
 @end
 
 @implementation RAMFAccelerometerModel
@@ -25,7 +26,6 @@
     
     if (self) {
         _motionManager = [[CMMotionManager alloc] init];
-        [_motionManager startAccelerometerUpdates];
         _isUpdating = NO;
     }
     
@@ -76,8 +76,10 @@
     if (isUpdating && !_isUpdating) {
         _isUpdating = isUpdating;
         [[self dataset] removeAllObjects];
+        [[self motionManager] startAccelerometerUpdates];
         [self updateAccelerometerData];
     } else {
+        [[self motionManager] stopAccelerometerUpdates];
         [NSObject cancelPreviousPerformRequestsWithTarget:self];
     }
     
