@@ -12,10 +12,12 @@
 
 @interface RAMFFirstViewController : UIViewController <RAMFAccelerometerModelDelegate>
 
-@property (weak, nonatomic) IBOutlet UITextView *dataField;
 @property RAMFAccelerometerModel * accModel;
 
-- (IBAction)swapTextFieldColor:(UIButton *)sender;
 - (RAMFAccelerometerModel *) getModel;
+
+@property (weak, nonatomic) IBOutlet UIImageView *backgroundImage;
+
+@property (weak, nonatomic) IBOutlet UIImageView *animation;
 
 @end

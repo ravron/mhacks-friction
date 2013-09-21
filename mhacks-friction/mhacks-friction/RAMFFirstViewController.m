@@ -16,12 +16,35 @@
 
 - (void)viewDidLoad
 {
+    
+    UIImage *pewter = [UIImage imageNamed: @"brushed_pewter.png"];
+    
+    self.animation.animationImages = [NSArray arrayWithObjects:
+                        [UIImage imageNamed:@"holding.gif"],
+                        [UIImage imageNamed:@"sliding.gif"],
+                        nil];
+    
+    self.animation.animationDuration = 1.0f;
+    self.animation.animationRepeatCount = 0;
+    [self.animation startAnimating];
+    /*
+    UIImageView* animatedImageView = [[UIImageView alloc] initWithFrame:self.view.bounds];
+    animatedImageView.animationImages = [NSArray arrayWithObjects:
+                                         [UIImage imageNamed:@"image1.gif"],
+                                         [UIImage imageNamed:@"image2.gif"],
+                                         [UIImage imageNamed:@"image3.gif"],
+                                         [UIImage imageNamed:@"image4.gif"], nil];
+    animatedImageView.animationDuration = 1.0f;
+    animatedImageView.animationRepeatCount = 0;
+    [animatedImageView startAnimating];
+    [self.view addSubview: animatedImageView];
+     */
+    
+    [[self backgroundImage] setImage: pewter];
+    
     [super viewDidLoad];
 	// Do any additional setup after loading the view, typically from a nib.
     
-    [self dataField].backgroundColor = [UIColor colorWithRed:0.2f green:0.3f blue:0.4f alpha:0.50001f];
-    
-    [[self dataField] setText:@"Not Updated"];
     [self setAccModel:[[RAMFAccelerometerModel alloc] init]];
 }
 
@@ -44,10 +67,6 @@
     [[self accModel] setIsUpdating:NO];
 }
 
-- (IBAction)swapTextFieldColor:(UIButton *)sender {
-    [self dataField].backgroundColor = [UIColor colorWithRed:.5 green:.1 blue:.6 alpha:0.50001f];
-    [[self dataField] setText:@"Fuck you"];
-}
 
 - (RAMFAccelerometerModel *)getModel{
     NSLog(@"Get model called");
