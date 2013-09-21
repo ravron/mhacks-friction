@@ -8,6 +8,8 @@
 
 #import "RAMFAccelerometerModel.h"
 
+#define AVERAGE_OFFSET 9
+
 @interface RAMFAccelerometerModel ()
 
 @property (nonatomic) CMMotionManager *motionManager;
