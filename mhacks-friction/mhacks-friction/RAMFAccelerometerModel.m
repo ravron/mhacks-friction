@@ -14,7 +14,7 @@
 
 @property (nonatomic, strong) NSMutableArray *dataset;
 @property (nonatomic, strong) NSMutableArray *avgDataset;
-@property (nonatomic, weak) NSMutableArray *activeDataset;
+@property (nonatomic, strong) NSMutableArray *activeDataset;
 
 @property (nonatomic) NSTimeInterval dataTimeOffset;
 
@@ -32,7 +32,7 @@
         _avgDataset = [NSMutableArray array];
         _activeDataset = _dataset;
         _isUpdating = NO;
-        _shouldAverage = YES;
+        _shouldAverage = NO;
         _averagingValue = 6;
     }
     
@@ -65,7 +65,7 @@
     timestamp = timestamp - self.dataTimeOffset;
     
     NSNumber *wrappedTimestamp = [NSNumber numberWithDouble:timestamp];
-    NSNumber *wrappedRawAccel = [NSNumber numberWithDouble:self.rawAccel];
+    NSNumber *wrappedRawAccel = [NSNumber numberWithDouble:xyAccel];
     NSArray *stampedDatum = [NSArray arrayWithObjects:wrappedTimestamp, wrappedRawAccel, nil];
     [[self dataset] addObject:stampedDatum];
     
@@ -83,7 +83,6 @@
         NSArray *stampedAvgDatum = [NSArray arrayWithObjects:oldTimestamp, avgRawAccel, nil];
         [[self avgDataset] addObject:stampedAvgDatum];
     }
-    
     if (self.delegate) {
         [[self delegate] accelDataUpdateAvailable];
     }

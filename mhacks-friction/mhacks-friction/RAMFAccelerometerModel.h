@@ -21,7 +21,6 @@
 
 @property (nonatomic, readonly) CMMotionManager *motionManager;
 
-@property (readonly) double rawAccel;
 @property (nonatomic) BOOL isUpdating;
 @property (weak, nonatomic) NSObject <RAMFAccelerometerModelDelegate> *delegate;
 @property (nonatomic) BOOL shouldAverage;
