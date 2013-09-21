@@ -9,6 +9,7 @@
 #import <UIKit/UIKit.h>
 
 @interface RAMFFirstViewController : UIViewController
+@property (weak, nonatomic) IBOutlet UITextView *dataField;
 
 
 @end

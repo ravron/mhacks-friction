@@ -32,7 +32,7 @@
     xAccel = accelStruct.x;
     yAccel = accelStruct.y;
     
-    xyAccel = sqrt(xAccel**2 + yAccel**2);
+    //xyAccel = sqrt(xAccel**2 + yAccel**2);
 }
 
 @end
