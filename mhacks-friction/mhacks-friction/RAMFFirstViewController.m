@@ -23,9 +23,6 @@
     
     [[self dataField] setText:@"Not Updated"];
     [self setAccModel:[[RAMFAccelerometerModel alloc] init]];
-    [[self accModel] setIsUpdating:YES];
-    //double myaccel = [[self accModel] rawAccel];
-    [[self accModel] setDelegate:self];
 }
 
 - (void)didReceiveMemoryWarning
@@ -35,14 +32,16 @@
 
 - (void)accelDataUpdateAvailable
 {
-    double accelData = [[self accModel] rawAccel];
-    NSString *accelDataString = [[NSString alloc] initWithFormat:@"%lf", accelData];
-    //[[self dataField] setText:accelDataString];
+    if ([self presentedViewController]) {
+        if ([[self presentedViewController] conformsToProtocol:@protocol(RAMFAccelerometerModelDelegate)]) {
+            
+        }
+    }
 }
 
 - (IBAction)unwindGraphView:(UIStoryboardSegue *)unwindSegue
 {
-    
+    [[self accModel] setIsUpdating:NO];
 }
 
 - (IBAction)swapTextFieldColor:(UIButton *)sender {
@@ -51,6 +50,8 @@
 }
 
 - (RAMFAccelerometerModel *) getModel{
+    [[self accModel] setIsUpdating:YES];
     return [self accModel];
 }
+
 @end

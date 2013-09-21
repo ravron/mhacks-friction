@@ -39,6 +39,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		11C5C3E017EDF96800FAF139 /* RAMFAccelerometerModelDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = RAMFAccelerometerModelDelegate.h; path = "mhacks-friction/RAMFAccelerometerModelDelegate.h"; sourceTree = "<group>"; };
 		11EE0A2717ED517A008F16F7 /* mhacks-friction.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "mhacks-friction.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		11EE0A2A17ED517A008F16F7 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		11EE0A2C17ED517A008F16F7 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -174,6 +175,7 @@
 		11EE0A1E17ED517A008F16F7 = {
 			isa = PBXGroup;
 			children = (
+				11C5C3E017EDF96800FAF139 /* RAMFAccelerometerModelDelegate.h */,
 				11EE0A3017ED517A008F16F7 /* mhacks-friction */,
 				11EE0A5217ED517B008F16F7 /* mhacks-frictionTests */,
 				11EE0A6717ED8648008F16F7 /* CorePlot */,
@@ -393,6 +395,9 @@
 				LastUpgradeCheck = 0500;
 				ORGANIZATIONNAME = "Riley Avron";
 				TargetAttributes = {
+					11EE0A2617ED517A008F16F7 = {
+						DevelopmentTeam = D2H7324K73;
+					};
 					11EE0A4A17ED517A008F16F7 = {
 						TestTargetID = 11EE0A2617ED517A008F16F7;
 					};
@@ -574,12 +579,15 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "mhacks-friction/mhacks-friction-Prefix.pch";
 				INFOPLIST_FILE = "mhacks-friction/mhacks-friction-Info.plist";
 				LIBRARY_SEARCH_PATHS = "mhacks-friction/";
 				OTHER_LDFLAGS = "-all_load";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -589,12 +597,15 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "mhacks-friction/mhacks-friction-Prefix.pch";
 				INFOPLIST_FILE = "mhacks-friction/mhacks-friction-Info.plist";
 				LIBRARY_SEARCH_PATHS = "mhacks-friction/";
 				OTHER_LDFLAGS = "-all_load";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;

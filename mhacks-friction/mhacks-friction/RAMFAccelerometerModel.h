@@ -9,12 +9,9 @@
 #import <Foundation/Foundation.h>
 #import <CoreMotion/CoreMotion.h>
 #import "CorePlot-CocoaTouch.h"
+#import "RAMFAccelerometerModelDelegate.h"
 
-@protocol RAMFAccelerometerModelDelegate <NSObject>
 
-- (void)accelDataUpdateAvailable;
-
-@end
 
 @interface RAMFAccelerometerModel : NSObject <CPTScatterPlotDataSource>
 {
