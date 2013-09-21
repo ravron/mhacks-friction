@@ -14,7 +14,6 @@
 
 @property RAMFAccelerometerModel * accModel;
 
-
 - (IBAction)swapTextFieldColor:(UIButton *)sender;
 - (RAMFAccelerometerModel *) getModel;
 

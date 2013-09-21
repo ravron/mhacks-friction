@@ -27,20 +27,20 @@
                                 </connections>
                             </button>
                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="VUE-iZ-CE7">
-                                <rect key="frame" x="20" y="179" width="240" height="327"/>
+                                <rect key="frame" x="40" y="120" width="240" height="327"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                             </textView>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Dq2-dG-s6N">
-                                <rect key="frame" x="51" y="66" width="218" height="30"/>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Kjy-TN-36B">
+                                <rect key="frame" x="118" y="58" width="85" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" title="Switch to Graph view, dumbass">
+                                <state key="normal" title="Open Graph">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
-                                    <segue destination="J4S-ei-fQe" kind="modal" id="KOZ-Qz-XF1"/>
+                                    <segue destination="J4S-ei-fQe" kind="modal" id="awn-qP-fVU"/>
                                 </connections>
                             </button>
                         </subviews>
@@ -74,23 +74,26 @@
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
-                                    <action selector="backButton:" destination="J4S-ei-fQe" eventType="touchUpInside" id="pyS-Kh-Xf2"/>
+                                    <segue destination="QES-Tp-p4L" kind="unwind" unwindAction="unwindGraphView:" id="WL9-tx-iC5"/>
                                 </connections>
                             </button>
                             <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Tj6-Hw-ZSQ" customClass="CPTGraphHostingView">
-                                <rect key="frame" x="0.0" y="58" width="320" height="510"/>
+                                <rect key="frame" x="20" y="58" width="280" height="429"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                             </view>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                     </view>
+                    <navigationItem key="navigationItem" id="65a-kG-YAb"/>
                     <connections>
                         <outlet property="hostView" destination="Tj6-Hw-ZSQ" id="nBT-3F-OTc"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="mgT-eZ-maf" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <exit id="QES-Tp-p4L" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
-            <point key="canvasLocation" x="-38" y="449"/>
+            <point key="canvasLocation" x="-190" y="853"/>
         </scene>
     </scenes>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">

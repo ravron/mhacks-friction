@@ -8,6 +8,7 @@
 
 #import <Foundation/Foundation.h>
 #import <CoreMotion/CoreMotion.h>
+#import "CorePlot-CocoaTouch.h"
 
 @protocol RAMFAccelerometerModelDelegate <NSObject>
 
@@ -15,14 +16,15 @@
 
 @end
 
-@interface RAMFAccelerometerModel : NSObject
+@interface RAMFAccelerometerModel : NSObject <CPTScatterPlotDataSource>
 {
+    @private
     BOOL _isUpdating;
 }
 
-@property (nonatomic) CMMotionManager *motionManager;
-@property (nonatomic) CMAccelerometerData *accelData;
-@property double rawAccel;
+@property (nonatomic, readonly) CMMotionManager *motionManager;
+@property (nonatomic, readonly) CMAccelerometerData *accelData;
+@property (readonly) double rawAccel;
 @property (nonatomic) BOOL isUpdating;
 @property (weak, nonatomic) id <RAMFAccelerometerModelDelegate> delegate;
 

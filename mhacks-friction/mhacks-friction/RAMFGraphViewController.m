@@ -37,15 +37,15 @@
     CPTXYPlotSpace *plotSpace = (CPTXYPlotSpace *) graph.defaultPlotSpace;
     
     // Note that these CPTPlotRange are defined by START and LENGTH (not START and END) !!
-    [plotSpace setYRange: [CPTPlotRange plotRangeWithLocation:CPTDecimalFromFloat( 0 ) length:CPTDecimalFromFloat( 16 )]];
-    [plotSpace setXRange: [CPTPlotRange plotRangeWithLocation:CPTDecimalFromFloat( -4 ) length:CPTDecimalFromFloat( 8 )]];
+    [plotSpace setYRange: [CPTPlotRange plotRangeWithLocation:CPTDecimalFromFloat( -10 ) length:CPTDecimalFromFloat( 20 )]];
+    [plotSpace setXRange: [CPTPlotRange plotRangeWithLocation:CPTDecimalFromFloat( -10 ) length:CPTDecimalFromFloat( 20 )]];
     
     // Create the plot (we do not define actual x/y values yet, these will be supplied by the datasource...)
     CPTScatterPlot* plot = [[CPTScatterPlot alloc] initWithFrame:CGRectZero];
     
-    // Let's keep it simple and let this class act as datasource (therefore we implemtn <CPTPlotDataSource>)
-    //plot.dataSource = [(RAMFFirstViewController *)[self presentingViewController] getModel];
-    
+    // Set datasource
+    plot.dataSource = [(RAMFFirstViewController *)[self presentingViewController] getModel];
+
     
     // Finally, add the created plot to the default plot space of the CPTGraph object we created before
     [graph addPlot:plot toPlotSpace:graph.defaultPlotSpace];
@@ -62,6 +62,13 @@
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
+
+// This method is here because this class also functions as datasource for our graph
+// Therefore this class implements the CPTPlotDataSource protocol
+-(NSUInteger)numberOfRecordsForPlot:(CPTPlot *)plotnumberOfRecords {
+    return 9; // Our sample graph contains 9 'points'
+}
+
 
 - (IBAction)backButton:(UIButton *)sender {
     

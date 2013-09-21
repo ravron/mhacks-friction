@@ -24,32 +24,29 @@
     [[self dataField] setText:@"Not Updated"];
     [self setAccModel:[[RAMFAccelerometerModel alloc] init]];
     [[self accModel] setIsUpdating:YES];
-    //double myaccel = [[self accModel] rawAccel];
     [[self accModel] setDelegate:self];
 }
 
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
 }
 
 - (void)accelDataUpdateAvailable
 {
-    //double accelData = [[self accModel] rawAccel];
-    //NSString *accelDataString = [[NSString alloc] initWithFormat:@"%lf", accelData];
+    double accelData = [[self accModel] rawAccel];
+    NSString *accelDataString = [[NSString alloc] initWithFormat:@"%lf", accelData];
+    //[[self dataField] setText:accelDataString];
+}
+
+- (IBAction)unwindGraphView:(UIStoryboardSegue *)unwindSegue
+{
     
-    double dummyData = arc4random();
-    NSString *accelDataString = [[NSString alloc] initWithFormat:@"%lf", dummyData];
-    [[self dataField] setText:accelDataString];
 }
 
 - (IBAction)swapTextFieldColor:(UIButton *)sender {
-    
-    
     [self dataField].backgroundColor = [UIColor colorWithRed:.5 green:.1 blue:.6 alpha:0.50001f];
     [[self dataField] setText:@"Fuck you"];
-    
 }
 
 - (RAMFAccelerometerModel *) getModel{
