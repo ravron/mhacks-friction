@@ -575,6 +575,7 @@
 					"$(inherited)",
 					"/Users/RA/Developer/Xcode\\ Projects/mhacks-friction-git/mhacks-friction/mhacks-friction",
 				);
+				OTHER_LDFLAGS = "-all_load";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = app;
 			};
@@ -592,6 +593,7 @@
 					"$(inherited)",
 					"/Users/RA/Developer/Xcode\\ Projects/mhacks-friction-git/mhacks-friction/mhacks-friction",
 				);
+				OTHER_LDFLAGS = "-all_load";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = app;
 			};

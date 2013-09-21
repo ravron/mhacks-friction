@@ -24,7 +24,6 @@
     [[self dataField] setText:@"Not Updated"];
     [self setAccModel:[[RAMFAccelerometerModel alloc] init]];
     [[self accModel] setIsUpdating:YES];
-    [[self accModel] updateAccelerometerData];
     //double myaccel = [[self accModel] rawAccel];
     [[self accModel] setDelegate:self];
 }
@@ -46,10 +45,8 @@
 }
 
 - (IBAction)swapTextFieldColor:(UIButton *)sender {
-    
-    
     [self dataField].backgroundColor = [UIColor colorWithRed:.5 green:.1 blue:.6 alpha:0.50001f];
     [[self dataField] setText:@"Fuck you"];
-    
 }
+
 @end

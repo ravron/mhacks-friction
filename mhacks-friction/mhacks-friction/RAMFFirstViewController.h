@@ -8,10 +8,11 @@
 
 #import <UIKit/UIKit.h>
 #import "RAMFAccelerometerModel.h"
+#import "CorePlot-CocoaTouch.h"
 
 @interface RAMFFirstViewController : UIViewController <RAMFAccelerometerModelDelegate>
-@property (weak, nonatomic) IBOutlet UITextView *dataField;
 
+@property (weak, nonatomic) IBOutlet UITextView *dataField;
 @property RAMFAccelerometerModel * accModel;
 
 
