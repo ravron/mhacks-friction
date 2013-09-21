@@ -25,6 +25,23 @@
     return self;
 }
 
+- (void)demoMagneticField
+{
+    CMCalibratedMagneticField mfield = self.motionManager.deviceMotion.magneticField;
+    
+    
+}
 
+- (void)startAccelerationCollection
+{
+    [self.motionManager startDeviceMotionUpdatesToQueue:[[NSOperationQueue alloc] init]
+                                            withHandler:^(CMDeviceMotion *motion, NSError *error) {
+     dispatch_async(dispatch_get_main_queue(), ^{
+         CMCalibratedMagneticField mfield = motion.magneticField;
+         
+     });
+                                             }
+     ];
+}
 
 @end
