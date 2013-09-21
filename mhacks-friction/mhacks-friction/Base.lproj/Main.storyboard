@@ -59,6 +59,10 @@
                         <rect key="frame" x="0.0" y="0.0" width="480" height="320"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Xje-GW-WVW">
+                                <rect key="frame" x="0.0" y="0.0" width="480" height="320"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            </imageView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="CoG-dP-jIQ">
                                 <rect key="frame" x="20" y="20" width="35" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -85,7 +89,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Averaging" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rkm-nV-jC7">
-                                <rect key="frame" x="81" y="46" width="77" height="21"/>
+                                <rect key="frame" x="81" y="53" width="77" height="21"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <accessibility key="accessibilityConfiguration">
                                     <accessibilityTraits key="traits" none="YES" staticText="YES" notEnabled="YES"/>
@@ -95,14 +99,13 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <slider opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="15" minValue="1" maxValue="30" continuous="NO" translatesAutoresizingMaskIntoConstraints="NO" id="OQD-50-pPW">
-                                <rect key="frame" x="18" y="68" width="202" height="34"/>
+                                <rect key="frame" x="18" y="75" width="202" height="34"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <connections>
                                     <action selector="sliderChanged:" destination="J4S-ei-fQe" eventType="valueChanged" id="TRY-uP-EdO"/>
                                 </connections>
                             </slider>
                         </subviews>
-                        <color key="backgroundColor" red="0.58431375026702881" green="0.60000002384185791" blue="0.63137257099151611" alpha="1" colorSpace="deviceRGB"/>
                         <constraints>
                             <constraint firstItem="CoG-dP-jIQ" firstAttribute="top" secondItem="Kkn-FL-FLQ" secondAttribute="top" constant="20" symbolic="YES" id="2Y2-b1-sDX"/>
                             <constraint firstAttribute="trailing" secondItem="Tj6-Hw-ZSQ" secondAttribute="trailing" id="8wY-KR-4oo"/>
@@ -116,6 +119,7 @@
                     <navigationItem key="navigationItem" id="65a-kG-YAb"/>
                     <simulatedOrientationMetrics key="simulatedOrientationMetrics" orientation="landscapeRight"/>
                     <connections>
+                        <outlet property="background" destination="Xje-GW-WVW" id="iCS-tM-aLM"/>
                         <outlet property="hostView" destination="Tj6-Hw-ZSQ" id="nBT-3F-OTc"/>
                     </connections>
                 </viewController>

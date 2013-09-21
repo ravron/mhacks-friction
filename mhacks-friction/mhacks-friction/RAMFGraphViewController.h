@@ -15,6 +15,8 @@
 
 @interface RAMFGraphViewController : UIViewController <RAMFAccelerometerModelDelegate>
 
+@property (weak, nonatomic) IBOutlet UIImageView *background;
+
 @property (weak, nonatomic) IBOutlet CPTGraphHostingView *hostView;
 @property (strong, nonatomic, readonly) CPTScatterPlot *plot;
 

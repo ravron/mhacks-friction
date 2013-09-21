@@ -28,6 +28,9 @@
 
 - (void)viewDidLoad
 {
+    [[self background] setImage: [UIImage imageNamed: @"brushed_pewter.png"]];
+    
+    
     [super viewDidLoad];
 
     // Create a CPTGraph object and add to hostView
@@ -93,8 +96,9 @@
     NSNumber *xMax = [xExtrema objectAtIndex: 1];
     NSNumber *yMax = [yExtrema objectAtIndex: 1];
     
-    [self.plotSpace setXRange: [CPTPlotRange plotRangeWithLocation:CPTDecimalFromFloat(0) length:CPTDecimalFromFloat([x doubleValue] + 1)]];
-    [self.plotSpace setYRange: [CPTPlotRange plotRangeWithLocation:CPTDecimalFromFloat(0) length:CPTDecimalFromFloat([y doubleValue] + 1 )]];
+    
+    [self.plotSpace setXRange: [CPTPlotRange plotRangeWithLocation:CPTDecimalFromFloat(0) length:CPTDecimalFromFloat([xMax doubleValue] + 1)]];
+    [self.plotSpace setYRange: [CPTPlotRange plotRangeWithLocation:CPTDecimalFromFloat([yMin doubleValue] - .25) length:CPTDecimalFromFloat(fabs([yMin doubleValue]) + fabs([yMax doubleValue]) + 0.5)]];
     [self.plot reloadData];
 }
 
