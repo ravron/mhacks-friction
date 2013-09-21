@@ -27,11 +27,14 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-
+        [[self hostView] setBackgroundColor:[UIColor greenColor]];
+    
+    NSLog(@"View X, Y, W, H: %f %f %f %f", self.hostView.frame.origin.x, self.hostView.frame.origin.y,
+          self.hostView.frame.size.width, self.hostView.frame.size.height);
     // Create a CPTGraph object and add to hostView
     CPTGraph* graph = [[CPTXYGraph alloc] initWithFrame:self.hostView.bounds];
-    //NSLog(@"Class name: %@", NSStringFromClass([self.hostView class]));
     self.hostView.hostedGraph = graph;
+    [[self hostView] setBackgroundColor:[UIColor greenColor]];
     
     // Get the (default) plotspace from the graph so we can set its x/y ranges
     CPTXYPlotSpace *plotSpace = (CPTXYPlotSpace *) graph.defaultPlotSpace;
@@ -49,6 +52,9 @@
     
     // Finally, add the created plot to the default plot space of the CPTGraph object we created before
     [graph addPlot:plot toPlotSpace:graph.defaultPlotSpace];
+    
+    
+    [graph setBackgroundColor:[[UIColor redColor] CGColor]];
  
 }
 
@@ -70,9 +76,10 @@
 }
 
 
-- (IBAction)backButton:(UIButton *)sender {
-    
-    [self dismissViewControllerAnimated:YES completion:nil];
-    
+- (NSUInteger)supportedInterfaceOrientations
+{
+    return UIInterfaceOrientationMaskLandscape;
 }
+
+
 @end
