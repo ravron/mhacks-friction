@@ -18,14 +18,15 @@
 {
     [super viewDidLoad];
 	// Do any additional setup after loading the view, typically from a nib.
-    [[self dataField] setText:@"Hi"];
+    
+    [self dataField].backgroundColor = [UIColor colorWithRed:0.2f green:0.3f blue:0.4f alpha:0.50001f];
+    
+    [[self dataField] setText:@"Not Updated"];
     [self setAccModel:[[RAMFAccelerometerModel alloc] init]];
     [[self accModel] setIsUpdating:YES];
     [[self accModel] updateAccelerometerData];
     //double myaccel = [[self accModel] rawAccel];
-    
-    
-    
+    [[self accModel] setDelegate:self];
 }
 
 - (void)didReceiveMemoryWarning
@@ -36,9 +37,19 @@
 
 - (void)accelDataUpdateAvailable
 {
+    //double accelData = [[self accModel] rawAccel];
+    //NSString *accelDataString = [[NSString alloc] initWithFormat:@"%lf", accelData];
     
+    double dummyData = arc4random();
+    NSString *accelDataString = [[NSString alloc] initWithFormat:@"%lf", dummyData];
+    [[self dataField] setText:accelDataString];
 }
 
-- (IBAction)startAction:(id)sender {
+- (IBAction)swapTextFieldColor:(UIButton *)sender {
+    
+    
+    [self dataField].backgroundColor = [UIColor colorWithRed:.5 green:.1 blue:.6 alpha:0.50001f];
+    [[self dataField] setText:@"Fuck you"];
+    
 }
 @end

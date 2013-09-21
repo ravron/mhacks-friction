@@ -51,7 +51,6 @@
 - (void)logAccelData
 {
     NSLog(@"%lf", [self rawAccel]);
-    [[[ vc] dataField] setText:@"%lf", [self rawAccel]];
 }
 
 
