@@ -49,13 +49,11 @@
     [self setRawAccel:xyAccel];
     
     if (self.isUpdating) {
-        NSTimeInterval delay = 0.25;
+        NSTimeInterval delay = 0.05;
         [self performSelector:@selector(updateAccelerometerData) withObject:nil afterDelay:delay];
     }
     
-//    [self logAccelData];
     // add data to dataset
-    
     NSTimeInterval timestamp = [[self accelData] timestamp];
     
     if (self.dataTimeOffset == 0.0) {
@@ -104,18 +102,6 @@
 
 #pragma mark - CPTScatterPlotDataSource
 
-/*
-- (NSNumber *)numberForPlot:(CPTPlot *)plot field:(NSUInteger)fieldEnum recordIndex:(NSUInteger)idx
-{
-    int x = idx - 4;
-    if (fieldEnum == CPTScatterPlotFieldX) {
-        return [NSNumber numberWithInt:x];
-    } else {
-        return [NSNumber numberWithInt:x * x];
-    }
-}
-*/
-
 - (double)doubleForPlot:(CPTPlot *)plot field:(NSUInteger)fieldEnum recordIndex:(NSUInteger)idx
 {
     NSNumber *val;
@@ -136,28 +122,39 @@
 {
     return [[self dataset] count];
 }
-/*
-- (NSArray *)numbersForPlot:(CPTPlot *)plot field:(NSUInteger)fieldEnum recordIndexRange:(NSRange)indexRange
+
+- (NSArray *)xAxisExtrema
 {
-#warning "fix this"
+    NSNumber *min = [[[self dataset] objectAtIndex:0] objectAtIndex:0];
+    NSNumber *max = [[[self dataset] objectAtIndex:0] objectAtIndex:0];
     
-    NSLog(@"Asked for range starting at %d, length %d", indexRange.location, indexRange.length);
-    NSLog(@"Asked for field enum %d", fieldEnum);
-    
-    NSArray *
-    
-    NSMutableArray *mutableRetArray = [NSMutableArray array];
-    
-    long int index = 0;
-    for (NSArray *pair in self.dataset) {
-        if (index >= indexRange.location && index < indexRange.location + indexRange.length) {
-            [mutableRetArray addObject:[pair objectAtIndex:fieldEnum]];
+    for (NSArray *pair in [self dataset]) {
+        if ([[pair objectAtIndex:0] doubleValue] < [min doubleValue]) {
+            min = [pair objectAtIndex:0];
         }
-        index++;
+        if ([[pair objectAtIndex:0] doubleValue] > [max doubleValue]) {
+            max = [pair objectAtIndex:0];
+        }
     }
     
-    NSArray *retArray = [NSArray arrayWithArray:mutableRetArray];
-    return retArray;
+    return [NSArray arrayWithObjects:min, max, nil];
 }
-*/
+
+- (NSArray *)yAxisExtrema
+{
+    NSNumber *min = [[[self dataset] objectAtIndex:0] objectAtIndex:1];
+    NSNumber *max = [[[self dataset] objectAtIndex:0] objectAtIndex:1];
+    
+    for (NSArray *pair in [self dataset]) {
+        if ([[pair objectAtIndex:1] doubleValue] < [min doubleValue]) {
+            min = [pair objectAtIndex:1];
+        }
+        if ([[pair objectAtIndex:1] doubleValue] > [max doubleValue]) {
+            max = [pair objectAtIndex:1];
+        }
+    }
+    
+    return [NSArray arrayWithObjects:min, max, nil];
+}
+
 @end

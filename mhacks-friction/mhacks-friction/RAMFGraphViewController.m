@@ -75,13 +75,6 @@
     // Dispose of any resources that can be recreated.
 }
 
-// This method is here because this class also functions as datasource for our graph
-// Therefore this class implements the CPTPlotDataSource protocol
--(NSUInteger)numberOfRecordsForPlot:(CPTPlot *)plotnumberOfRecords {
-    return 9; // Our sample graph contains 9 'points'
-}
-
-
 - (NSUInteger)supportedInterfaceOrientations
 {
     return UIInterfaceOrientationMaskLandscape;

@@ -49,7 +49,8 @@
     [[self dataField] setText:@"Fuck you"];
 }
 
-- (RAMFAccelerometerModel *) getModel{
+- (RAMFAccelerometerModel *)getModel{
+    NSLog(@"Get model called");
     [[self accModel] setIsUpdating:YES];
     return [self accModel];
 }
