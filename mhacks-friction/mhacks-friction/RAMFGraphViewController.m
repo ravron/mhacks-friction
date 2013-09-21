@@ -79,7 +79,7 @@
 
 - (NSUInteger)supportedInterfaceOrientations
 {
-    return UIInterfaceOrientationMaskLandscape;
+    return UIInterfaceOrientationMaskLandscapeLeft;
 }
 
 - (void)accelDataUpdateAvailable
@@ -90,8 +90,8 @@
     NSNumber *x = [xMax objectAtIndex: 1];
     NSNumber *y = [yMax objectAtIndex: 1];
     
-    [self.plotSpace setXRange: [CPTPlotRange plotRangeWithLocation:CPTDecimalFromFloat( 0 ) length:CPTDecimalFromFloat( [x doubleValue]+ 1 )]];
-    [self.plotSpace setXRange: [CPTPlotRange plotRangeWithLocation:CPTDecimalFromFloat( 0 ) length:CPTDecimalFromFloat( [y doubleValue] + 1 )]];
+    [self.plotSpace setXRange: [CPTPlotRange plotRangeWithLocation:CPTDecimalFromFloat(0) length:CPTDecimalFromFloat([x doubleValue] + 1)]];
+    [self.plotSpace setYRange: [CPTPlotRange plotRangeWithLocation:CPTDecimalFromFloat(0) length:CPTDecimalFromFloat([y doubleValue] + 1 )]];
     [self.plot reloadData];
 }
 

@@ -23,6 +23,7 @@
     
     [[self dataField] setText:@"Not Updated"];
     [self setAccModel:[[RAMFAccelerometerModel alloc] init]];
+    [self.accModel setShouldAverage:YES];
 }
 
 - (void)didReceiveMemoryWarning
