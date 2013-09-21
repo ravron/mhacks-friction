@@ -13,5 +13,9 @@
 
 @property CMMotionManager *motionManager;
 @property CMAccelerometerData *accelData;
+@property double rawAccel;
+@property BOOL isUpdating;
+
+- (void)updateAccelerometerData;
 
 @end
