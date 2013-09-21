@@ -27,14 +27,24 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-        [[self hostView] setBackgroundColor:[UIColor greenColor]];
     
     NSLog(@"View X, Y, W, H: %f %f %f %f", self.hostView.frame.origin.x, self.hostView.frame.origin.y,
           self.hostView.frame.size.width, self.hostView.frame.size.height);
     // Create a CPTGraph object and add to hostView
     CPTGraph* graph = [[CPTXYGraph alloc] initWithFrame:self.hostView.bounds];
+    
     self.hostView.hostedGraph = graph;
-    [[self hostView] setBackgroundColor:[UIColor greenColor]];
+    
+    CPTXYAxisSet *axisSet = (CPTXYAxisSet *) self.hostView.hostedGraph.axisSet;
+    CPTAxis *x = axisSet.xAxis;
+    CPTAxis *y = axisSet.yAxis;
+    
+    x.labelingPolicy = CPTAxisLabelingPolicyAutomatic;
+    y.labelingPolicy = CPTAxisLabelingPolicyAutomatic;
+    
+    //x.labelAlignment = -.1f;
+    //y.labelAlignment = +.1f;
+    
     
     // Get the (default) plotspace from the graph so we can set its x/y ranges
     CPTXYPlotSpace *plotSpace = (CPTXYPlotSpace *) graph.defaultPlotSpace;
@@ -48,13 +58,12 @@
     
     // Set datasource
     plot.dataSource = [(RAMFFirstViewController *)[self presentingViewController] getModel];
-
+    
     
     // Finally, add the created plot to the default plot space of the CPTGraph object we created before
     [graph addPlot:plot toPlotSpace:graph.defaultPlotSpace];
     
-    
-    [graph setBackgroundColor:[[UIColor redColor] CGColor]];
+    //[graph setBackgroundColor:[[UIColor redColor] CGColor]];
  
 }
 
