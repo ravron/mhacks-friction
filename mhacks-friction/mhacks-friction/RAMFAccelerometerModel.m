@@ -17,6 +17,7 @@
     if (self) {
         _motionManager = [[CMMotionManager alloc] init];
         [_motionManager startAccelerometerUpdates];
+        _isUpdating = FALSE;
     }
     
     return self;
@@ -32,7 +33,23 @@
     xAccel = accelStruct.x;
     yAccel = accelStruct.y;
     
-    //xyAccel = sqrt(xAccel**2 + yAccel**2);
+    xyAccel = sqrt(pow(xAccel, 2) + pow(yAccel, 2));
+    [self setRawAccel:xyAccel];
+    
+    if (self.isUpdating) {
+        NSTimeInterval delay = 1;
+        [self performSelector:@selector(updateAccelerometerData) withObject:nil afterDelay:delay];
+    }
+    
+    [self logAccelData];
 }
+
+- (void)logAccelData
+{
+    NSLog(@"%lf", [self rawAccel]);
+
+    
+}
+
 
 @end
