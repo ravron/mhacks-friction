@@ -24,7 +24,6 @@
     [[self dataField] setText:@"Not Updated"];
     [self setAccModel:[[RAMFAccelerometerModel alloc] init]];
     [[self accModel] setIsUpdating:YES];
-    [[self accModel] updateAccelerometerData];
     //double myaccel = [[self accModel] rawAccel];
     [[self accModel] setDelegate:self];
 }

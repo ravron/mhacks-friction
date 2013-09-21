@@ -53,6 +53,21 @@
     NSLog(@"%lf", [self rawAccel]);
 }
 
+- (void)setIsUpdating:(BOOL)isUpdating
+{
+    if (isUpdating == _isUpdating)
+        return;
+    
+    if (isUpdating && !_isUpdating) {
+        _isUpdating = isUpdating;
+        [self updateAccelerometerData];
+    } else {
+        [NSObject cancelPreviousPerformRequestsWithTarget:self];
+    }
+    
+    _isUpdating = isUpdating;
+}
+
 - (BOOL)isUpdating
 {
     return _isUpdating;
