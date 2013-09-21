@@ -27,18 +27,6 @@
     self.animation.animationDuration = 1.0f;
     self.animation.animationRepeatCount = 0;
     [self.animation startAnimating];
-    /*
-    UIImageView* animatedImageView = [[UIImageView alloc] initWithFrame:self.view.bounds];
-    animatedImageView.animationImages = [NSArray arrayWithObjects:
-                                         [UIImage imageNamed:@"image1.gif"],
-                                         [UIImage imageNamed:@"image2.gif"],
-                                         [UIImage imageNamed:@"image3.gif"],
-                                         [UIImage imageNamed:@"image4.gif"], nil];
-    animatedImageView.animationDuration = 1.0f;
-    animatedImageView.animationRepeatCount = 0;
-    [animatedImageView startAnimating];
-    [self.view addSubview: animatedImageView];
-     */
     
     [[self backgroundImage] setImage: pewter];
     

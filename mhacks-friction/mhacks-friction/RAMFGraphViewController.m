@@ -28,6 +28,9 @@
 
 - (void)viewDidLoad
 {
+    [[self background] setImage: [UIImage imageNamed: @"brushed_pewter.png"]];
+    
+    
     [super viewDidLoad];
 
     // Create a CPTGraph object and add to hostView
