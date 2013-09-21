@@ -50,4 +50,7 @@
     [[self dataField] setText:@"Fuck you"];
 }
 
+- (RAMFAccelerometerModel *) getModel{
+    return [self accModel];
+}
 @end
