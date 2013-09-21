@@ -109,12 +109,17 @@
 
 - (double)doubleForPlot:(CPTPlot *)plot field:(NSUInteger)fieldEnum recordIndex:(NSUInteger)idx
 {
+    NSNumber *val;
     if (fieldEnum == CPTScatterPlotFieldX) {
-        return (double)idx-5;
+        val = [[[self dataset] objectAtIndex: idx] objectAtIndex:0];
+        return [val doubleValue];
     } else if (fieldEnum == CPTScatterPlotFieldY) {
-        return (double)3;
+        val = [[[self dataset] objectAtIndex: idx] objectAtIndex:1];
+        return [val doubleValue];
     }
-    return 0;
+    else {
+        return 0;
+    }
 }
 
 
