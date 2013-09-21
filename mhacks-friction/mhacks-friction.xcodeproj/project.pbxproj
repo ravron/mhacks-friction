@@ -22,6 +22,8 @@
 		11EE0A4F17ED517B008F16F7 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 11EE0A2E17ED517A008F16F7 /* UIKit.framework */; };
 		11EE0A5717ED517B008F16F7 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 11EE0A5517ED517B008F16F7 /* InfoPlist.strings */; };
 		11EE0A5917ED517B008F16F7 /* mhacks_frictionTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 11EE0A5817ED517B008F16F7 /* mhacks_frictionTests.m */; };
+		11EE0A6417ED5B29008F16F7 /* RAMFAccelerometerModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 11EE0A6317ED5B29008F16F7 /* RAMFAccelerometerModel.m */; };
+		11EE0A6617ED5D6C008F16F7 /* CoreMotion.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 11EE0A6517ED5D6C008F16F7 /* CoreMotion.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -56,6 +58,9 @@
 		11EE0A5417ED517B008F16F7 /* mhacks-frictionTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "mhacks-frictionTests-Info.plist"; sourceTree = "<group>"; };
 		11EE0A5617ED517B008F16F7 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		11EE0A5817ED517B008F16F7 /* mhacks_frictionTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = mhacks_frictionTests.m; sourceTree = "<group>"; };
+		11EE0A6217ED5B29008F16F7 /* RAMFAccelerometerModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RAMFAccelerometerModel.h; sourceTree = "<group>"; };
+		11EE0A6317ED5B29008F16F7 /* RAMFAccelerometerModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RAMFAccelerometerModel.m; sourceTree = "<group>"; };
+		11EE0A6517ED5D6C008F16F7 /* CoreMotion.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMotion.framework; path = System/Library/Frameworks/CoreMotion.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -63,6 +68,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				11EE0A6617ED5D6C008F16F7 /* CoreMotion.framework in Frameworks */,
 				11EE0A2D17ED517A008F16F7 /* CoreGraphics.framework in Frameworks */,
 				11EE0A2F17ED517A008F16F7 /* UIKit.framework in Frameworks */,
 				11EE0A2B17ED517A008F16F7 /* Foundation.framework in Frameworks */,
@@ -104,6 +110,7 @@
 		11EE0A2917ED517A008F16F7 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				11EE0A6517ED5D6C008F16F7 /* CoreMotion.framework */,
 				11EE0A2A17ED517A008F16F7 /* Foundation.framework */,
 				11EE0A2C17ED517A008F16F7 /* CoreGraphics.framework */,
 				11EE0A2E17ED517A008F16F7 /* UIKit.framework */,
@@ -122,6 +129,8 @@
 				11EE0A4017ED517A008F16F7 /* RAMFFirstViewController.m */,
 				11EE0A4217ED517A008F16F7 /* RAMFSecondViewController.h */,
 				11EE0A4317ED517A008F16F7 /* RAMFSecondViewController.m */,
+				11EE0A6217ED5B29008F16F7 /* RAMFAccelerometerModel.h */,
+				11EE0A6317ED5B29008F16F7 /* RAMFAccelerometerModel.m */,
 				11EE0A4517ED517A008F16F7 /* Images.xcassets */,
 				11EE0A3117ED517A008F16F7 /* Supporting Files */,
 			);
@@ -258,6 +267,7 @@
 				11EE0A3B17ED517A008F16F7 /* RAMFAppDelegate.m in Sources */,
 				11EE0A4117ED517A008F16F7 /* RAMFFirstViewController.m in Sources */,
 				11EE0A4417ED517A008F16F7 /* RAMFSecondViewController.m in Sources */,
+				11EE0A6417ED5B29008F16F7 /* RAMFAccelerometerModel.m in Sources */,
 				11EE0A3717ED517A008F16F7 /* main.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
