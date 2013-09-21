@@ -43,9 +43,12 @@
     y.labelingPolicy = CPTAxisLabelingPolicyAutomatic;
 
     
+    graph.fill = [CPTFill fillWithColor: [CPTColor clearColor]];
     
     // Get the (default) plotspace from the graph so we can set its x/y ranges
     self.plotSpace = (CPTXYPlotSpace *) graph.defaultPlotSpace;
+    
+    
     
     // Note that these CPTPlotRange are defined by START and LENGTH (not START and END) !!
     [self.plotSpace setYRange: [CPTPlotRange plotRangeWithLocation:CPTDecimalFromFloat(0) length:CPTDecimalFromFloat( 1 )]];
@@ -60,7 +63,6 @@
     self.plot.dataSource = self.model;
     [[(RAMFFirstViewController *)[self presentingViewController] getModel] setDelegate:self];
 
-    
     
     // Finally, add the created plot to the default plot space of the CPTGraph object we created before
     [graph addPlot:self.plot toPlotSpace:graph.defaultPlotSpace];
