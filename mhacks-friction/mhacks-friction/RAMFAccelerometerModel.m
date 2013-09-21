@@ -8,13 +8,9 @@
 
 #import "RAMFAccelerometerModel.h"
 
-#define BACK_AVERAGE 10
-
 @interface RAMFAccelerometerModel ()
 
 @property (nonatomic) CMMotionManager *motionManager;
-@property (nonatomic) CMAccelerometerData *accelData;
-@property double rawAccel;
 
 @property (nonatomic, strong) NSMutableArray *dataset;
 @property (nonatomic, strong) NSMutableArray *avgDataset;
@@ -36,6 +32,8 @@
         _avgDataset = [NSMutableArray array];
         _activeDataset = _dataset;
         _isUpdating = NO;
+        _shouldAverage = YES;
+        _averagingValue = 6;
     }
     
     return self;
@@ -43,16 +41,15 @@
 
 - (void)updateAccelerometerData
 {
-    [self setAccelData:[[self motionManager] accelerometerData]];
+    CMAccelerometerData *data = [[self motionManager] accelerometerData];
     double xyAccel = 0.0;
     double xAccel, yAccel;
-    CMAcceleration accelStruct = [[self accelData] acceleration];
+    CMAcceleration accelStruct = [data acceleration];
 
     xAccel = accelStruct.x;
     yAccel = accelStruct.y;
     
     xyAccel = sqrt(pow(xAccel, 2) + pow(yAccel, 2));
-    [self setRawAccel:xyAccel];
     
     if (self.isUpdating) {
         NSTimeInterval delay = 0.05;
@@ -60,7 +57,7 @@
     }
     
     // add data to dataset
-    NSTimeInterval timestamp = [[self accelData] timestamp];
+    NSTimeInterval timestamp = [data timestamp];
     
     if (self.dataTimeOffset == 0.0) {
         [self setDataTimeOffset:timestamp];
@@ -72,16 +69,16 @@
     NSArray *stampedDatum = [NSArray arrayWithObjects:wrappedTimestamp, wrappedRawAccel, nil];
     [[self dataset] addObject:stampedDatum];
     
-    if ([[self dataset] count] >= BACK_AVERAGE) {
+    if ([[self dataset] count] >= self.averagingValue) {
         int i;
-        int len = [[self dataset] count];
+        long len = [[self dataset] count];
         double sum = 0;
         
-        for (i = 0; i < BACK_AVERAGE; i++) {
+        for (i = 0; i < self.averagingValue; i++) {
             sum += [[[[self dataset] objectAtIndex:(len - i - 1)] objectAtIndex:1] doubleValue];
         }
-        sum /= BACK_AVERAGE;
-        NSNumber *oldTimestamp = [[[self dataset] objectAtIndex:(len - BACK_AVERAGE)] objectAtIndex:0];
+        sum /= self.averagingValue;
+        NSNumber *oldTimestamp = [[[self dataset] objectAtIndex:(len - self.averagingValue)] objectAtIndex:0];
         NSNumber *avgRawAccel = [NSNumber numberWithDouble:sum];
         NSArray *stampedAvgDatum = [NSArray arrayWithObjects:oldTimestamp, avgRawAccel, nil];
         [[self avgDataset] addObject:stampedAvgDatum];
@@ -90,11 +87,6 @@
     if (self.delegate) {
         [[self delegate] accelDataUpdateAvailable];
     }
-}
-
-- (void)logAccelData
-{
-    NSLog(@"%lf", [self rawAccel]);
 }
 
 - (void)setIsUpdating:(BOOL)isUpdating
