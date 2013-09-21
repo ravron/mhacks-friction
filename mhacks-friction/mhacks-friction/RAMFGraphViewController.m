@@ -11,6 +11,8 @@
 
 @interface RAMFGraphViewController ()
 
+@property (strong, nonatomic) CPTScatterPlot *plot;
+
 @end
 
 @implementation RAMFGraphViewController
@@ -51,10 +53,10 @@
     
     // Note that these CPTPlotRange are defined by START and LENGTH (not START and END) !!
     [plotSpace setYRange: [CPTPlotRange plotRangeWithLocation:CPTDecimalFromFloat( -10 ) length:CPTDecimalFromFloat( 20 )]];
-    [plotSpace setXRange: [CPTPlotRange plotRangeWithLocation:CPTDecimalFromFloat( -10 ) length:CPTDecimalFromFloat( 20 )]];
+    [plotSpace setXRange: [CPTPlotRange plotRangeWithLocation:CPTDecimalFromFloat( 0 ) length:CPTDecimalFromFloat( 20 )]];
     
     // Create the plot (we do not define actual x/y values yet, these will be supplied by the datasource...)
-    CPTScatterPlot* plot = [[CPTScatterPlot alloc] initWithFrame:CGRectZero];
+    self.plot = [[CPTScatterPlot alloc] initWithFrame:CGRectZero];
     
     // Set datasource
     plot.dataSource = [(RAMFFirstViewController *)[self presentingViewController] getModel];
@@ -88,6 +90,11 @@
 - (NSUInteger)supportedInterfaceOrientations
 {
     return UIInterfaceOrientationMaskLandscape;
+}
+
+- (void)accelDataUpdateAvailable
+{
+    [self.plot reloadData];
 }
 
 

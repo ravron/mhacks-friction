@@ -16,6 +16,8 @@
 
 @property (nonatomic) NSMutableArray *dataset;
 
+@property (nonatomic) NSTimeInterval dataTimeOffset;
+
 @end
 
 @implementation RAMFAccelerometerModel
@@ -26,6 +28,7 @@
     
     if (self) {
         _motionManager = [[CMMotionManager alloc] init];
+        _dataset = [NSMutableArray array];
         _isUpdating = NO;
     }
     
@@ -43,18 +46,23 @@
     yAccel = accelStruct.y;
     
     xyAccel = sqrt(pow(xAccel, 2) + pow(yAccel, 2));
-    //[self setRawAccel:xyAccel];
-#warning "Fix me"
-    [self setRawAccel:1.0];
+    [self setRawAccel:xyAccel];
     
     if (self.isUpdating) {
-        NSTimeInterval delay = 1;
+        NSTimeInterval delay = 0.25;
         [self performSelector:@selector(updateAccelerometerData) withObject:nil afterDelay:delay];
     }
     
 //    [self logAccelData];
     // add data to dataset
+    
     NSTimeInterval timestamp = [[self accelData] timestamp];
+    
+    if (self.dataTimeOffset == 0.0) {
+        [self setDataTimeOffset:timestamp];
+    }
+    timestamp = timestamp - self.dataTimeOffset;
+    
     NSNumber *wrappedTimestamp = [NSNumber numberWithDouble:timestamp];
     NSNumber *wrappedRawAccel = [NSNumber numberWithDouble:self.rawAccel];
     NSArray *stampedDatum = [NSArray arrayWithObjects:wrappedTimestamp, wrappedRawAccel, nil];
@@ -79,6 +87,7 @@
         _isUpdating = isUpdating;
         [[self dataset] removeAllObjects];
         [[self motionManager] startAccelerometerUpdates];
+        [self setDataTimeOffset:0];
         [self updateAccelerometerData];
     } else {
         [[self motionManager] stopAccelerometerUpdates];
@@ -125,10 +134,7 @@
 
 - (NSUInteger)numberOfRecordsForPlot:(CPTPlot *)plot
 {
-    NSLog(@"NumberOfRecords for plait called.");
-#warning "Fix this"
-//    return [[self dataset] count];
-    return 20;
+    return [[self dataset] count];
 }
 /*
 - (NSArray *)numbersForPlot:(CPTPlot *)plot field:(NSUInteger)fieldEnum recordIndexRange:(NSRange)indexRange

@@ -9,13 +9,15 @@
 #import <UIKit/UIKit.h>
 #import "CorePlot-CocoaTouch.h"
 #import "RAMFFirstViewController.h"
+#import "RAMFAccelerometerModelDelegate.h"
 
 
 
-@interface RAMFGraphViewController : UIViewController
-
-- (IBAction)backButton:(UIButton *)sender;
+@interface RAMFGraphViewController : UIViewController <RAMFAccelerometerModelDelegate>
 
 @property (weak, nonatomic) IBOutlet CPTGraphHostingView *hostView;
+@property (strong, nonatomic, readonly) CPTScatterPlot *plot;
+
+- (void)accelDataUpdateAvailable;
 
 @end

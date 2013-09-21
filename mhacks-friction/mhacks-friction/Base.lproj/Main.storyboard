@@ -13,7 +13,7 @@
                         <viewControllerLayoutGuide type="bottom" id="lkx-BZ-SK8"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="yAm-an-Gye">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="coe-WO-zwj">
@@ -64,7 +64,7 @@
                         <viewControllerLayoutGuide type="bottom" id="YUL-T9-36H"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="Kkn-FL-FLQ">
-                        <rect key="frame" x="0.0" y="0.0" width="568" height="320"/>
+                        <rect key="frame" x="0.0" y="0.0" width="480" height="320"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
                             <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="CoG-dP-jIQ">
@@ -92,11 +92,12 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstAttribute="trailing" secondItem="Tj6-Hw-ZSQ" secondAttribute="trailing" id="1IP-pL-vcH"/>
-                            <constraint firstItem="Tj6-Hw-ZSQ" firstAttribute="top" secondItem="Kkn-FL-FLQ" secondAttribute="top" constant="109" id="6lc-mx-ap4"/>
-                            <constraint firstAttribute="bottom" secondItem="Tj6-Hw-ZSQ" secondAttribute="bottom" id="Hlh-cx-pYz"/>
-                            <constraint firstItem="Tj6-Hw-ZSQ" firstAttribute="leading" secondItem="Kkn-FL-FLQ" secondAttribute="leading" id="OtH-mw-uyM"/>
-                            <constraint firstItem="Tj6-Hw-ZSQ" firstAttribute="top" secondItem="CoG-dP-jIQ" secondAttribute="bottom" constant="59" id="i2h-pn-zt2"/>
+                            <constraint firstItem="CoG-dP-jIQ" firstAttribute="top" secondItem="Kkn-FL-FLQ" secondAttribute="top" constant="20" symbolic="YES" id="2Y2-b1-sDX"/>
+                            <constraint firstAttribute="trailing" secondItem="Tj6-Hw-ZSQ" secondAttribute="trailing" id="8wY-KR-4oo"/>
+                            <constraint firstItem="Tj6-Hw-ZSQ" firstAttribute="top" secondItem="Kkn-FL-FLQ" secondAttribute="top" constant="109" id="Jps-Wq-vEp"/>
+                            <constraint firstItem="CoG-dP-jIQ" firstAttribute="leading" secondItem="Kkn-FL-FLQ" secondAttribute="leading" constant="20" symbolic="YES" id="MaI-dk-KaC"/>
+                            <constraint firstAttribute="bottom" secondItem="Tj6-Hw-ZSQ" secondAttribute="bottom" id="gqc-ov-ew4"/>
+                            <constraint firstItem="Tj6-Hw-ZSQ" firstAttribute="leading" secondItem="Kkn-FL-FLQ" secondAttribute="leading" id="lWU-Oe-XJC"/>
                         </constraints>
                         <simulatedOrientationMetrics key="simulatedOrientationMetrics" orientation="landscapeRight"/>
                     </view>
@@ -115,6 +116,6 @@
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
         <simulatedStatusBarMetrics key="statusBar"/>
         <simulatedOrientationMetrics key="orientation"/>
-        <simulatedScreenMetrics key="destination" type="retina4"/>
+        <simulatedScreenMetrics key="destination"/>
     </simulatedMetricsContainer>
 </document>
