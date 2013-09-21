@@ -48,14 +48,16 @@
     self.plotSpace = (CPTXYPlotSpace *) graph.defaultPlotSpace;
     
     // Note that these CPTPlotRange are defined by START and LENGTH (not START and END) !!
-    [self.plotSpace setYRange: [CPTPlotRange plotRangeWithLocation:CPTDecimalFromFloat( -5 ) length:CPTDecimalFromFloat( 10 )]];
-    [self.plotSpace setXRange: [CPTPlotRange plotRangeWithLocation:CPTDecimalFromFloat( 0 ) length:CPTDecimalFromFloat( 20 )]];
+    [self.plotSpace setYRange: [CPTPlotRange plotRangeWithLocation:CPTDecimalFromFloat(0) length:CPTDecimalFromFloat( 1 )]];
+    [self.plotSpace setXRange: [CPTPlotRange plotRangeWithLocation:CPTDecimalFromFloat( 0 ) length:CPTDecimalFromFloat( 10 )]];
     
     // Create the plot (we do not define actual x/y values yet, these will be supplied by the datasource...)
     self.plot = [[CPTScatterPlot alloc] initWithFrame:CGRectZero];
     
+    
+    self.model = (RAMFAccelerometerModel *)[(RAMFFirstViewController *)[self presentingViewController] getModel];
     // Set datasource
-    self.plot.dataSource = [(RAMFFirstViewController *)[self presentingViewController] getModel];
+    self.plot.dataSource = self.model;
     [[(RAMFFirstViewController *)[self presentingViewController] getModel] setDelegate:self];
 
     
@@ -82,11 +84,14 @@
 
 - (void)accelDataUpdateAvailable
 {
-//    self.xMax++;
-//    self.yMax++;
+    NSArray *xMax = self.model.xAxisExtrema;
+    NSArray *yMax = self.model.yAxisExtrema;
     
-    [self.plotSpace setXRange: [CPTPlotRange plotRangeWithLocation:CPTDecimalFromFloat( 0 ) length:CPTDecimalFromFloat( xMax + 1 )]];
-    [self.plotSpace setXRange: [CPTPlotRange plotRangeWithLocation:CPTDecimalFromFloat( 0 ) length:CPTDecimalFromFloat( yMax + 1 )]];
+    NSNumber *x = [xMax objectAtIndex: 0];
+    NSNumber *y = [yMax objectAtIndex: 0];
+    
+    [self.plotSpace setXRange: [CPTPlotRange plotRangeWithLocation:CPTDecimalFromFloat( 0 ) length:CPTDecimalFromFloat( [x doubleValue]+ 1 )]];
+    [self.plotSpace setXRange: [CPTPlotRange plotRangeWithLocation:CPTDecimalFromFloat( 0 ) length:CPTDecimalFromFloat( [y doubleValue] + 1 )]];
     [self.plot reloadData];
 }
 
