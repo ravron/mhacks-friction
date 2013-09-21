@@ -87,8 +87,8 @@
     NSArray *xMax = self.model.xAxisExtrema;
     NSArray *yMax = self.model.yAxisExtrema;
     
-    NSNumber *x = [xMax objectAtIndex: 0];
-    NSNumber *y = [yMax objectAtIndex: 0];
+    NSNumber *x = [xMax objectAtIndex: 1];
+    NSNumber *y = [yMax objectAtIndex: 1];
     
     [self.plotSpace setXRange: [CPTPlotRange plotRangeWithLocation:CPTDecimalFromFloat( 0 ) length:CPTDecimalFromFloat( [x doubleValue]+ 1 )]];
     [self.plotSpace setXRange: [CPTPlotRange plotRangeWithLocation:CPTDecimalFromFloat( 0 ) length:CPTDecimalFromFloat( [y doubleValue] + 1 )]];
