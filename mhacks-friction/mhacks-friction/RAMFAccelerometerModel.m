@@ -51,8 +51,6 @@
 - (void)logAccelData
 {
     NSLog(@"%lf", [self rawAccel]);
-
-    
 }
 
 
