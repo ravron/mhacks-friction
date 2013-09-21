@@ -15,7 +15,6 @@
     // Override point for customization after application launch.
     RAMFAccelerometerModel *model = [[RAMFAccelerometerModel alloc] init];
     [model setIsUpdating:YES];
-    [model updateAccelerometerData];
     return YES;
 }
 							

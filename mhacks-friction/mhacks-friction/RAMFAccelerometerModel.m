@@ -17,7 +17,7 @@
     if (self) {
         _motionManager = [[CMMotionManager alloc] init];
         [_motionManager startAccelerometerUpdates];
-        _isUpdating = FALSE;
+        _isUpdating = NO;
     }
     
     return self;
@@ -53,5 +53,24 @@
     NSLog(@"%lf", [self rawAccel]);
 }
 
+- (void)setIsUpdating:(BOOL)isUpdating
+{
+    if (isUpdating == _isUpdating)
+        return;
+    
+    if (isUpdating && !_isUpdating) {
+        _isUpdating = isUpdating;
+        [self updateAccelerometerData];
+    } else {
+        [NSObject cancelPreviousPerformRequestsWithTarget:self];
+    }
+    
+    _isUpdating = isUpdating;
+}
+
+- (BOOL)isUpdating
+{
+    return _isUpdating;
+}
 
 @end
