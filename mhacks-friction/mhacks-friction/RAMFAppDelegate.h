@@ -7,10 +7,10 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "RAMFAccelerometerModel.h"
 
 @interface RAMFAppDelegate : UIResponder <UIApplicationDelegate>
 
 @property (strong, nonatomic) UIWindow *window;
+
 
 @end

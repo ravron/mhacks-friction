@@ -15,7 +15,6 @@
 		11EE0A3B17ED517A008F16F7 /* RAMFAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 11EE0A3A17ED517A008F16F7 /* RAMFAppDelegate.m */; };
 		11EE0A3E17ED517A008F16F7 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 11EE0A3C17ED517A008F16F7 /* Main.storyboard */; };
 		11EE0A4117ED517A008F16F7 /* RAMFFirstViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 11EE0A4017ED517A008F16F7 /* RAMFFirstViewController.m */; };
-		11EE0A4417ED517A008F16F7 /* RAMFSecondViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 11EE0A4317ED517A008F16F7 /* RAMFSecondViewController.m */; };
 		11EE0A4617ED517A008F16F7 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 11EE0A4517ED517A008F16F7 /* Images.xcassets */; };
 		11EE0A4D17ED517A008F16F7 /* XCTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 11EE0A4C17ED517A008F16F7 /* XCTest.framework */; };
 		11EE0A4E17ED517B008F16F7 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 11EE0A2A17ED517A008F16F7 /* Foundation.framework */; };
@@ -50,8 +49,6 @@
 		11EE0A3D17ED517A008F16F7 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		11EE0A3F17ED517A008F16F7 /* RAMFFirstViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RAMFFirstViewController.h; sourceTree = "<group>"; };
 		11EE0A4017ED517A008F16F7 /* RAMFFirstViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RAMFFirstViewController.m; sourceTree = "<group>"; };
-		11EE0A4217ED517A008F16F7 /* RAMFSecondViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RAMFSecondViewController.h; sourceTree = "<group>"; };
-		11EE0A4317ED517A008F16F7 /* RAMFSecondViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RAMFSecondViewController.m; sourceTree = "<group>"; };
 		11EE0A4517ED517A008F16F7 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		11EE0A4B17ED517A008F16F7 /* mhacks-frictionTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "mhacks-frictionTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		11EE0A4C17ED517A008F16F7 /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
@@ -127,8 +124,6 @@
 				11EE0A3C17ED517A008F16F7 /* Main.storyboard */,
 				11EE0A3F17ED517A008F16F7 /* RAMFFirstViewController.h */,
 				11EE0A4017ED517A008F16F7 /* RAMFFirstViewController.m */,
-				11EE0A4217ED517A008F16F7 /* RAMFSecondViewController.h */,
-				11EE0A4317ED517A008F16F7 /* RAMFSecondViewController.m */,
 				11EE0A6217ED5B29008F16F7 /* RAMFAccelerometerModel.h */,
 				11EE0A6317ED5B29008F16F7 /* RAMFAccelerometerModel.m */,
 				11EE0A4517ED517A008F16F7 /* Images.xcassets */,
@@ -266,7 +261,6 @@
 			files = (
 				11EE0A3B17ED517A008F16F7 /* RAMFAppDelegate.m in Sources */,
 				11EE0A4117ED517A008F16F7 /* RAMFFirstViewController.m in Sources */,
-				11EE0A4417ED517A008F16F7 /* RAMFSecondViewController.m in Sources */,
 				11EE0A6417ED5B29008F16F7 /* RAMFAccelerometerModel.m in Sources */,
 				11EE0A3717ED517A008F16F7 /* main.m in Sources */,
 			);
@@ -477,6 +471,7 @@
 				11EE0A5E17ED517B008F16F7 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		11EE0A5F17ED517B008F16F7 /* Build configuration list for PBXNativeTarget "mhacks-frictionTests" */ = {
 			isa = XCConfigurationList;
@@ -485,6 +480,7 @@
 				11EE0A6117ED517B008F16F7 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

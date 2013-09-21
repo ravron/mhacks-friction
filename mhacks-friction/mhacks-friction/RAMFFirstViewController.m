@@ -19,6 +19,13 @@
     [super viewDidLoad];
 	// Do any additional setup after loading the view, typically from a nib.
     [[self dataField] setText:@"Hi"];
+    [self setAccModel:[[RAMFAccelerometerModel alloc] init]];
+    [[self accModel] setIsUpdating:YES];
+    [[self accModel] updateAccelerometerData];
+    //double myaccel = [[self accModel] rawAccel];
+    
+    
+    
 }
 
 - (void)didReceiveMemoryWarning
