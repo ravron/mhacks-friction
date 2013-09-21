@@ -84,16 +84,21 @@
 
 - (void)accelDataUpdateAvailable
 {
-    NSArray *xMax = self.model.xAxisExtrema;
-    NSArray *yMax = self.model.yAxisExtrema;
+    NSArray *xExtrema = self.model.xAxisExtrema;
+    NSArray *yExtrema = self.model.yAxisExtrema;
     
-    NSNumber *x = [xMax objectAtIndex: 1];
-    NSNumber *y = [yMax objectAtIndex: 1];
+    NSNumber *yMin = [yExtrema objectAtIndex:0];
+    NSNumber *xMax = [xExtrema objectAtIndex: 1];
+    NSNumber *yMax = [yExtrema objectAtIndex: 1];
     
-    [self.plotSpace setXRange: [CPTPlotRange plotRangeWithLocation:CPTDecimalFromFloat(0) length:CPTDecimalFromFloat([x doubleValue] + 1)]];
-    [self.plotSpace setYRange: [CPTPlotRange plotRangeWithLocation:CPTDecimalFromFloat(0) length:CPTDecimalFromFloat([y doubleValue] + 1 )]];
+    
+    [self.plotSpace setXRange: [CPTPlotRange plotRangeWithLocation:CPTDecimalFromFloat(0) length:CPTDecimalFromFloat([xMax doubleValue] + 1)]];
+    [self.plotSpace setYRange: [CPTPlotRange plotRangeWithLocation:CPTDecimalFromFloat([yMin doubleValue] - .25) length:CPTDecimalFromFloat(fabs([yMin doubleValue]) + fabs([yMax doubleValue]) + 0.5)]];
     [self.plot reloadData];
 }
 
 
+- (IBAction)sliderChanged:(UISlider *)sender {
+    self.model.averagingValue = (int)sender.value;
+}
 @end

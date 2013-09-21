@@ -27,5 +27,6 @@
 @property CPTPlotRange *yRange;
 
 @property RAMFAccelerometerModel *model;
+- (IBAction)sliderChanged:(UISlider *)sender;
 
 @end
