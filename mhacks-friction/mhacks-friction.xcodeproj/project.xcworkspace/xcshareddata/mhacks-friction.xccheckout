@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>IDESourceControlProjectFavoriteDictionaryKey</key>
+	<false/>
+	<key>IDESourceControlProjectIdentifier</key>
+	<string>DC7AC8E5-F927-418A-9A13-2583F1DC19FE</string>
+	<key>IDESourceControlProjectName</key>
+	<string>mhacks-friction</string>
+	<key>IDESourceControlProjectOriginsDictionary</key>
+	<dict>
+		<key>657CAB37-D814-4140-A11B-EDCBC7990BDD</key>
+		<string>https://github.com/Nerylix/mhacks-friction.git</string>
+	</dict>
+	<key>IDESourceControlProjectPath</key>
+	<string>mhacks-friction/mhacks-friction.xcodeproj/project.xcworkspace</string>
+	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
+	<dict>
+		<key>657CAB37-D814-4140-A11B-EDCBC7990BDD</key>
+		<string>../../..</string>
+	</dict>
+	<key>IDESourceControlProjectURL</key>
+	<string>https://github.com/Nerylix/mhacks-friction.git</string>
+	<key>IDESourceControlProjectVersion</key>
+	<integer>110</integer>
+	<key>IDESourceControlProjectWCCIdentifier</key>
+	<string>657CAB37-D814-4140-A11B-EDCBC7990BDD</string>
+	<key>IDESourceControlProjectWCConfigurations</key>
+	<array>
+		<dict>
+			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
+			<string>public.vcs.git</string>
+			<key>IDESourceControlWCCIdentifierKey</key>
+			<string>657CAB37-D814-4140-A11B-EDCBC7990BDD</string>
+			<key>IDESourceControlWCCName</key>
+			<string>mhacks-friction-git</string>
+		</dict>
+	</array>
+</dict>
+</plist>
