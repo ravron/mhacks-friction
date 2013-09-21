@@ -17,7 +17,7 @@
 - (void)viewDidLoad
 {
     
-    UIImage *pewter = [UIImage imageNamed: @"brushed_pewter.png"];
+    UIImage *pewter = [UIImage imageNamed: @"title.png"];
     
     self.animation.animationImages = [NSArray arrayWithObjects:
                         [UIImage imageNamed:@"holding.gif"],
