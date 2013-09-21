@@ -10,7 +10,7 @@
 #import "CorePlot-CocoaTouch.h"
 #import "RAMFFirstViewController.h"
 #import "RAMFAccelerometerModelDelegate.h"
-
+#import "RAMFAccelerometerModel.h"
 
 
 @interface RAMFGraphViewController : UIViewController <RAMFAccelerometerModelDelegate>
@@ -19,5 +19,13 @@
 @property (strong, nonatomic, readonly) CPTScatterPlot *plot;
 
 - (void)accelDataUpdateAvailable;
+
+@property CPTXYPlotSpace *plotSpace;
+
+@property CPTPlotRange *xRange;
+
+@property CPTPlotRange *yRange;
+
+@property RAMFAccelerometerModel *model;
 
 @end

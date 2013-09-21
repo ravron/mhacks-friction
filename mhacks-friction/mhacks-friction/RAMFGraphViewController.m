@@ -45,17 +45,19 @@
     
     
     // Get the (default) plotspace from the graph so we can set its x/y ranges
-    CPTXYPlotSpace *plotSpace = (CPTXYPlotSpace *) graph.defaultPlotSpace;
+    self.plotSpace = (CPTXYPlotSpace *) graph.defaultPlotSpace;
     
     // Note that these CPTPlotRange are defined by START and LENGTH (not START and END) !!
-    [plotSpace setYRange: [CPTPlotRange plotRangeWithLocation:CPTDecimalFromFloat(0) length:CPTDecimalFromFloat( 1 )]];
-    [plotSpace setXRange: [CPTPlotRange plotRangeWithLocation:CPTDecimalFromFloat( 0 ) length:CPTDecimalFromFloat( 10 )]];
+    [self.plotSpace setYRange: [CPTPlotRange plotRangeWithLocation:CPTDecimalFromFloat(0) length:CPTDecimalFromFloat( 1 )]];
+    [self.plotSpace setXRange: [CPTPlotRange plotRangeWithLocation:CPTDecimalFromFloat( 0 ) length:CPTDecimalFromFloat( 10 )]];
     
     // Create the plot (we do not define actual x/y values yet, these will be supplied by the datasource...)
     self.plot = [[CPTScatterPlot alloc] initWithFrame:CGRectZero];
     
+    
+    self.model = (RAMFAccelerometerModel *)[(RAMFFirstViewController *)[self presentingViewController] getModel];
     // Set datasource
-    self.plot.dataSource = [(RAMFFirstViewController *)[self presentingViewController] getModel];
+    self.plot.dataSource = self.model;
     [[(RAMFFirstViewController *)[self presentingViewController] getModel] setDelegate:self];
 
     
@@ -82,6 +84,14 @@
 
 - (void)accelDataUpdateAvailable
 {
+    NSArray *xMax = self.model.xAxisExtrema;
+    NSArray *yMax = self.model.yAxisExtrema;
+    
+    NSNumber *x = [xMax objectAtIndex: 0];
+    NSNumber *y = [yMax objectAtIndex: 0];
+    
+    [self.plotSpace setXRange: [CPTPlotRange plotRangeWithLocation:CPTDecimalFromFloat( 0 ) length:CPTDecimalFromFloat( [x doubleValue]+ 1 )]];
+    [self.plotSpace setXRange: [CPTPlotRange plotRangeWithLocation:CPTDecimalFromFloat( 0 ) length:CPTDecimalFromFloat( [y doubleValue] + 1 )]];
     [self.plot reloadData];
 }
 
