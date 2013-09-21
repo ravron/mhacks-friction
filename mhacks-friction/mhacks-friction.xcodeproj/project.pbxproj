@@ -577,7 +577,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "mhacks-friction/mhacks-friction-Prefix.pch";
 				INFOPLIST_FILE = "mhacks-friction/mhacks-friction-Info.plist";
-				LIBRARY_SEARCH_PATHS = "/Users/Van/Desktop/repos/mhacks-friction/mhacks-friction/mhacks-friction";
+				LIBRARY_SEARCH_PATHS = "mhacks-friction/";
 				OTHER_LDFLAGS = "-all_load";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = app;
@@ -592,7 +592,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "mhacks-friction/mhacks-friction-Prefix.pch";
 				INFOPLIST_FILE = "mhacks-friction/mhacks-friction-Info.plist";
-				LIBRARY_SEARCH_PATHS = "/Users/Van/Desktop/repos/mhacks-friction/mhacks-friction/mhacks-friction";
+				LIBRARY_SEARCH_PATHS = "mhacks-friction/";
 				OTHER_LDFLAGS = "-all_load";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = app;
