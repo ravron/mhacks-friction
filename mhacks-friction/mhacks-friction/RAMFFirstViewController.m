@@ -46,6 +46,7 @@
 	// Do any additional setup after loading the view, typically from a nib.
     
     [self setAccModel:[[RAMFAccelerometerModel alloc] init]];
+    [self.accModel setShouldAverage:YES];
 }
 
 - (void)didReceiveMemoryWarning
@@ -69,7 +70,6 @@
 
 
 - (RAMFAccelerometerModel *)getModel{
-    NSLog(@"Get model called");
     [[self accModel] setIsUpdating:YES];
     return [self accModel];
 }

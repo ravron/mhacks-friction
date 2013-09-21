@@ -24,6 +24,7 @@
 @property (readonly) double rawAccel;
 @property (nonatomic) BOOL isUpdating;
 @property (weak, nonatomic) NSObject <RAMFAccelerometerModelDelegate> *delegate;
+@property (nonatomic) BOOL shouldAverage;
 
 - (NSArray *)xAxisExtrema;
 - (NSArray *)yAxisExtrema;

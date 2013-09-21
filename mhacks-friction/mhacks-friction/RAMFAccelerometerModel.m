@@ -8,13 +8,17 @@
 
 #import "RAMFAccelerometerModel.h"
 
+#define BACK_AVERAGE 10
+
 @interface RAMFAccelerometerModel ()
 
 @property (nonatomic) CMMotionManager *motionManager;
 @property (nonatomic) CMAccelerometerData *accelData;
 @property double rawAccel;
 
-@property (nonatomic) NSMutableArray *dataset;
+@property (nonatomic, strong) NSMutableArray *dataset;
+@property (nonatomic, strong) NSMutableArray *avgDataset;
+@property (nonatomic, weak) NSMutableArray *activeDataset;
 
 @property (nonatomic) NSTimeInterval dataTimeOffset;
 
@@ -29,6 +33,8 @@
     if (self) {
         _motionManager = [[CMMotionManager alloc] init];
         _dataset = [NSMutableArray array];
+        _avgDataset = [NSMutableArray array];
+        _activeDataset = _dataset;
         _isUpdating = NO;
     }
     
@@ -66,6 +72,21 @@
     NSArray *stampedDatum = [NSArray arrayWithObjects:wrappedTimestamp, wrappedRawAccel, nil];
     [[self dataset] addObject:stampedDatum];
     
+    if ([[self dataset] count] >= BACK_AVERAGE) {
+        int i;
+        int len = [[self dataset] count];
+        double sum = 0;
+        
+        for (i = 0; i < BACK_AVERAGE; i++) {
+            sum += [[[[self dataset] objectAtIndex:(len - i - 1)] objectAtIndex:1] doubleValue];
+        }
+        sum /= BACK_AVERAGE;
+        NSNumber *oldTimestamp = [[[self dataset] objectAtIndex:(len - BACK_AVERAGE)] objectAtIndex:0];
+        NSNumber *avgRawAccel = [NSNumber numberWithDouble:sum];
+        NSArray *stampedAvgDatum = [NSArray arrayWithObjects:oldTimestamp, avgRawAccel, nil];
+        [[self avgDataset] addObject:stampedAvgDatum];
+    }
+    
     if (self.delegate) {
         [[self delegate] accelDataUpdateAvailable];
     }
@@ -84,6 +105,7 @@
     if (isUpdating && !_isUpdating) {
         _isUpdating = isUpdating;
         [[self dataset] removeAllObjects];
+        [[self avgDataset] removeAllObjects];
         [[self motionManager] startAccelerometerUpdates];
         [self setDataTimeOffset:0];
         [self updateAccelerometerData];
@@ -100,16 +122,26 @@
     return _isUpdating;
 }
 
+- (void)setShouldAverage:(BOOL)shouldAverage
+{
+    if (shouldAverage) {
+        self.activeDataset = self.avgDataset;
+    } else {
+        self.activeDataset = self.dataset;
+    }
+    _shouldAverage = shouldAverage;
+}
+
 #pragma mark - CPTScatterPlotDataSource
 
 - (double)doubleForPlot:(CPTPlot *)plot field:(NSUInteger)fieldEnum recordIndex:(NSUInteger)idx
 {
     NSNumber *val;
     if (fieldEnum == CPTScatterPlotFieldX) {
-        val = [[[self dataset] objectAtIndex: idx] objectAtIndex:0];
+        val = [[[self activeDataset] objectAtIndex: idx] objectAtIndex:0];
         return [val doubleValue];
     } else if (fieldEnum == CPTScatterPlotFieldY) {
-        val = [[[self dataset] objectAtIndex: idx] objectAtIndex:1];
+        val = [[[self activeDataset] objectAtIndex: idx] objectAtIndex:1];
         return [val doubleValue];
     }
     else {
@@ -120,7 +152,7 @@
 
 - (NSUInteger)numberOfRecordsForPlot:(CPTPlot *)plot
 {
-    return [[self dataset] count];
+    return [[self activeDataset] count];
 }
 
 - (NSArray *)xAxisExtrema
