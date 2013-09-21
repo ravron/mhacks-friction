@@ -95,13 +95,46 @@
 
 #pragma mark - CPTScatterPlotDataSource
 
-- (NSUInteger)numberOfRecordsForPlot:(CPTPlot *)plot
+/*
+- (NSNumber *)numberForPlot:(CPTPlot *)plot field:(NSUInteger)fieldEnum recordIndex:(NSUInteger)idx
 {
-    return [[self dataset] count];
+    int x = idx - 4;
+    if (fieldEnum == CPTScatterPlotFieldX) {
+        return [NSNumber numberWithInt:x];
+    } else {
+        return [NSNumber numberWithInt:x * x];
+    }
+}
+*/
+
+- (double)doubleForPlot:(CPTPlot *)plot field:(NSUInteger)fieldEnum recordIndex:(NSUInteger)idx
+{
+    if (fieldEnum == CPTScatterPlotFieldX) {
+        return (double)idx-5;
+    } else if (fieldEnum == CPTScatterPlotFieldY) {
+        return (double)3;
+    }
+    return 0;
 }
 
+
+- (NSUInteger)numberOfRecordsForPlot:(CPTPlot *)plot
+{
+    NSLog(@"NumberOfRecords for plait called.");
+#warning "Fix this"
+//    return [[self dataset] count];
+    return 20;
+}
+/*
 - (NSArray *)numbersForPlot:(CPTPlot *)plot field:(NSUInteger)fieldEnum recordIndexRange:(NSRange)indexRange
 {
+#warning "fix this"
+    
+    NSLog(@"Asked for range starting at %d, length %d", indexRange.location, indexRange.length);
+    NSLog(@"Asked for field enum %d", fieldEnum);
+    
+    NSArray *
+    
     NSMutableArray *mutableRetArray = [NSMutableArray array];
     
     long int index = 0;
@@ -115,5 +148,5 @@
     NSArray *retArray = [NSArray arrayWithArray:mutableRetArray];
     return retArray;
 }
-
+*/
 @end
