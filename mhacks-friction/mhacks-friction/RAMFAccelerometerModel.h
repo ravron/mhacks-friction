@@ -16,13 +16,14 @@
 @end
 
 @interface RAMFAccelerometerModel : NSObject
+{
+    BOOL _isUpdating;
+}
 
-@property CMMotionManager *motionManager;
-@property CMAccelerometerData *accelData;
+@property (nonatomic) CMMotionManager *motionManager;
+@property (nonatomic) CMAccelerometerData *accelData;
 @property double rawAccel;
-@property BOOL isUpdating;
+@property (nonatomic) BOOL isUpdating;
 @property (weak, nonatomic) id <RAMFAccelerometerModelDelegate> delegate;
-
-- (void)updateAccelerometerData;
 
 @end

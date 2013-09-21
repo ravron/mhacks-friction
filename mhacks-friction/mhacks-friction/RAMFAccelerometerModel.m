@@ -17,7 +17,7 @@
     if (self) {
         _motionManager = [[CMMotionManager alloc] init];
         [_motionManager startAccelerometerUpdates];
-        _isUpdating = FALSE;
+        _isUpdating = NO;
     }
     
     return self;
@@ -53,5 +53,9 @@
     NSLog(@"%lf", [self rawAccel]);
 }
 
+- (BOOL)isUpdating
+{
+    return _isUpdating;
+}
 
 @end
