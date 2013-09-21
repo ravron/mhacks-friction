@@ -7,8 +7,9 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "RAMFAccelerometerModel.h"
 
-@interface RAMFFirstViewController : UIViewController
+@interface RAMFFirstViewController : UIViewController <RAMFAccelerometerModelDelegate>
 @property (weak, nonatomic) IBOutlet UITextView *dataField;
 
 

@@ -42,6 +42,10 @@
     }
     
     [self logAccelData];
+    
+    if (self.delegate) {
+        [[self delegate] accelDataUpdateAvailable];
+    }
 }
 
 - (void)logAccelData

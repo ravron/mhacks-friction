@@ -9,12 +9,19 @@
 #import <Foundation/Foundation.h>
 #import <CoreMotion/CoreMotion.h>
 
+@protocol RAMFAccelerometerModelDelegate <NSObject>
+
+- (void)accelDataUpdateAvailable;
+
+@end
+
 @interface RAMFAccelerometerModel : NSObject
 
 @property CMMotionManager *motionManager;
 @property CMAccelerometerData *accelData;
 @property double rawAccel;
 @property BOOL isUpdating;
+@property (weak, nonatomic) id <RAMFAccelerometerModelDelegate> delegate;
 
 - (void)updateAccelerometerData;
 
