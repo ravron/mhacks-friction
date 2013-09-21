@@ -20,9 +20,12 @@
 }
 
 @property (nonatomic, readonly) CMMotionManager *motionManager;
-@property (nonatomic, readonly) CMAccelerometerData *accelData;
+
 @property (readonly) double rawAccel;
 @property (nonatomic) BOOL isUpdating;
-@property (weak, nonatomic) id <RAMFAccelerometerModelDelegate> delegate;
+@property (weak, nonatomic) NSObject <RAMFAccelerometerModelDelegate> *delegate;
+
+- (NSArray *)xAxisExtrema;
+- (NSArray *)yAxisExtrema;
 
 @end
