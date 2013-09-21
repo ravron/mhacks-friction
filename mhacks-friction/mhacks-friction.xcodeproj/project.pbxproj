@@ -27,6 +27,7 @@
 		11EE0AB917ED878E008F16F7 /* libCorePlot-CocoaTouch.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 11EE0AB817ED878E008F16F7 /* libCorePlot-CocoaTouch.a */; };
 		11EE0ABB17ED8805008F16F7 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 11EE0ABA17ED8805008F16F7 /* QuartzCore.framework */; };
 		21BDCBBC17ED93B400FDED31 /* RAMFGraphViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 21BDCBBB17ED93B400FDED31 /* RAMFGraphViewController.m */; };
+		21F26D1317EE4A9000CBC346 /* title.png in Resources */ = {isa = PBXBuildFile; fileRef = 21F26D1217EE4A9000CBC346 /* title.png */; };
 		21F99ED817EE39AC00A4BBD2 /* brushed_pewter.png in Resources */ = {isa = PBXBuildFile; fileRef = 21F99ED717EE39AC00A4BBD2 /* brushed_pewter.png */; };
 		21F99EDF17EE42E300A4BBD2 /* holding.gif in Resources */ = {isa = PBXBuildFile; fileRef = 21F99EDD17EE42E300A4BBD2 /* holding.gif */; };
 		21F99EE017EE42E300A4BBD2 /* sliding.gif in Resources */ = {isa = PBXBuildFile; fileRef = 21F99EDE17EE42E300A4BBD2 /* sliding.gif */; };
@@ -149,6 +150,7 @@
 		11EE0ABA17ED8805008F16F7 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		21BDCBBA17ED93B400FDED31 /* RAMFGraphViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RAMFGraphViewController.h; sourceTree = "<group>"; };
 		21BDCBBB17ED93B400FDED31 /* RAMFGraphViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RAMFGraphViewController.m; sourceTree = "<group>"; };
+		21F26D1217EE4A9000CBC346 /* title.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = title.png; sourceTree = "<group>"; };
 		21F99ED717EE39AC00A4BBD2 /* brushed_pewter.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = brushed_pewter.png; sourceTree = "<group>"; };
 		21F99EDD17EE42E300A4BBD2 /* holding.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = holding.gif; sourceTree = "<group>"; };
 		21F99EDE17EE42E300A4BBD2 /* sliding.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = sliding.gif; sourceTree = "<group>"; };
@@ -218,6 +220,7 @@
 		11EE0A3017ED517A008F16F7 /* mhacks-friction */ = {
 			isa = PBXGroup;
 			children = (
+				21F26D1217EE4A9000CBC346 /* title.png */,
 				21F99ED717EE39AC00A4BBD2 /* brushed_pewter.png */,
 				11EE0A3917ED517A008F16F7 /* RAMFAppDelegate.h */,
 				21F99EDD17EE42E300A4BBD2 /* holding.gif */,
@@ -443,6 +446,7 @@
 			files = (
 				21F99ED817EE39AC00A4BBD2 /* brushed_pewter.png in Resources */,
 				21F99EE017EE42E300A4BBD2 /* sliding.gif in Resources */,
+				21F26D1317EE4A9000CBC346 /* title.png in Resources */,
 				11EE0A4617ED517A008F16F7 /* Images.xcassets in Resources */,
 				21F99EDF17EE42E300A4BBD2 /* holding.gif in Resources */,
 				11EE0A3517ED517A008F16F7 /* InfoPlist.strings in Resources */,
