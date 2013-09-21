@@ -16,5 +16,6 @@
 
 
 - (IBAction)swapTextFieldColor:(UIButton *)sender;
+- (RAMFAccelerometerModel *) getModel;
 
 @end

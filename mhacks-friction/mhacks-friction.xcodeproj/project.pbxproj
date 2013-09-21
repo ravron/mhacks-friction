@@ -25,6 +25,7 @@
 		11EE0A6617ED5D6C008F16F7 /* CoreMotion.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 11EE0A6517ED5D6C008F16F7 /* CoreMotion.framework */; };
 		11EE0AB917ED878E008F16F7 /* libCorePlot-CocoaTouch.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 11EE0AB817ED878E008F16F7 /* libCorePlot-CocoaTouch.a */; };
 		11EE0ABB17ED8805008F16F7 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 11EE0ABA17ED8805008F16F7 /* QuartzCore.framework */; };
+		21BDCBBC17ED93B400FDED31 /* RAMFGraphViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 21BDCBBB17ED93B400FDED31 /* RAMFGraphViewController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -139,6 +140,8 @@
 		11EE0AB717ED878E008F16F7 /* NSNumberExtensions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NSNumberExtensions.h; sourceTree = "<group>"; };
 		11EE0AB817ED878E008F16F7 /* libCorePlot-CocoaTouch.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = "libCorePlot-CocoaTouch.a"; sourceTree = "<group>"; };
 		11EE0ABA17ED8805008F16F7 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
+		21BDCBBA17ED93B400FDED31 /* RAMFGraphViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RAMFGraphViewController.h; sourceTree = "<group>"; };
+		21BDCBBB17ED93B400FDED31 /* RAMFGraphViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RAMFGraphViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -209,6 +212,8 @@
 				11EE0A3C17ED517A008F16F7 /* Main.storyboard */,
 				11EE0A3F17ED517A008F16F7 /* RAMFFirstViewController.h */,
 				11EE0A4017ED517A008F16F7 /* RAMFFirstViewController.m */,
+				21BDCBBA17ED93B400FDED31 /* RAMFGraphViewController.h */,
+				21BDCBBB17ED93B400FDED31 /* RAMFGraphViewController.m */,
 				11EE0A6217ED5B29008F16F7 /* RAMFAccelerometerModel.h */,
 				11EE0A6317ED5B29008F16F7 /* RAMFAccelerometerModel.m */,
 				11EE0A4517ED517A008F16F7 /* Images.xcassets */,
@@ -440,6 +445,7 @@
 			files = (
 				11EE0A3B17ED517A008F16F7 /* RAMFAppDelegate.m in Sources */,
 				11EE0A4117ED517A008F16F7 /* RAMFFirstViewController.m in Sources */,
+				21BDCBBC17ED93B400FDED31 /* RAMFGraphViewController.m in Sources */,
 				11EE0A6417ED5B29008F16F7 /* RAMFAccelerometerModel.m in Sources */,
 				11EE0A3717ED517A008F16F7 /* main.m in Sources */,
 			);
@@ -571,10 +577,8 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "mhacks-friction/mhacks-friction-Prefix.pch";
 				INFOPLIST_FILE = "mhacks-friction/mhacks-friction-Info.plist";
-				LIBRARY_SEARCH_PATHS = (
-					"$(inherited)",
-					"/Users/RA/Developer/Xcode\\ Projects/mhacks-friction-git/mhacks-friction/mhacks-friction",
-				);
+				"LIBRARY_SEARCH_PATHS[arch=*]" = "/Users/Van/Desktop/repos/mhacks-friction/mhacks-friction/mhacks-friction";
+				OTHER_LDFLAGS = "-all_load";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = app;
 			};
@@ -588,10 +592,8 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "mhacks-friction/mhacks-friction-Prefix.pch";
 				INFOPLIST_FILE = "mhacks-friction/mhacks-friction-Info.plist";
-				LIBRARY_SEARCH_PATHS = (
-					"$(inherited)",
-					"/Users/RA/Developer/Xcode\\ Projects/mhacks-friction-git/mhacks-friction/mhacks-friction",
-				);
+				"LIBRARY_SEARCH_PATHS[arch=*]" = "/Users/Van/Desktop/repos/mhacks-friction/mhacks-friction/mhacks-friction";
+				OTHER_LDFLAGS = "-all_load";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = app;
 			};
