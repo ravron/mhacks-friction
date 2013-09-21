@@ -10,4 +10,9 @@
 
 @interface RAMFFirstViewController : UIViewController
 
+- (IBAction)startAction:(id)sender;
+@property (weak, nonatomic) IBOutlet UITextField *myText;
+@property (weak, nonatomic) IBOutlet UITextView *dataField;
+
+
 @end
