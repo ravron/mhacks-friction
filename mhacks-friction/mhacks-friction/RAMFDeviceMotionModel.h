@@ -9,17 +9,23 @@
 #import <Foundation/Foundation.h>
 #import <CoreMotion/CoreMotion.h>
 
-@interface RAMFMagnetometerModel : NSObject
+@protocol RAMFDeviceMotionModelDelegate <NSObject>
+
+
+
+@end
+
+@interface RAMFDeviceMotionModel : NSObject
 
 @property (strong, nonatomic, readonly) CMMotionManager *motionManager;
 @property (nonatomic) BOOL monitorOrientation;
+@property (atomic, readonly) double spinRate;
 
 @property (nonatomic) double spinThreshold;
 
-@property (nonatomic, readonly) BOOL isClockwise;
-@property (nonatomic, readonly) BOOL isAboveThreshold;
-
 - (id)initWithMotionManager:(CMMotionManager *)manager;
 - (id) init __attribute__((unavailable("Must use initWithMotionManager: instead.")));
+- (BOOL)isClockwise;
+- (BOOL)isAboveThreshold;
 
 @end
