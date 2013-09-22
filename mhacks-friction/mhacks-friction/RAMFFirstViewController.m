@@ -49,7 +49,6 @@
 {
     if ([self presentedViewController]) {
         if ([[self presentedViewController] conformsToProtocol:@protocol(RAMFAccelerometerModelDelegate)]) {
-            
         }
     }
 }
@@ -68,7 +67,34 @@
 
 - (IBAction)unwindRecordView:(UIStoryboardSegue *)unwindSegue
 {
+//Leave empty
+}
 
+- (void)exceededThreshold
+{
+    if([self presentedViewController] ) {
+        if([[self presentedViewController] isKindOfClass: [RAMFRecordViewController class]]){
+            [(RAMFRecordViewController *)[self presentedViewController] startSpinning];
+        }
+    }
+}
+
+- (void)droppedBelowThreshold
+{
+    if([self presentedViewController] ) {
+        if([[self presentedViewController] isKindOfClass: [RAMFRecordViewController class]]){
+            [(RAMFRecordViewController *)[self presentedViewController] stopSpinning];
+        }
+    }
+}
+
+- (void)directionChangedToClockwise:(BOOL)clockwise
+{
+    if([self presentedViewController] ) {
+        if([[self presentedViewController] isKindOfClass: [RAMFRecordViewController class]]){
+            [(RAMFRecordViewController *)[self presentedViewController] startSpinning];
+        }
+    }
 }
 
 - (NSUInteger)supportedInterfaceOrientations
