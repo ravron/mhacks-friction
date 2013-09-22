@@ -44,7 +44,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		11C5C3E017EDF96800FAF139 /* RAMFAccelerometerModelDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = RAMFAccelerometerModelDelegate.h; path = "mhacks-friction/RAMFAccelerometerModelDelegate.h"; sourceTree = "<group>"; };
+		11C5C3E017EDF96800FAF139 /* RAMFAccelerometerModelDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RAMFAccelerometerModelDelegate.h; sourceTree = "<group>"; };
 		11C5C3E417EE413B00FAF139 /* RAMFMagnetometerModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RAMFMagnetometerModel.h; sourceTree = "<group>"; };
 		11C5C3E517EE413B00FAF139 /* RAMFMagnetometerModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RAMFMagnetometerModel.m; sourceTree = "<group>"; };
 		11EE0A2717ED517A008F16F7 /* mhacks-friction.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "mhacks-friction.app"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -186,7 +186,6 @@
 		11EE0A1E17ED517A008F16F7 = {
 			isa = PBXGroup;
 			children = (
-				11C5C3E017EDF96800FAF139 /* RAMFAccelerometerModelDelegate.h */,
 				11EE0A3017ED517A008F16F7 /* mhacks-friction */,
 				11EE0A5217ED517B008F16F7 /* mhacks-frictionTests */,
 				11EE0A6717ED8648008F16F7 /* CorePlot */,
@@ -222,9 +221,10 @@
 			children = (
 				21F26D1217EE4A9000CBC346 /* title.png */,
 				21F99ED717EE39AC00A4BBD2 /* brushed_pewter.png */,
-				11EE0A3917ED517A008F16F7 /* RAMFAppDelegate.h */,
 				21F99EDD17EE42E300A4BBD2 /* holding.gif */,
 				21F99EDE17EE42E300A4BBD2 /* sliding.gif */,
+				11C5C3E017EDF96800FAF139 /* RAMFAccelerometerModelDelegate.h */,
+				11EE0A3917ED517A008F16F7 /* RAMFAppDelegate.h */,
 				11EE0A3A17ED517A008F16F7 /* RAMFAppDelegate.m */,
 				11EE0A3C17ED517A008F16F7 /* Main.storyboard */,
 				11EE0A3F17ED517A008F16F7 /* RAMFFirstViewController.h */,

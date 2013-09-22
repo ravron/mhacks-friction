@@ -9,10 +9,12 @@
 #import <UIKit/UIKit.h>
 #import "RAMFAccelerometerModel.h"
 #import "CorePlot-CocoaTouch.h"
+#import "RAMFMagnetometerModel.h"
 
 @interface RAMFFirstViewController : UIViewController <RAMFAccelerometerModelDelegate>
 
-@property RAMFAccelerometerModel * accModel;
+@property (strong, nonatomic) RAMFAccelerometerModel *accModel;
+@property (strong, nonatomic) RAMFMagnetometerModel *magModel;
 
 - (RAMFAccelerometerModel *) getModel;
 

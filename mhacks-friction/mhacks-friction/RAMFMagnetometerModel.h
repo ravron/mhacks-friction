@@ -14,4 +14,12 @@
 @property (strong, nonatomic, readonly) CMMotionManager *motionManager;
 @property (nonatomic) BOOL monitorOrientation;
 
+@property (nonatomic) double spinThreshold;
+
+@property (nonatomic, readonly) BOOL isClockwise;
+@property (nonatomic, readonly) BOOL isAboveThreshold;
+
+- (id)initWithMotionManager:(CMMotionManager *)manager;
+- (id) init __attribute__((unavailable("Must use initWithMotionManager: instead.")));
+
 @end
