@@ -111,11 +111,10 @@
                                     <action selector="sliderChanged:" destination="J4S-ei-fQe" eventType="valueChanged" id="TRY-uP-EdO"/>
                                 </connections>
                             </slider>
-                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="CkO-wI-EDx">
-                                <rect key="frame" x="290" y="53" width="0.0" height="0.0"/>
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="W89-IQ-Bjz">
+                                <rect key="frame" x="283" y="53" width="159" height="32"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                         </subviews>
@@ -134,7 +133,7 @@
                     <connections>
                         <outlet property="background" destination="Xje-GW-WVW" id="iCS-tM-aLM"/>
                         <outlet property="hostView" destination="Tj6-Hw-ZSQ" id="nBT-3F-OTc"/>
-                        <outlet property="muText" destination="CkO-wI-EDx" id="3gS-ey-yDP"/>
+                        <outlet property="muText" destination="W89-IQ-Bjz" id="nas-il-DkR"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="mgT-eZ-maf" userLabel="First Responder" sceneMemberID="firstResponder"/>
