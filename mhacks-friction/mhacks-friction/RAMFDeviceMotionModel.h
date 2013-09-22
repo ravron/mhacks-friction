@@ -15,7 +15,6 @@
 @optional
 - (void)exceededThreshold;
 - (void)droppedBelowThreshold;
-- (void)directionChangedToClockwise:(BOOL)clockwise;
 
 @end
 
@@ -27,6 +26,7 @@
 @property (weak, nonatomic) NSObject <RAMFDeviceMotionModelDelegate> *delegate;
 
 @property (nonatomic) double spinThreshold;
+@property (nonatomic) double spinStopRatio;
 
 - (id)initWithMotionManager:(CMMotionManager *)manager;
 - (id) init __attribute__((unavailable("Must use initWithMotionManager: instead.")));

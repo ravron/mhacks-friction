@@ -8,8 +8,9 @@
 
 #import "RAMFDeviceMotionModel.h"
 
-#define SPIN_POLL_S 0.5
-#define SPIN_THRESHOLD 0.5
+#define SPIN_POLL_S 0.1
+#define SPIN_THRESHOLD 0.7
+#define SPIN_STOP_RATIO 4
 
 @interface RAMFDeviceMotionModel ()
 @property (strong, nonatomic) CMMotionManager *motionManager;
@@ -28,6 +29,7 @@
         _motionManager = manager;
         _monitorOrientation = NO;
         _spinThreshold = SPIN_THRESHOLD;
+        _spinStopRatio = SPIN_STOP_RATIO;
         _spinRate = 0;
         _oldSpinRate = 0;
     }
@@ -58,32 +60,30 @@
 
 - (void)newSpinRateAvailable
 {
-    
-    if (fabs(self.oldSpinRate) < self.spinThreshold &&
-        fabs(self.spinRate) > self.spinThreshold) {
-        // crossed above threshold
-        if (self.delegate && [self.delegate respondsToSelector:@selector(exceededThreshold)]) {
-            [self.delegate exceededThreshold];
-        }
+    if (fabs(self.spinRate) > self.spinThreshold) {
+        [self.player setRate:1.0];
         [self.player play];
-    }
-    if (fabs(self.oldSpinRate) > self.spinThreshold &&
-        fabs(self.spinRate) < self.spinThreshold) {
-        // crossed below threshold
-        if (self.delegate && [self.delegate respondsToSelector:@selector(droppedBelowThreshold)]) {
-            [self.delegate droppedBelowThreshold];
-        }
-        [self.player pause];
-    }
-    if ((self.oldSpinRate > 0) != (self.spinRate)) {
-        // changed direction
-        if (self.delegate && [self.delegate respondsToSelector:@selector(directionChangedToClockwise:)]) {
-            if (self.spinRate > 0) {
-                [self.delegate directionChangedToClockwise:YES];
-            } else {
-                [self.delegate directionChangedToClockwise:NO];
+    } else if (fabs(self.spinRate) > (self.spinThreshold / self.spinStopRatio)) {
+        // crossed below threshold, should rate-reduce
+        double rate = 0.5 + (self.spinRate - (self.spinThreshold / self.spinStopRatio)) * 0.5;
+        [self.player setRate:rate];
+        [self.player play];
+        
+        if (self.oldSpinRate < (self.spinThreshold / self.spinStopRatio)) {
+            // crossed from off to on, should notify
+            if (self.delegate && [self.delegate respondsToSelector:@selector(exceededThreshold)]) {
+                [self.delegate exceededThreshold];
             }
         }
+    } else {
+        if (fabs(self.oldSpinRate > (self.spinThreshold / self.spinStopRatio))) {
+            // into off-territory, should turn off, notify delegate
+            if (self.delegate && [self.delegate respondsToSelector:@selector(droppedBelowThreshold)]) {
+                [self.delegate droppedBelowThreshold];
+            }
+        }
+        [self.player pause];
+        [self.player setRate:0.5];
     }
     self.oldSpinRate = self.spinRate;
 }

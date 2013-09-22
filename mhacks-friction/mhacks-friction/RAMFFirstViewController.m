@@ -73,7 +73,6 @@
 
 - (void)exceededThreshold
 {
-    NSLog(@"Exceeded Thresh called");
     if([self presentedViewController] ) {
         if([[self presentedViewController] isKindOfClass: [RAMFRecordViewController class]]){
             [(RAMFRecordViewController *)[self presentedViewController] startSpinning];
