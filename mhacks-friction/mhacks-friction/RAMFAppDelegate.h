@@ -8,7 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-
 @interface RAMFAppDelegate : UIResponder <UIApplicationDelegate>
 
 @property (strong, nonatomic) UIWindow *window;
