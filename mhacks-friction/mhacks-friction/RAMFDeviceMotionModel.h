@@ -23,6 +23,7 @@
 @property (strong, nonatomic, readonly) CMMotionManager *motionManager;
 @property (nonatomic) BOOL monitorOrientation;
 @property (atomic, readonly) double spinRate;
+@property (weak, nonatomic) NSObject <RAMFDeviceMotionModelDelegate> *delegate;
 
 @property (nonatomic) double spinThreshold;
 
