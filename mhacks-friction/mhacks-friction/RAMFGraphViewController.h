@@ -22,6 +22,8 @@
 
 - (void)accelDataUpdateAvailable;
 
+- (void) displayMu;
+
 @property CPTXYPlotSpace *plotSpace;
 
 @property CPTPlotRange *xRange;
