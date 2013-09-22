@@ -9,6 +9,7 @@
 #import "RAMFDeviceMotionModel.h"
 
 #define SPIN_POLL_S 0.5
+#define SPIN_THRESHOLD 0.5
 
 @interface RAMFDeviceMotionModel ()
 @property (strong, nonatomic) CMMotionManager *motionManager;
@@ -26,7 +27,7 @@
     if (self) {
         _motionManager = manager;
         _monitorOrientation = NO;
-        _spinThreshold = 0.6;
+        _spinThreshold = SPIN_THRESHOLD;
         _spinRate = 0;
         _oldSpinRate = 0;
     }
@@ -57,6 +58,7 @@
 
 - (void)newSpinRateAvailable
 {
+    
     if (fabs(self.oldSpinRate) < self.spinThreshold &&
         fabs(self.spinRate) > self.spinThreshold) {
         // crossed above threshold
@@ -115,6 +117,8 @@
         _player = [[AVAudioPlayer alloc] initWithContentsOfURL: fileURL
                                                          error: nil];
         [_player prepareToPlay];
+        [_player setNumberOfLoops:-1];
+        [_player setEnableRate:YES];
         [_player setDelegate: self];
     }
     return _player;
