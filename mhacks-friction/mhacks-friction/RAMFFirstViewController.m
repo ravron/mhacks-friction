@@ -62,6 +62,12 @@
     return [self accModel];
 }
 
+
+- (IBAction)unwindRecordView:(UIStoryboardSegue *)unwindSegue
+{
+
+}
+
 - (NSUInteger)supportedInterfaceOrientations
 {
     return UIInterfaceOrientationMaskPortrait;
