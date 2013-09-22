@@ -54,11 +54,15 @@
     }
 }
 
+- (BOOL)shouldPerformSegueWithIdentifier:(NSString *)identifier sender:(id)sender
+{
+    return YES;
+}
+
 - (IBAction)unwindGraphView:(UIStoryboardSegue *)unwindSegue
 {
     [[self accModel] setIsUpdating:NO];
 }
-
 
 - (RAMFAccelerometerModel *)getModel{
     [[self accModel] setIsUpdating:YES];

@@ -12,6 +12,7 @@
 @interface RAMFGraphViewController ()
 
 @property (strong, nonatomic) CPTScatterPlot *plot;
+@property (nonatomic) BOOL isDrawing;
 
 @end
 
@@ -74,6 +75,14 @@
 - (void)viewDidAppear:(BOOL)animated
 {
     //NSLog(@"%@", [self presentingViewController]);
+    [self setIsDrawing:YES];
+    [self performSelector:@selector(stopDrawing) withObject:nil afterDelay:10];
+}
+
+- (void)stopDrawing
+{
+    [self setIsDrawing:NO];
+    [self.model setIsUpdating:NO];
 }
 
 - (void)didReceiveMemoryWarning
@@ -89,10 +98,12 @@
 
 - (void)accelDataUpdateAvailable
 {
+    if (![self isDrawing])
+        return;
     NSArray *xExtrema = self.model.xAxisExtrema;
     NSArray *yExtrema = self.model.yAxisExtrema;
     
-    NSNumber *yMin = [yExtrema objectAtIndex:0];
+//    NSNumber *yMin = [yExtrema objectAtIndex:0];
     NSNumber *xMax = [xExtrema objectAtIndex: 1];
     NSNumber *yMax = [yExtrema objectAtIndex: 1];
     
@@ -103,14 +114,13 @@
     if([xMax doubleValue] >= 200){
         [[self model] setIsUpdating: NO];
     }
-    displayMu();
+    [self displayMu];
 }
 
 - (void) displayMu
 {
     
 }
-
 
 - (IBAction)sliderChanged:(UISlider *)sender {
     self.model.averagingValue = (int)sender.value;
