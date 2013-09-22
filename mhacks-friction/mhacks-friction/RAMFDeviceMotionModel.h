@@ -8,6 +8,7 @@
 
 #import <Foundation/Foundation.h>
 #import <CoreMotion/CoreMotion.h>
+#import <AVFoundation/AVFoundation.h>
 
 @protocol RAMFDeviceMotionModelDelegate <NSObject>
 
@@ -18,7 +19,7 @@
 
 @end
 
-@interface RAMFDeviceMotionModel : NSObject
+@interface RAMFDeviceMotionModel : NSObject <AVAudioPlayerDelegate>
 
 @property (strong, nonatomic, readonly) CMMotionManager *motionManager;
 @property (nonatomic) BOOL monitorOrientation;

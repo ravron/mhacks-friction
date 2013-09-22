@@ -14,6 +14,7 @@
 @property (strong, nonatomic) CMMotionManager *motionManager;
 @property (atomic) double spinRate;
 @property (nonatomic) double oldSpinRate;
+@property (nonatomic, strong) AVAudioPlayer *player;
 @end
 
 @implementation RAMFDeviceMotionModel
@@ -34,6 +35,7 @@
 
 - (void)setMonitorOrientation:(BOOL)monitorOrientation
 {
+    [self.player play];
     if (monitorOrientation == _monitorOrientation)
         return;
     
@@ -101,6 +103,22 @@
     if (fabs(rotRate.z) > self.spinThreshold)
         return YES;
     return NO;
+}
+
+- (AVAudioPlayer *)player
+{
+    if (!_player) {
+        NSString *soundFilePath =
+        [[NSBundle mainBundle] pathForResource: @"Eine_kleine"
+                                        ofType: @"mp3"];
+        NSURL *fileURL = [[NSURL alloc] initFileURLWithPath: soundFilePath];
+        
+        _player = [[AVAudioPlayer alloc] initWithContentsOfURL: fileURL
+                                                         error: nil];
+        [_player prepareToPlay];
+        [_player setDelegate: self];
+    }
+    return _player;
 }
 
 @end
