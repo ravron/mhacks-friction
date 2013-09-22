@@ -81,6 +81,7 @@
 
 - (void)stopDrawing
 {
+    [self displayMu];
     [self setIsDrawing:NO];
     [self.model setIsUpdating:NO];
 }
@@ -99,7 +100,6 @@
 - (void)accelDataUpdateAvailable
 {
     if (![self isDrawing]){
-        [self displayMu];
         return;
     }
     NSArray *xExtrema = self.model.xAxisExtrema;
@@ -116,11 +116,11 @@
     if([self.xMax doubleValue] >= 200){
         [[self model] setIsUpdating: NO];
     }
-    [self displayMu];
 }
 
 - (void) displayMu
 {
+    NLog(@"Dicks");
     double acc = [self.yMax doubleValue] + [self.yMin doubleValue]/2.5;
     double dForce = acc * .140;
     double nForce = .140 * 9.8;
