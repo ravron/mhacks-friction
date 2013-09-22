@@ -35,6 +35,9 @@
     
     [self setAccModel:[[RAMFAccelerometerModel alloc] init]];
     [self.accModel setShouldAverage:YES];
+    
+    [self setMagModel:[[RAMFMagnetometerModel alloc] initWithMotionManager:[[self accModel] motionManager]]];
+    [self.magModel setMonitorOrientation:YES];
 }
 
 - (void)didReceiveMemoryWarning

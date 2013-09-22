@@ -8,8 +8,12 @@
 
 #import "RAMFMagnetometerModel.h"
 
+#define LOG_REFIRE_S 1.0
+
 @interface RAMFMagnetometerModel ()
 @property (strong, nonatomic) CMMotionManager *motionManager;
+@property (nonatomic) BOOL isClockwise;
+@property (nonatomic) BOOL isAboveThreshold;
 @end
 
 @implementation RAMFMagnetometerModel
@@ -25,23 +29,29 @@
     return self;
 }
 
-- (void)demoMagneticField
+- (void)setMonitorOrientation:(BOOL)monitorOrientation
 {
-    CMCalibratedMagneticField mfield = self.motionManager.deviceMotion.magneticField;
+    if (monitorOrientation == _monitorOrientation)
+        return;
     
+    if (monitorOrientation && !_monitorOrientation) {
+        // turn it on AKA crank that bitch up
+        [self.motionManager startDeviceMotionUpdatesUsingReferenceFrame:CMAttitudeReferenceFrameXArbitraryZVertical];
+    } else {
+        [self.motionManager stopDeviceMotionUpdates];
+        return;
+    }
     
+    _monitorOrientation = monitorOrientation;
+    [self logOrientationPeriodic];
 }
 
-- (void)startAccelerationCollection
+- (void)logOrientationPeriodic
 {
-    [self.motionManager startDeviceMotionUpdatesToQueue:[[NSOperationQueue alloc] init]
-                                            withHandler:^(CMDeviceMotion *motion, NSError *error) {
-     dispatch_async(dispatch_get_main_queue(), ^{
-         CMCalibratedMagneticField mfield = motion.magneticField;
-         
-     });
-                                             }
-     ];
+    CMRotationRate rotRate = self.motionManager.deviceMotion.rotationRate;
+    NSLog(@"%lf, %lf, %lf", rotRate.x, rotRate.y, rotRate.z);
+    if (self.monitorOrientation) // call self back if still monitoring
+        [self performSelector:@selector(logOrientationPeriodic) withObject:nil afterDelay:LOG_REFIRE_S];
 }
 
 @end
