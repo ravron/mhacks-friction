@@ -13,6 +13,7 @@
 @interface RAMFDeviceMotionModel ()
 @property (strong, nonatomic) CMMotionManager *motionManager;
 @property (atomic) double spinRate;
+@property (nonatomic) double oldSpinRate;
 @end
 
 @implementation RAMFDeviceMotionModel
@@ -26,6 +27,7 @@
         _monitorOrientation = NO;
         _spinThreshold = 0.75;
         _spinRate = 0;
+        _oldSpinRate = 0;
     }
     return self;
 }
@@ -54,7 +56,33 @@
 
 - (void)newSpinRateAvailable
 {
-    
+    if (self.delegate) {
+        if (fabs(self.oldSpinRate) < self.spinThreshold &&
+            fabs(self.spinRate) > self.spinThreshold) {
+            // crossed above threshold
+            if ([self.delegate respondsToSelector:@selector(exceededThreshold)]) {
+                [self.delegate exceededThreshold];
+            }
+        }
+        if (fabs(self.oldSpinRate) > self.spinThreshold &&
+            fabs(self.spinRate) < self.spinThreshold) {
+            // crossed below threshold
+            if ([self.delegate respondsToSelector:@selector(droppedBelowThreshold)]) {
+                [self.delegate droppedBelowThreshold];
+            }
+        }
+        if ((self.oldSpinRate > 0) != (self.spinRate)) {
+            // changed direction
+            if ([self.delegate respondsToSelector:@selector(directionChangedToClockwise:)]) {
+                if (self.spinRate > 0) {
+                    [self.delegate directionChangedToClockwise:YES];
+                } else {
+                    [self.delegate directionChangedToClockwise:NO];
+                }
+            }
+        }
+    }
+    self.oldSpinRate = self.spinRate;
 }
 
 #pragma mark - Getters
