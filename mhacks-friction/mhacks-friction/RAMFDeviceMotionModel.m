@@ -54,6 +54,7 @@
          }];
     } else {
         [self.motionManager stopDeviceMotionUpdates];
+        [self.player stop];
     }
     _monitorOrientation = monitorOrientation;
 }

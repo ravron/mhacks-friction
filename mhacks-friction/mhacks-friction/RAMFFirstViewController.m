@@ -37,7 +37,7 @@
     [self.accModel setShouldAverage:YES];
     
     [self setDevMotionModel:[[RAMFDeviceMotionModel alloc] initWithMotionManager:[[self accModel] motionManager]]];
-    [self.devMotionModel setMonitorOrientation:YES];
+    [self.devMotionModel setMonitorOrientation:NO];
     [self.devMotionModel setDelegate: self];
 }
 
@@ -56,6 +56,9 @@
 
 - (BOOL)shouldPerformSegueWithIdentifier:(NSString *)identifier sender:(id)sender
 {
+    if ([identifier isEqualToString:@"record"]) {
+        [[self devMotionModel] setMonitorOrientation:YES];
+    }
     return YES;
 }
 
@@ -72,7 +75,7 @@
 
 - (IBAction)unwindRecordView:(UIStoryboardSegue *)unwindSegue
 {
-//Leave empty
+    [[self devMotionModel] setMonitorOrientation:NO];
 }
 
 - (void)exceededThreshold
