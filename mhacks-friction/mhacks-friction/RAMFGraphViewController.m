@@ -89,10 +89,13 @@
 
 - (void)accelDataUpdateAvailable
 {
+    
+    
+    
     NSArray *xExtrema = self.model.xAxisExtrema;
     NSArray *yExtrema = self.model.yAxisExtrema;
     
-    NSNumber *yMin = [yExtrema objectAtIndex:0];
+    NSNumber *yMin = [yExtrema objectAtIndex: 0];
     NSNumber *xMax = [xExtrema objectAtIndex: 1];
     NSNumber *yMax = [yExtrema objectAtIndex: 1];
     
@@ -100,10 +103,7 @@
     [self.plotSpace setXRange: [CPTPlotRange plotRangeWithLocation:CPTDecimalFromFloat(0) length:CPTDecimalFromFloat([xMax doubleValue] + 1)]];
     [self.plotSpace setYRange: [CPTPlotRange plotRangeWithLocation:CPTDecimalFromFloat(0) length:CPTDecimalFromFloat(fabs([yMax doubleValue]) + .75)]];
     [self.plot reloadData];
-    if([xMax doubleValue] >= 200){
-        [[self model] setIsUpdating: NO];
-    }
-    displayMu();
+    
 }
 
 - (void) displayMu
