@@ -8,17 +8,17 @@
 
 #import <Foundation/Foundation.h>
 #import <CoreMotion/CoreMotion.h>
+#import <AVFoundation/AVFoundation.h>
 
 @protocol RAMFDeviceMotionModelDelegate <NSObject>
 
 @optional
 - (void)exceededThreshold;
 - (void)droppedBelowThreshold;
-- (void)directionChangedToClockwise:(BOOL)clockwise;
 
 @end
 
-@interface RAMFDeviceMotionModel : NSObject
+@interface RAMFDeviceMotionModel : NSObject <AVAudioPlayerDelegate>
 
 @property (strong, nonatomic, readonly) CMMotionManager *motionManager;
 @property (nonatomic) BOOL monitorOrientation;
@@ -26,6 +26,7 @@
 @property (weak, nonatomic) NSObject <RAMFDeviceMotionModelDelegate> *delegate;
 
 @property (nonatomic) double spinThreshold;
+@property (nonatomic) double spinStopRatio;
 
 - (id)initWithMotionManager:(CMMotionManager *)manager;
 - (id) init __attribute__((unavailable("Must use initWithMotionManager: instead.")));

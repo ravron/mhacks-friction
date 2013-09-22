@@ -12,6 +12,7 @@
 @interface RAMFGraphViewController ()
 
 @property (strong, nonatomic) CPTScatterPlot *plot;
+@property (nonatomic) BOOL isDrawing;
 
 @end
 
@@ -74,6 +75,14 @@
 - (void)viewDidAppear:(BOOL)animated
 {
     //NSLog(@"%@", [self presentingViewController]);
+    [self setIsDrawing:YES];
+    [self performSelector:@selector(stopDrawing) withObject:nil afterDelay:10];
+}
+
+- (void)stopDrawing
+{
+    [self setIsDrawing:NO];
+    [self.model setIsUpdating:NO];
 }
 
 - (void)didReceiveMemoryWarning
@@ -110,7 +119,6 @@
 {
     
 }
-
 
 - (IBAction)sliderChanged:(UISlider *)sender {
     self.model.averagingValue = (int)sender.value;

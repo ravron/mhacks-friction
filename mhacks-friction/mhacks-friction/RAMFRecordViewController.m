@@ -32,7 +32,7 @@
 
 - (void)startSpinning
 {
-    [self.RecordImage setImage: [UIImage imageNamed: @"record2.png"]];
+//    [self.RecordImage setImage: [UIImage imageNamed: @"record2.png"]];
 }
 
 - (void)stopSpinning
