@@ -38,6 +38,7 @@
     
     [self setDevMotionModel:[[RAMFDeviceMotionModel alloc] initWithMotionManager:[[self accModel] motionManager]]];
     [self.devMotionModel setMonitorOrientation:YES];
+    [self.devMotionModel setDelegate: self];
 }
 
 - (void)didReceiveMemoryWarning
