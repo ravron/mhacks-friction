@@ -43,8 +43,8 @@
     CPTAxis *x = axisSet.xAxis;
     CPTAxis *y = axisSet.yAxis;
     
-    x.labelingPolicy = CPTAxisLabelingPolicyAutomatic;
-    y.labelingPolicy = CPTAxisLabelingPolicyAutomatic;
+    //x.labelingPolicy = CPTAxisLabelingPolicyEqualDivisions;
+    //y.labelingPolicy = CPTAxisLabelingPolicyEqualDivisions;
 
     
     graph.fill = [CPTFill fillWithColor: [CPTColor clearColor]];
@@ -110,24 +110,19 @@
     self.yMax = [yExtrema objectAtIndex: 1];
     
     
-    [self.plotSpace setXRange: [CPTPlotRange plotRangeWithLocation:CPTDecimalFromFloat(0) length:CPTDecimalFromFloat([self.xMax doubleValue] + 1)]];
-    [self.plotSpace setYRange: [CPTPlotRange plotRangeWithLocation:CPTDecimalFromFloat(0) length:CPTDecimalFromFloat(fabs([self.yMax doubleValue]) + .75)]];
+    [self.plotSpace setXRange: [CPTPlotRange plotRangeWithLocation:CPTDecimalFromFloat(-1) length:CPTDecimalFromFloat([self.xMax doubleValue] + 7)]];
+    [self.plotSpace setYRange: [CPTPlotRange plotRangeWithLocation:CPTDecimalFromFloat(-1) length:CPTDecimalFromFloat(fabs([self.yMax doubleValue]) + 4)]];
     [self.plot reloadData];
     if([self.xMax doubleValue] >= 200){
         [[self model] setIsUpdating: NO];
     }
 }
 
+
 - (void) displayMu
 {
-    NLog(@"Dicks");
-    double acc = [self.yMax doubleValue] + [self.yMin doubleValue]/2.5;
-    double dForce = acc * .140;
-    double nForce = .140 * 9.8;
-    double mu = dForce/nForce;
-    NSString *s = [NSString stringWithFormat:@"μ = %lf", mu];
+    NSString *s = [NSString stringWithFormat:@"μ ≈ %lf", [self.model mu]];
     [[self muText] setText: s];
-    
 }
 
 - (IBAction)sliderChanged:(UISlider *)sender {

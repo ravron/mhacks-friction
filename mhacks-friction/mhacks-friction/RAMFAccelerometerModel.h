@@ -25,6 +25,7 @@
 @property (weak, nonatomic) NSObject <RAMFAccelerometerModelDelegate> *delegate;
 @property (nonatomic) BOOL shouldAverage;
 @property (nonatomic) int averagingValue;
+@property (nonatomic) double mu;
 
 - (NSArray *)xAxisExtrema;
 - (NSArray *)yAxisExtrema;
