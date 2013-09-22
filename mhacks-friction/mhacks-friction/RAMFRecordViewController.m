@@ -32,6 +32,7 @@
 
 - (void)startSpinning
 {
+    NSLog(@"Penis");
     [self.RecordImage setImage: [UIImage imageNamed: @"record2.png"]];
 }
 
@@ -44,6 +45,11 @@
 {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+
+- (NSUInteger)supportedInterfaceOrientations
+{
+    return UIInterfaceOrientationMaskPortrait;
 }
 
 @end

@@ -13,4 +13,8 @@
 
 @property (weak, nonatomic) IBOutlet UIImageView *RecordImage;
 
+- (void) startSpinning;
+
+- (void) stopSpinning;
+
 @end
