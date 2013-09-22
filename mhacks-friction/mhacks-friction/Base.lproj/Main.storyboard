@@ -111,6 +111,13 @@
                                     <action selector="sliderChanged:" destination="J4S-ei-fQe" eventType="valueChanged" id="TRY-uP-EdO"/>
                                 </connections>
                             </slider>
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="CkO-wI-EDx">
+                                <rect key="frame" x="290" y="53" width="0.0" height="0.0"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <constraints>
                             <constraint firstItem="CoG-dP-jIQ" firstAttribute="top" secondItem="Kkn-FL-FLQ" secondAttribute="top" constant="20" symbolic="YES" id="2Y2-b1-sDX"/>
@@ -127,6 +134,7 @@
                     <connections>
                         <outlet property="background" destination="Xje-GW-WVW" id="iCS-tM-aLM"/>
                         <outlet property="hostView" destination="Tj6-Hw-ZSQ" id="nBT-3F-OTc"/>
+                        <outlet property="muText" destination="CkO-wI-EDx" id="3gS-ey-yDP"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="mgT-eZ-maf" userLabel="First Responder" sceneMemberID="firstResponder"/>
