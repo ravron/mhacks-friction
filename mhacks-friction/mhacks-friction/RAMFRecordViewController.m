@@ -25,8 +25,19 @@
 
 - (void)viewDidLoad
 {
+    [self.RecordImage setImage: [UIImage imageNamed: @"record1.png"]];
     [super viewDidLoad];
 	// Do any additional setup after loading the view.
+}
+
+- (void)startSpinning
+{
+    [self.RecordImage setImage: [UIImage imageNamed: @"record2.png"]];
+}
+
+- (void)stopSpinning
+{
+    [self.RecordImage setImage: [UIImage imageNamed: @"record1.png"]];
 }
 
 - (void)didReceiveMemoryWarning
