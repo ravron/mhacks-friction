@@ -95,6 +95,7 @@
             [(RAMFRecordViewController *)[self presentedViewController] startSpinning];
         }
     }
+    
 }
 
 - (NSUInteger)supportedInterfaceOrientations
