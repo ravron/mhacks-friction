@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		11C5C3E617EE413B00FAF139 /* RAMFDeviceMotionModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 11C5C3E517EE413B00FAF139 /* RAMFDeviceMotionModel.m */; };
+		11C5C3E817EE807200FAF139 /* Eine_kleine.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 11C5C3E717EE807200FAF139 /* Eine_kleine.mp3 */; };
 		11EE0A2B17ED517A008F16F7 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 11EE0A2A17ED517A008F16F7 /* Foundation.framework */; };
 		11EE0A2D17ED517A008F16F7 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 11EE0A2C17ED517A008F16F7 /* CoreGraphics.framework */; };
 		11EE0A2F17ED517A008F16F7 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 11EE0A2E17ED517A008F16F7 /* UIKit.framework */; };
@@ -50,6 +51,7 @@
 		11C5C3E017EDF96800FAF139 /* RAMFAccelerometerModelDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RAMFAccelerometerModelDelegate.h; sourceTree = "<group>"; };
 		11C5C3E417EE413B00FAF139 /* RAMFDeviceMotionModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RAMFDeviceMotionModel.h; sourceTree = "<group>"; };
 		11C5C3E517EE413B00FAF139 /* RAMFDeviceMotionModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RAMFDeviceMotionModel.m; sourceTree = "<group>"; };
+		11C5C3E717EE807200FAF139 /* Eine_kleine.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; name = Eine_kleine.mp3; path = ../Eine_kleine.mp3; sourceTree = "<group>"; };
 		11EE0A2717ED517A008F16F7 /* mhacks-friction.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "mhacks-friction.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		11EE0A2A17ED517A008F16F7 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		11EE0A2C17ED517A008F16F7 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -246,6 +248,7 @@
 				11EE0A6317ED5B29008F16F7 /* RAMFAccelerometerModel.m */,
 				11C5C3E417EE413B00FAF139 /* RAMFDeviceMotionModel.h */,
 				11C5C3E517EE413B00FAF139 /* RAMFDeviceMotionModel.m */,
+				11C5C3E717EE807200FAF139 /* Eine_kleine.mp3 */,
 				11EE0A4517ED517A008F16F7 /* Images.xcassets */,
 				11EE0A3117ED517A008F16F7 /* Supporting Files */,
 			);
@@ -462,6 +465,7 @@
 				21F99EDF17EE42E300A4BBD2 /* holding.gif in Resources */,
 				11EE0A3517ED517A008F16F7 /* InfoPlist.strings in Resources */,
 				21DAE21317EE779C002FE349 /* record2.png in Resources */,
+				11C5C3E817EE807200FAF139 /* Eine_kleine.mp3 in Resources */,
 				21DAE21217EE779C002FE349 /* record1.png in Resources */,
 				11EE0A3E17ED517A008F16F7 /* Main.storyboard in Resources */,
 			);

@@ -11,7 +11,10 @@
 
 @protocol RAMFDeviceMotionModelDelegate <NSObject>
 
-
+@optional
+- (void)exceededThreshold;
+- (void)droppedBelowThreshold;
+- (void)directionChangedToClockwise:(BOOL)clockwise;
 
 @end
 
