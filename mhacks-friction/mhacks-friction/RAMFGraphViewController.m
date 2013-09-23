@@ -39,9 +39,6 @@
     
     self.hostView.hostedGraph = graph;
     
-    CPTXYAxisSet *axisSet = (CPTXYAxisSet *) self.hostView.hostedGraph.axisSet;
-    CPTAxis *x = axisSet.xAxis;
-    CPTAxis *y = axisSet.yAxis;
     
     //x.labelingPolicy = CPTAxisLabelingPolicyEqualDivisions;
     //y.labelingPolicy = CPTAxisLabelingPolicyEqualDivisions;
@@ -70,6 +67,11 @@
     
     // Finally, add the created plot to the default plot space of the CPTGraph object we created before
     [graph addPlot:self.plot toPlotSpace:graph.defaultPlotSpace];
+}
+
+- (void)viewWillDisappear:(BOOL)animated
+{
+    [NSObject cancelPreviousPerformRequestsWithTarget:self];
 }
 
 - (void)viewDidAppear:(BOOL)animated
@@ -110,9 +112,27 @@
     self.yMax = [yExtrema objectAtIndex: 1];
     
     
-    [self.plotSpace setXRange: [CPTPlotRange plotRangeWithLocation:CPTDecimalFromFloat(-1) length:CPTDecimalFromFloat([self.xMax doubleValue] + 7)]];
-    [self.plotSpace setYRange: [CPTPlotRange plotRangeWithLocation:CPTDecimalFromFloat(-1) length:CPTDecimalFromFloat(fabs([self.yMax doubleValue]) + 4)]];
+    [self.plotSpace setXRange: [CPTPlotRange plotRangeWithLocation:CPTDecimalFromFloat(-1) length:CPTDecimalFromFloat([self.xMax doubleValue] + 1)]];
+    [self.plotSpace setYRange: [CPTPlotRange plotRangeWithLocation:CPTDecimalFromFloat(-0.6) length:CPTDecimalFromFloat(fabs([self.yMax doubleValue]) + 1.0)]];
     [self.plot reloadData];
+    
+    switch ([[self model] trackState]) {
+        case TrackingStateNotTracking:
+            [[self plot] setBackgroundColor:[[UIColor blueColor] CGColor]];
+            break;
+        case TrackingStateRisingPush:
+            [[self plot] setBackgroundColor:[[UIColor greenColor] CGColor]];
+            break;
+        case TrackingStateFallingPush:
+            [[self plot] setBackgroundColor:[[UIColor yellowColor] CGColor]];
+            break;
+        case TrackingStateRisingSlide:
+            [[self plot] setBackgroundColor:[[UIColor redColor] CGColor]];
+            break;
+        default:
+            break;
+    }
+    
     if([self.xMax doubleValue] >= 200){
         [[self model] setIsUpdating: NO];
     }

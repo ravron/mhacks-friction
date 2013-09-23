@@ -8,12 +8,7 @@
 
 #import "RAMFAccelerometerModel.h"
 
-typedef enum _TrackingState {
-    TrackingStateNotTracking = 0,
-    TrackingStateRisingPush = 1,
-    TrackingStateFallingPush = 2,
-    TrackingStateRisingSlide = 3
-} TrackingState;
+#define ACCEL_UPDATE_INTERVAL 0.05
 
 @interface RAMFAccelerometerModel ()
 
@@ -46,7 +41,7 @@ typedef enum _TrackingState {
         _shouldAverage = NO;
         _mu = 0;
         _averagingValue = 6;
-        _accelThreshold = 0.2;
+        _accelThreshold = 0.4;
         _localMinimum = 0;
         _trackState = TrackingStateNotTracking;
         _lastAverage = 0;
@@ -68,7 +63,7 @@ typedef enum _TrackingState {
     xyAccel = sqrt(pow(xAccel, 2) + pow(yAccel, 2));
     
     if (self.isUpdating) {
-        NSTimeInterval delay = 0.05;
+        NSTimeInterval delay = ACCEL_UPDATE_INTERVAL;
         [self performSelector:@selector(updateAccelerometerData) withObject:nil afterDelay:delay];
     }
     
@@ -116,9 +111,10 @@ typedef enum _TrackingState {
         } else {
             if (sum < self.accelThreshold) {
                 self.lastAverage = (sum + self.localMinimum) / 2;
-                double dForce = self.lastAverage * .140;
+                double dForce = (self.lastAverage * 9.8) * .140;
                 double nForce = .140 * 9.8;
                 self.mu = dForce/nForce;
+                [self setTrackState:TrackingStateNotTracking];
             }
         }
     }

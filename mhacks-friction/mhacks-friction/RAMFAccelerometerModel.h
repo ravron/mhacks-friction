@@ -11,7 +11,12 @@
 #import "CorePlot-CocoaTouch.h"
 #import "RAMFAccelerometerModelDelegate.h"
 
-
+typedef enum _TrackingState {
+    TrackingStateNotTracking = 0,
+    TrackingStateRisingPush = 1,
+    TrackingStateFallingPush = 2,
+    TrackingStateRisingSlide = 3
+} TrackingState;
 
 @interface RAMFAccelerometerModel : NSObject <CPTScatterPlotDataSource>
 {
@@ -26,6 +31,7 @@
 @property (nonatomic) BOOL shouldAverage;
 @property (nonatomic) int averagingValue;
 @property (nonatomic) double mu;
+@property (nonatomic, readonly) TrackingState trackState;
 
 - (NSArray *)xAxisExtrema;
 - (NSArray *)yAxisExtrema;
