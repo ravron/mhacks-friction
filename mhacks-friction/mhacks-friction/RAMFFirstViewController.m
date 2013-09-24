@@ -16,29 +16,11 @@
 
 - (void)viewDidLoad
 {
-    
-    UIImage *pewter = [UIImage imageNamed: @"title.png"];
-    
-    self.animation.animationImages = [NSArray arrayWithObjects:
-                        [UIImage imageNamed:@"holding.gif"],
-                        [UIImage imageNamed:@"sliding.gif"],
-                        nil];
-    
-    self.animation.animationDuration = 1.0f;
-    self.animation.animationRepeatCount = 0;
-    [self.animation startAnimating];
-    
-    [[self backgroundImage] setImage: pewter];
-    
     [super viewDidLoad];
 	// Do any additional setup after loading the view, typically from a nib.
     
     [self setAccModel:[[RAMFAccelerometerModel alloc] init]];
     [self.accModel setShouldAverage:YES];
-    
-    [self setDevMotionModel:[[RAMFDeviceMotionModel alloc] initWithMotionManager:[[self accModel] motionManager]]];
-    [self.devMotionModel setMonitorOrientation:NO];
-    [self.devMotionModel setDelegate: self];
 }
 
 - (void)didReceiveMemoryWarning
@@ -48,18 +30,7 @@
 
 - (void)accelDataUpdateAvailable
 {
-    if ([self presentedViewController]) {
-        if ([[self presentedViewController] conformsToProtocol:@protocol(RAMFAccelerometerModelDelegate)]) {
-        }
-    }
-}
-
-- (BOOL)shouldPerformSegueWithIdentifier:(NSString *)identifier sender:(id)sender
-{
-    if ([identifier isEqualToString:@"record"]) {
-        [[self devMotionModel] setMonitorOrientation:YES];
-    }
-    return YES;
+    
 }
 
 - (IBAction)unwindGraphView:(UIStoryboardSegue *)unwindSegue
@@ -72,43 +43,9 @@
     return [self accModel];
 }
 
-
-- (IBAction)unwindRecordView:(UIStoryboardSegue *)unwindSegue
-{
-    [[self devMotionModel] setMonitorOrientation:NO];
-}
-
-- (void)exceededThreshold
-{
-    if([self presentedViewController] ) {
-        if([[self presentedViewController] isKindOfClass: [RAMFRecordViewController class]]){
-            [(RAMFRecordViewController *)[self presentedViewController] startSpinning];
-        }
-    }
-}
-
-- (void)droppedBelowThreshold
-{
-    if([self presentedViewController] ) {
-        if([[self presentedViewController] isKindOfClass: [RAMFRecordViewController class]]){
-            [(RAMFRecordViewController *)[self presentedViewController] stopSpinning];
-        }
-    }
-}
-
-- (void)directionChangedToClockwise:(BOOL)clockwise
-{
-    if([self presentedViewController] ) {
-        if([[self presentedViewController] isKindOfClass: [RAMFRecordViewController class]]){
-            [(RAMFRecordViewController *)[self presentedViewController] startSpinning];
-        }
-    }
-    
-}
-
-- (NSUInteger)supportedInterfaceOrientations
-{
-    return UIInterfaceOrientationMaskPortrait;
-}
+//- (NSUInteger)supportedInterfaceOrientations
+//{
+//    return UIInterfaceOrientationMaskPortrait;
+//}
 
 @end

@@ -38,18 +38,15 @@
     CPTGraph* graph = [[CPTXYGraph alloc] initWithFrame:self.hostView.bounds];
     
     self.hostView.hostedGraph = graph;
-    
-    
-    //x.labelingPolicy = CPTAxisLabelingPolicyEqualDivisions;
-    //y.labelingPolicy = CPTAxisLabelingPolicyEqualDivisions;
 
     
     graph.fill = [CPTFill fillWithColor: [CPTColor clearColor]];
+    CPTAxis *xAxis = [graph.axisSet.axes objectAtIndex:0];
+    CPTAxis *yAxis = [graph.axisSet.axes objectAtIndex:1];
+    NSLog(@"xAxis.axisLineStyle: %@", xAxis.axisLineStyle);
     
     // Get the (default) plotspace from the graph so we can set its x/y ranges
     self.plotSpace = (CPTXYPlotSpace *) graph.defaultPlotSpace;
-    
-    
     
     // Note that these CPTPlotRange are defined by START and LENGTH (not START and END) !!
     [self.plotSpace setYRange: [CPTPlotRange plotRangeWithLocation:CPTDecimalFromFloat(0) length:CPTDecimalFromFloat( 1 )]];
