@@ -17,19 +17,32 @@
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="fHV-2H-RQv" customClass="RAMFLevelBubbleView">
-                                <rect key="frame" x="110" y="190" width="100" height="100"/>
+                                <rect key="frame" x="90" y="170" width="140" height="140"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" constant="100" id="EM5-WL-mIY"/>
-                                    <constraint firstAttribute="height" constant="100" id="muI-rw-QXz"/>
+                                    <constraint firstAttribute="height" constant="140" id="AjE-MY-hMC"/>
+                                    <constraint firstAttribute="width" constant="140" id="Bey-K1-lik"/>
                                 </constraints>
                             </view>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Y7u-oV-BUw">
+                                <rect key="frame" x="137" y="69" width="46" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Button">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="testButtonPressed" destination="i2K-Vb-Dme" eventType="touchUpInside" id="qxt-tG-jDP"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstAttribute="centerX" secondItem="fHV-2H-RQv" secondAttribute="centerX" id="KON-9a-R6Y"/>
-                            <constraint firstAttribute="centerY" secondItem="fHV-2H-RQv" secondAttribute="centerY" id="jpv-rg-Naz"/>
+                            <constraint firstAttribute="centerY" secondItem="fHV-2H-RQv" secondAttribute="centerY" id="LFU-tI-rde"/>
+                            <constraint firstAttribute="centerX" secondItem="fHV-2H-RQv" secondAttribute="centerX" id="UJl-yN-mum"/>
+                            <constraint firstItem="Y7u-oV-BUw" firstAttribute="top" relation="greaterThanOrEqual" secondItem="MzB-ON-Sdd" secondAttribute="bottom" constant="10" id="XXJ-yO-ENZ"/>
+                            <constraint firstItem="fHV-2H-RQv" firstAttribute="top" secondItem="Y7u-oV-BUw" secondAttribute="bottom" priority="750" constant="71" id="f8R-xk-gho"/>
+                            <constraint firstAttribute="centerX" secondItem="Y7u-oV-BUw" secondAttribute="centerX" id="sbn-1Z-TzS"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="i6T-8r-olz"/>

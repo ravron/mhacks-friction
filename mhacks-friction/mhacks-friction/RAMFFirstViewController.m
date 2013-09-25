@@ -32,7 +32,6 @@
 {
     NSDictionary *uInfo = [note userInfo];
     CMAccelerometerData *accData = [uInfo objectForKey:RAMFAccNotificationDataKey];
-    NSLog(@"Acc data: %@", accData);
 }
 
 - (void)didReceiveMemoryWarning
@@ -62,4 +61,7 @@
 //    return UIInterfaceOrientationMaskPortrait;
 //}
 
+- (IBAction)testButtonPressed {
+    NSLog(@"%@", self.view.subviews);
+}
 @end
