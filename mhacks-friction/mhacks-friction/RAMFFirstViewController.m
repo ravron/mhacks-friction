@@ -20,7 +20,19 @@
 	// Do any additional setup after loading the view, typically from a nib.
     
     [self setAccModel:[[RAMFAccelerometerModel alloc] init]];
-    [self.accModel setShouldAverage:YES];
+    [[self accModel] setUpdating:YES];
+    // register for notifications from the accelerometer model
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(newAccelData:)
+                                                 name:RAMFNewAccDataNotification
+                                               object:nil];
+}
+
+- (void)newAccelData:(NSNotification *)note
+{
+    NSDictionary *uInfo = [note userInfo];
+    CMAccelerometerData *accData = [uInfo objectForKey:RAMFAccNotificationDataKey];
+    NSLog(@"Acc data: %@", accData);
 }
 
 - (void)didReceiveMemoryWarning
@@ -28,19 +40,21 @@
     [super didReceiveMemoryWarning];
 }
 
-- (void)accelDataUpdateAvailable
-{
-    
-}
-
 - (IBAction)unwindGraphView:(UIStoryboardSegue *)unwindSegue
 {
-    [[self accModel] setIsUpdating:NO];
+    [[self accModel] setUpdating:NO];
 }
 
-- (RAMFAccelerometerModel *)getModel{
-    [[self accModel] setIsUpdating:YES];
+- (RAMFAccelerometerModel *)getModel
+{
+    [[self accModel] setUpdating:YES];
     return [self accModel];
+}
+
+- (void)dealloc
+{
+    // must remove self from notification table if getting dealloc'd
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
 //- (NSUInteger)supportedInterfaceOrientations

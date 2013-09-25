@@ -9,11 +9,9 @@
 #import <UIKit/UIKit.h>
 #import "CorePlot-CocoaTouch.h"
 #import "RAMFFirstViewController.h"
-#import "RAMFAccelerometerModelDelegate.h"
-#import "RAMFAccelerometerModel.h"
 
 
-@interface RAMFGraphViewController : UIViewController <RAMFAccelerometerModelDelegate>
+@interface RAMFGraphViewController : UIViewController
 
 @property (weak, nonatomic) IBOutlet UIImageView *background;
 

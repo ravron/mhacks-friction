@@ -10,7 +10,7 @@
 #import "RAMFAccelerometerModel.h"
 #import "CorePlot-CocoaTouch.h"
 
-@interface RAMFFirstViewController : UIViewController <RAMFAccelerometerModelDelegate>
+@interface RAMFFirstViewController : UIViewController
 
 @property (strong, nonatomic) RAMFAccelerometerModel *accModel;
 

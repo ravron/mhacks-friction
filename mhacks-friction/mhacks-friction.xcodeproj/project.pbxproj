@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		111DB02417F27E1800FF95F7 /* RAMFLevelBubbleView.m in Sources */ = {isa = PBXBuildFile; fileRef = 111DB02317F27E1800FF95F7 /* RAMFLevelBubbleView.m */; };
 		11EE0A2B17ED517A008F16F7 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 11EE0A2A17ED517A008F16F7 /* Foundation.framework */; };
 		11EE0A2D17ED517A008F16F7 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 11EE0A2C17ED517A008F16F7 /* CoreGraphics.framework */; };
 		11EE0A2F17ED517A008F16F7 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 11EE0A2E17ED517A008F16F7 /* UIKit.framework */; };
@@ -45,7 +46,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		11C5C3E017EDF96800FAF139 /* RAMFAccelerometerModelDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RAMFAccelerometerModelDelegate.h; sourceTree = "<group>"; };
+		111DB02217F27E1800FF95F7 /* RAMFLevelBubbleView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RAMFLevelBubbleView.h; sourceTree = "<group>"; };
+		111DB02317F27E1800FF95F7 /* RAMFLevelBubbleView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RAMFLevelBubbleView.m; sourceTree = "<group>"; };
 		11EE0A2717ED517A008F16F7 /* mhacks-friction.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "mhacks-friction.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		11EE0A2A17ED517A008F16F7 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		11EE0A2C17ED517A008F16F7 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -233,10 +235,11 @@
 		11EE0A3017ED517A008F16F7 /* mhacks-friction */ = {
 			isa = PBXGroup;
 			children = (
-				11C5C3E017EDF96800FAF139 /* RAMFAccelerometerModelDelegate.h */,
 				11EE0A3917ED517A008F16F7 /* RAMFAppDelegate.h */,
 				11EE0A3A17ED517A008F16F7 /* RAMFAppDelegate.m */,
 				11EE0A3C17ED517A008F16F7 /* Main.storyboard */,
+				111DB02217F27E1800FF95F7 /* RAMFLevelBubbleView.h */,
+				111DB02317F27E1800FF95F7 /* RAMFLevelBubbleView.m */,
 				11EE0A3F17ED517A008F16F7 /* RAMFFirstViewController.h */,
 				11EE0A4017ED517A008F16F7 /* RAMFFirstViewController.m */,
 				21BDCBBA17ED93B400FDED31 /* RAMFGraphViewController.h */,
@@ -484,6 +487,7 @@
 				11EE0A4117ED517A008F16F7 /* RAMFFirstViewController.m in Sources */,
 				21BDCBBC17ED93B400FDED31 /* RAMFGraphViewController.m in Sources */,
 				11EE0A6417ED5B29008F16F7 /* RAMFAccelerometerModel.m in Sources */,
+				111DB02417F27E1800FF95F7 /* RAMFLevelBubbleView.m in Sources */,
 				11EE0A3717ED517A008F16F7 /* main.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

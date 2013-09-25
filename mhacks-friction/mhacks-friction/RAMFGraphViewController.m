@@ -59,7 +59,6 @@
     self.model = (RAMFAccelerometerModel *)[(RAMFFirstViewController *)[self presentingViewController] getModel];
     // Set datasource
     self.plot.dataSource = self.model;
-    [[(RAMFFirstViewController *)[self presentingViewController] getModel] setDelegate:self];
 
     
     // Finally, add the created plot to the default plot space of the CPTGraph object we created before
@@ -82,7 +81,7 @@
 {
     [self displayMu];
     [self setIsDrawing:NO];
-    [self.model setIsUpdating:NO];
+    [self.model setUpdating:NO];
 }
 
 - (void)didReceiveMemoryWarning
@@ -101,17 +100,17 @@
     if (![self isDrawing]){
         return;
     }
-    NSArray *xExtrema = self.model.xAxisExtrema;
-    NSArray *yExtrema = self.model.yAxisExtrema;
-    
-//    NSNumber *yMin = [yExtrema objectAtIndex:0];
-    self.xMax = [xExtrema objectAtIndex: 1];
-    self.yMax = [yExtrema objectAtIndex: 1];
-    
-    
-    [self.plotSpace setXRange: [CPTPlotRange plotRangeWithLocation:CPTDecimalFromFloat(-1) length:CPTDecimalFromFloat([self.xMax doubleValue] + 1)]];
-    [self.plotSpace setYRange: [CPTPlotRange plotRangeWithLocation:CPTDecimalFromFloat(-0.6) length:CPTDecimalFromFloat(fabs([self.yMax doubleValue]) + 1.0)]];
-    [self.plot reloadData];
+//    NSArray *xExtrema = self.model.xAxisExtrema;
+//    NSArray *yExtrema = self.model.yAxisExtrema;
+//    
+////    NSNumber *yMin = [yExtrema objectAtIndex:0];
+//    self.xMax = [xExtrema objectAtIndex: 1];
+//    self.yMax = [yExtrema objectAtIndex: 1];
+//    
+//    
+//    [self.plotSpace setXRange: [CPTPlotRange plotRangeWithLocation:CPTDecimalFromFloat(-1) length:CPTDecimalFromFloat([self.xMax doubleValue] + 1)]];
+//    [self.plotSpace setYRange: [CPTPlotRange plotRangeWithLocation:CPTDecimalFromFloat(-0.6) length:CPTDecimalFromFloat(fabs([self.yMax doubleValue]) + 1.0)]];
+//    [self.plot reloadData];
     
     switch ([[self model] trackState]) {
         case TrackingStateNotTracking:
@@ -131,18 +130,18 @@
     }
     
     if([self.xMax doubleValue] >= 200){
-        [[self model] setIsUpdating: NO];
+        [[self model] setUpdating: NO];
     }
 }
 
 
 - (void) displayMu
 {
-    NSString *s = [NSString stringWithFormat:@"μ ≈ %lf", [self.model mu]];
-    [[self muText] setText: s];
+//    NSString *s = [NSString stringWithFormat:@"μ ≈ %lf", [self.model mu]];
+//    [[self muText] setText: s];
 }
 
 - (IBAction)sliderChanged:(UISlider *)sender {
-    self.model.averagingValue = (int)sender.value;
+//    self.model.averagingValue = (int)sender.value;
 }
 @end

@@ -8,19 +8,21 @@
 
 #import "RAMFAccelerometerModel.h"
 
-#define ACCEL_UPDATE_INTERVAL 0.05
+#define ACCEL_UPDATE_INTERVAL 1.0
+
+// string constants related to notification sending
+NSString *const RAMFAccNotificationDataKey = @"RAMFAccNotificationDataKey";
+NSString *const RAMFNewAccDataNotification = @"RAMFNewAccDataNotification";
 
 @interface RAMFAccelerometerModel ()
 
-@property (nonatomic) CMMotionManager *motionManager;
+@property (nonatomic, strong) CMMotionManager *motionManager;
+// accData will always hold the most recent accelerometer data
+@property (nonatomic, strong) CMAccelerometerData *accData;
+@property (nonatomic, strong) NSMutableArray *accDataArr;
 
-@property (nonatomic, strong) NSMutableArray *dataset;
-@property (nonatomic, strong) NSMutableArray *avgDataset;
-@property (nonatomic, strong) NSMutableArray *activeDataset;
 @property (nonatomic) double accelThreshold;
-@property (nonatomic) double localMinimum;
 @property (nonatomic) TrackingState trackState;
-@property (nonatomic) double lastAverage;
 
 @property (nonatomic) NSTimeInterval dataTimeOffset;
 
@@ -34,22 +36,17 @@
     
     if (self) {
         _motionManager = [[CMMotionManager alloc] init];
-        _dataset = [NSMutableArray array];
-        _avgDataset = [NSMutableArray array];
-        _activeDataset = _dataset;
+        [_motionManager setAccelerometerUpdateInterval:ACCEL_UPDATE_INTERVAL];
         _isUpdating = NO;
-        _shouldAverage = NO;
-        _mu = 0;
-        _averagingValue = 6;
         _accelThreshold = 0.4;
-        _localMinimum = 0;
         _trackState = TrackingStateNotTracking;
-        _lastAverage = 0;
     }
     
     return self;
 }
 
+// old periodic updateAccelerometerData
+/*
 - (void)updateAccelerometerData
 {
     CMAccelerometerData *data = [[self motionManager] accelerometerData];
@@ -123,44 +120,63 @@
         [[self delegate] accelDataUpdateAvailable];
     }
 }
+*/
 
-- (void)setIsUpdating:(BOOL)isUpdating
+- (void)setUpdating:(BOOL)isUpdating
 {
+    // if no value change, return
     if (isUpdating == _isUpdating)
         return;
-    
+
+    // if we're turning on updating
     if (isUpdating && !_isUpdating) {
-        _isUpdating = isUpdating;
-        [[self dataset] removeAllObjects];
-        [[self avgDataset] removeAllObjects];
-        [[self motionManager] startAccelerometerUpdates];
+        NSLog(@"Activating updates");
+        [[self accDataArr] removeAllObjects];
         [self setDataTimeOffset:0];
-        [self updateAccelerometerData];
+        NSOperationQueue *queue = [[NSOperationQueue alloc] init];
+        [[self motionManager] startAccelerometerUpdatesToQueue:queue
+                                                   withHandler:
+         // this is where the accelerometer update handler begins...
+         ^(CMAccelerometerData *data,
+           NSError *err) {
+             // check for accelerometer error
+             if (err) {
+                 [[self motionManager] stopAccelerometerUpdates];
+                 NSLog(@"There was an accelerometer error:");
+                 NSLog(@"%@", err);
+                 return;
+             }
+             // if there is no error, dispatch asynchronously to the main queue, setting the data
+             dispatch_async(dispatch_get_main_queue(), ^{
+                 [self setAccData:data];
+             });  // end of dispatch block
+         }]; // end of accel update handler block
     } else {
+        // else we're turning off updating
         [[self motionManager] stopAccelerometerUpdates];
-        [NSObject cancelPreviousPerformRequestsWithTarget:self];
     }
     
+    // make sure to assign ivar
     _isUpdating = isUpdating;
 }
 
-- (BOOL)isUpdating
+/* 
+ * Nominally the setter for _accData, will be called async when
+ * the motion manager calls the handler block defined in setUpdating
+ */
+- (void)setAccData:(CMAccelerometerData *)accData
 {
-    return _isUpdating;
-}
-
-- (void)setShouldAverage:(BOOL)shouldAverage
-{
-    if (shouldAverage) {
-        self.activeDataset = self.avgDataset;
-    } else {
-        self.activeDataset = self.dataset;
-    }
-    _shouldAverage = shouldAverage;
+    _accData = accData;
+    
+    // post notification of new data containing dictionary with data
+    NSDictionary *accelerationDict = @{RAMFAccNotificationDataKey : accData};
+    [[NSNotificationCenter defaultCenter] postNotificationName:RAMFNewAccDataNotification
+                                                        object:self
+                                                      userInfo:accelerationDict];
 }
 
 #pragma mark - CPTScatterPlotDataSource
-
+/*
 - (double)doubleForPlot:(CPTPlot *)plot field:(NSUInteger)fieldEnum recordIndex:(NSUInteger)idx
 {
     NSNumber *val;
@@ -214,5 +230,5 @@
     
     return [NSArray arrayWithObjects:min, max, nil];
 }
-
+*/
 @end
