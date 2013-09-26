@@ -8,10 +8,23 @@
 
 #import "RAMFAccelerometerModel.h"
 
-#define ACCEL_UPDATE_INTERVAL 1.0
+#define ACCEL_UPDATE_INTERVAL 0.01
+#define AVG_SIZE 40
+#define RAD_TO_DEG(radians) ((radians) * (180.0 / M_PI))
 
 // string constants related to notification sending
-NSString *const RAMFAccNotificationDataKey = @"RAMFAccNotificationDataKey";
+NSString *const RAMFRawXAccDataKey = @"RAMFRawXAccDataKey";
+NSString *const RAMFRawYAccDataKey = @"RAMFRawYAccDataKey";
+NSString *const RAMFRawZAccDataKey = @"RAMFRawZAccDataKey";
+NSString *const RAMFAvgXAccDataKey = @"RAMFAvgXAccDataKey";
+NSString *const RAMFAvgYAccDataKey = @"RAMFAvgYAccDataKey";
+NSString *const RAMFAvgZAccDataKey = @"RAMFAvgZAccDataKey";
+NSString *const RAMFRawXAngleDataKey = @"RAMFRawXAngleDataKey";
+NSString *const RAMFRawYAngleDataKey = @"RAMFRawYAngleDataKey";
+NSString *const RAMFRawZAngleDataKey = @"RAMFRawZAngleDataKey";
+NSString *const RAMFAvgXAngleDataKey = @"RAMFAvgXAngleDataKey";
+NSString *const RAMFAvgYAngleDataKey = @"RAMFAvgYAngleDataKey";
+NSString *const RAMFAvgZAngleDataKey = @"RAMFAvgZAngleDataKey";
 NSString *const RAMFNewAccDataNotification = @"RAMFNewAccDataNotification";
 
 @interface RAMFAccelerometerModel ()
@@ -19,9 +32,11 @@ NSString *const RAMFNewAccDataNotification = @"RAMFNewAccDataNotification";
 @property (nonatomic, strong) CMMotionManager *motionManager;
 // accData will always hold the most recent accelerometer data
 @property (nonatomic, strong) CMAccelerometerData *accData;
+// avgAccDataArr holds the last AVG_SIZE measurements to provide
+// averaged values when tracking but not updating
+@property (nonatomic, strong) NSMutableArray *avgAccDataArr;
 @property (nonatomic, strong) NSMutableArray *accDataArr;
 
-@property (nonatomic) double accelThreshold;
 @property (nonatomic) TrackingState trackState;
 
 @property (nonatomic) NSTimeInterval dataTimeOffset;
@@ -38,7 +53,8 @@ NSString *const RAMFNewAccDataNotification = @"RAMFNewAccDataNotification";
         _motionManager = [[CMMotionManager alloc] init];
         [_motionManager setAccelerometerUpdateInterval:ACCEL_UPDATE_INTERVAL];
         _isUpdating = NO;
-        _accelThreshold = 0.4;
+        _avgAccDataArr = [NSMutableArray array];
+        
         _trackState = TrackingStateNotTracking;
     }
     
@@ -168,11 +184,84 @@ NSString *const RAMFNewAccDataNotification = @"RAMFNewAccDataNotification";
 {
     _accData = accData;
     
+    double rawX = accData.acceleration.x;
+    double rawY = accData.acceleration.y;
+    double rawZ = accData.acceleration.z;
+    
+    // check if we've accumulated enough data points for a full average
+    if ([[self avgAccDataArr] count] >= AVG_SIZE) {
+        // if yes, remove the oldest (index 0)
+        [[self avgAccDataArr] removeObjectAtIndex:0];
+    }
+    // then append newest acceleration data to array's end
+    [[self avgAccDataArr] addObject:accData];
+    
+    double sumX = 0, sumY = 0, sumZ = 0;
+    double avgX, avgY, avgZ;
+    int i = 0;
+    for (CMAccelerometerData *data in [self avgAccDataArr]) {
+        sumX += data.acceleration.x;
+        sumY += data.acceleration.y;
+        sumZ += data.acceleration.z;
+        i++;
+    }
+//    NSLog(@"Averaged %d readings", i);
+    // note that this average is "usually"/"eventually" going to be
+    // an average over AVG_SIZE elements; at the beginning of data collection,
+    // though, it averages over all available data points until AVG_SIZE
+    // data points have been acquired
+    NSUInteger avgSize = [[self avgAccDataArr] count];
+    avgX = sumX / avgSize;
+    avgY = sumY / avgSize;
+    avgZ = sumZ / avgSize;
+    
+    // calculate the angle between the composite acceleration vector and
+    // each axis' positive direction (i.e. +X, +Y, +Z) in radians
+    double rawVectorLength = sqrt(pow(rawX, 2) + pow(rawY, 2) + pow(rawZ, 2));
+    double avgVectorLength = sqrt(pow(avgX, 2) + pow(avgY, 2) + pow(avgZ, 2));
+    double rawAngleToX, rawAngleToY, rawAngleToZ;
+    double avgAngleToX, avgAngleToY, avgAngleToZ;
+    
+    if (rawVectorLength != 0) {
+        // prevent the unlikely divide-by-zero (if zero vector length,
+        // pretend we're level)
+        rawAngleToX = acos(rawX / rawVectorLength);
+        rawAngleToY = acos(rawY / rawVectorLength);
+        rawAngleToZ = acos(rawZ / rawVectorLength);
+    } else {
+        rawAngleToX = M_PI_2;
+        rawAngleToY = M_PI_2;
+        rawAngleToZ = M_PI;
+        
+    }
+    
+    if (avgVectorLength != 0) {
+        avgAngleToX = acos(avgX / avgVectorLength);
+        avgAngleToY = acos(avgY / avgVectorLength);
+        avgAngleToZ = acos(avgZ / avgVectorLength);
+    } else {
+        avgAngleToX = M_PI_2;
+        avgAngleToY = M_PI_2;
+        avgAngleToZ = M_PI;
+    }
+    
+//    NSLog(@"Model angles to x,y,z: %lf, %lf, %lf", rawAngleToX, rawAngleToY, rawAngleToZ);
+    
+    // assemble dictionary with NSNumber-wrapped acceleration values, angles,
+    // and constant keys
+    NSDictionary *accelerationDict =
+    @{RAMFRawXAccDataKey   : @(rawX), RAMFRawYAccDataKey : @(rawY),
+      RAMFRawZAccDataKey   : @(rawZ), RAMFAvgXAccDataKey : @(avgX),
+      RAMFAvgYAccDataKey   : @(avgY), RAMFAvgZAccDataKey : @(avgZ),
+      RAMFRawXAngleDataKey : @(rawAngleToX), RAMFRawYAngleDataKey : @(rawAngleToY),
+      RAMFRawZAngleDataKey : @(rawAngleToZ), RAMFAvgXAngleDataKey : @(avgAngleToX),
+      RAMFAvgYAngleDataKey : @(rawAngleToY), RAMFAvgZAngleDataKey : @(avgAngleToZ)};
+    
     // post notification of new data containing dictionary with data
-    NSDictionary *accelerationDict = @{RAMFAccNotificationDataKey : accData};
-    [[NSNotificationCenter defaultCenter] postNotificationName:RAMFNewAccDataNotification
-                                                        object:self
-                                                      userInfo:accelerationDict];
+    NSNotificationCenter *center = [NSNotificationCenter defaultCenter];
+    [center postNotificationName:RAMFNewAccDataNotification
+                          object:self
+                        userInfo:accelerationDict];
 }
 
 #pragma mark - CPTScatterPlotDataSource

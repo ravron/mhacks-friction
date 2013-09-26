@@ -9,6 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "RAMFAccelerometerModel.h"
 #import "CorePlot-CocoaTouch.h"
+#import "RAMFLevelBubbleView.h"
 
 @interface RAMFFirstViewController : UIViewController
 
@@ -17,8 +18,9 @@
 - (RAMFAccelerometerModel *) getModel;
 
 @property (weak, nonatomic) IBOutlet UIImageView *backgroundImage;
-
 @property (weak, nonatomic) IBOutlet UIImageView *animation;
+@property (weak, nonatomic) IBOutlet RAMFLevelBubbleView *bubbleView;
+
 - (IBAction)testButtonPressed;
 
 @end

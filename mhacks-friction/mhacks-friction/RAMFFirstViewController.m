@@ -31,7 +31,11 @@
 - (void)newAccelData:(NSNotification *)note
 {
     NSDictionary *uInfo = [note userInfo];
-    CMAccelerometerData *accData = [uInfo objectForKey:RAMFAccNotificationDataKey];
+    double xAcc = [[uInfo objectForKey:RAMFAvgXAccDataKey] doubleValue];
+    double yAcc = [[uInfo objectForKey:RAMFAvgYAccDataKey] doubleValue];
+    double zAcc = [[uInfo objectForKey:RAMFAvgZAccDataKey] doubleValue];
+    
+    [[self bubbleView] setIndicatorWithAccelerationsX:xAcc Y:yAcc Z:zAcc];
 }
 
 - (void)didReceiveMemoryWarning
@@ -56,12 +60,19 @@
     [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
-//- (NSUInteger)supportedInterfaceOrientations
-//{
-//    return UIInterfaceOrientationMaskPortrait;
-//}
-
 - (IBAction)testButtonPressed {
     NSLog(@"%@", self.view.subviews);
 }
+
+- (NSUInteger)supportedInterfaceOrientations
+{
+    return UIInterfaceOrientationMaskLandscapeLeft;
+}
+
+- (void)willRotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation duration:(NSTimeInterval)duration
+{
+    [super willRotateToInterfaceOrientation:toInterfaceOrientation duration:duration];
+    
+}
+
 @end

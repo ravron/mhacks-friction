@@ -9,6 +9,7 @@
 #import <Foundation/Foundation.h>
 #import <CoreMotion/CoreMotion.h>
 #import "CorePlot-CocoaTouch.h"
+#import "math.h"
 
 typedef enum _TrackingState {
     TrackingStateNotTracking = 0,
@@ -17,7 +18,18 @@ typedef enum _TrackingState {
     TrackingStateRisingSlide = 3
 } TrackingState;
 
-extern NSString *const RAMFAccNotificationDataKey;
+extern NSString *const RAMFRawXAccDataKey;
+extern NSString *const RAMFRawYAccDataKey;
+extern NSString *const RAMFRawZAccDataKey;
+extern NSString *const RAMFAvgXAccDataKey;
+extern NSString *const RAMFAvgYAccDataKey;
+extern NSString *const RAMFAvgZAccDataKey;
+extern NSString *const RAMFRawXAngleDataKey;
+extern NSString *const RAMFRawYAngleDataKey;
+extern NSString *const RAMFRawZAngleDataKey;
+extern NSString *const RAMFAvgXAngleDataKey;
+extern NSString *const RAMFAvgYAngleDataKey;
+extern NSString *const RAMFAvgZAngleDataKey;
 extern NSString *const RAMFNewAccDataNotification;
 
 

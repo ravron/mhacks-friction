@@ -7,7 +7,11 @@
 //
 
 #import <UIKit/UIKit.h>
+#import <CoreMotion/CoreMotion.h>
+#import "math.h"
 
 @interface RAMFLevelBubbleView : UIView
+
+- (void)setIndicatorWithAccelerationsX:(double)x Y:(double)y Z:(double)z;
 
 @end
