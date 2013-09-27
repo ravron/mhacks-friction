@@ -36,6 +36,7 @@ NSString *const RAMFRawZAngleDataKey = @"RAMFRawZAngleDataKey";
 NSString *const RAMFAvgXAngleDataKey = @"RAMFAvgXAngleDataKey";
 NSString *const RAMFAvgYAngleDataKey = @"RAMFAvgYAngleDataKey";
 NSString *const RAMFAvgZAngleDataKey = @"RAMFAvgZAngleDataKey";
+NSString *const RAMFDelayRatio       = @"RAMFDelayRatio";
 NSString *const RAMFNewAccDataNotification = @"RAMFNewAccDataNotification";
 
 @interface RAMFAccelerometerModel ()
@@ -189,13 +190,23 @@ NSString *const RAMFNewAccDataNotification = @"RAMFNewAccDataNotification";
     
     BOOL isHolding = [self matchToHoldWithMagnitude:avgVectorLength angleToZ:avgAngleToZ];
     NSTimeInterval holdDuration = 0.0;
+    double delayRatio = 0;
     if (isHolding == YES) {
-        if ([self beginningOfHold] == 0.0) {
+        if ([self beginningOfHold] <= 0.0) {
             // this is the beginning of a holding "streak"
             [self setBeginningOfHold:timestamp];
         } else {
             // the hold has been going on
-//            holdDuration = 
+            // calculate how long the hold has been going, allowing for the predelay
+            holdDuration = timestamp - [self beginningOfHold] - holdStatePreDelay;
+            // bounds check in case predelay puts it negative
+            if (holdDuration < 0)
+                holdDuration = 0;
+            // ratio indicating how much of delay has been traversed thus far
+            delayRatio = holdDuration / holdStateDelay;
+            // bounds check
+            if (delayRatio > 1.0)
+                delayRatio = 1.0;
         }
     } else {
         // if hold is broken, reset beginningOfHold to sentinel 0
@@ -210,7 +221,8 @@ NSString *const RAMFNewAccDataNotification = @"RAMFNewAccDataNotification";
       RAMFAvgYAccDataKey   : @(avgY), RAMFAvgZAccDataKey : @(avgZ),
       RAMFRawXAngleDataKey : @(rawAngleToX), RAMFRawYAngleDataKey : @(rawAngleToY),
       RAMFRawZAngleDataKey : @(rawAngleToZ), RAMFAvgXAngleDataKey : @(avgAngleToX),
-      RAMFAvgYAngleDataKey : @(rawAngleToY), RAMFAvgZAngleDataKey : @(avgAngleToZ)};
+      RAMFAvgYAngleDataKey : @(rawAngleToY), RAMFAvgZAngleDataKey : @(avgAngleToZ),
+      RAMFDelayRatio       : @(delayRatio)};
     
     // post notification of new data containing dictionary with data
     NSNotificationCenter *center = [NSNotificationCenter defaultCenter];

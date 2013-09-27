@@ -31,6 +31,7 @@
 {
     if (self = [super initWithCoder:aDecoder]) {
         _indicatorOffset.x = _indicatorOffset.y = 0;
+        _loadingRatio = 0.0;
     }
     return self;
 }
@@ -42,12 +43,15 @@
     // SETUP
     
     // stroke width, color of enclosing circle
-    CGFloat outerEllipseWidth = 4.0;
-    CGColorRef outerEllipseColor = [[UIColor colorWithWhite:0.55 alpha:1] CGColor];
+    CGFloat outerEllipseWidth = 5.0;
+    CGColorRef outerEllipseColor = [[UIColor colorWithWhite:0.6 alpha:1] CGColor];
+    CGFloat loadBarWidth = outerEllipseWidth * 1.5;
+    CGColorRef loadBarColor = [[UIColor colorWithRed:0.1 green:1.0 blue:0.1 alpha:1.0] CGColor];
+    CGFloat loadBarEndAngle = -M_PI_2 + [self loadingRatio] * 2 * M_PI;
     
     // ratio of moving dot diameter to size of view, color of dot
     CGFloat indicatorSizeRatio = 0.5;
-    CGColorRef indicatorColor = [[UIColor colorWithRed:1.0 green:0.5 blue:0.5 alpha:1] CGColor];
+    CGColorRef indicatorColor = [[UIColor colorWithRed:1.0 green:0.45 blue:0.45 alpha:1] CGColor];
     // minimum distance to maintain between moving dot and enclosing circle
     // as ratio of standoff distance to dot diameter
     CGFloat indicatorStandoffRatio = 0.05;
@@ -61,11 +65,22 @@
     // DRAWING
     
     // enclosing circle drawing
-    CGRect ellipseRect = CGRectInset(rect, outerEllipseWidth / 2.0,
-                                     outerEllipseWidth / 2.0);
+    // load bar first
+    CGFloat outerEllipseRadius = (rect.size.height - loadBarWidth) / 2;
+    CGPoint center = CGPointMake(CGRectGetMidX(rect), CGRectGetMidY(rect));
+    CGPoint arcStart = CGPointMake(CGRectGetMidX(rect), loadBarWidth / 2);
+    
+    CGContextMoveToPoint(c, arcStart.x, arcStart.y);
+    CGContextAddArc(c, center.x, center.y, outerEllipseRadius, -M_PI_2, loadBarEndAngle, 0);
+    CGContextSetLineWidth(c, loadBarWidth);
+    CGContextSetStrokeColorWithColor(c, loadBarColor);
+    CGContextStrokePath(c);
+    
+    // now remaining enclosing circle
+    CGContextAddArc(c, center.x, center.y, outerEllipseRadius, loadBarEndAngle, 3 * M_PI_2, 0);
     CGContextSetLineWidth(c, outerEllipseWidth);
     CGContextSetStrokeColorWithColor(c, outerEllipseColor);
-    CGContextStrokeEllipseInRect(c, ellipseRect);
+    CGContextStrokePath(c);
     
     // calculate indicator rect size
     CGRect indicatorRect;
@@ -82,8 +97,8 @@
     
     // calculate maximum allowable X and Y offsets to apply to the
     // indicatorRect's origin
-    CGFloat indicatorMaxXOffset = (ellipseRect.size.width - outerEllipseWidth - indicatorRect.size.width) / 2 - indicatorStandoff;
-    CGFloat indicatorMaxYOffset = (ellipseRect.size.height - outerEllipseWidth - indicatorRect.size.height) / 2 - indicatorStandoff;
+    CGFloat indicatorMaxXOffset = (outerEllipseRadius * 2 - loadBarWidth - indicatorRect.size.width) / 2 - indicatorStandoff;
+    CGFloat indicatorMaxYOffset = (outerEllipseRadius * 2 - loadBarWidth - indicatorRect.size.height) / 2 - indicatorStandoff;
     
     // calculate indicatorRect's position
     indicatorRect.origin.x = CGRectGetMidX(rect) - indicatorRect.size.width / 2 + ([self indicatorOffset].x * indicatorMaxXOffset);
@@ -169,6 +184,17 @@
     
     [self setIndicatorOffset:newPoint];
     [self setNeedsDisplay];
+}
+
+- (void)setLoadingRatio:(double)loadingRatio
+{
+    // bound checks
+    if (loadingRatio > 1.0)
+        _loadingRatio = 1.0;
+    else if (loadingRatio < 0.0)
+        _loadingRatio = 0.0;
+    else
+        _loadingRatio = loadingRatio;
 }
 
 - (void)dealloc

@@ -34,9 +34,11 @@
     double xAcc = [[uInfo objectForKey:RAMFAvgXAccDataKey] doubleValue];
     double yAcc = [[uInfo objectForKey:RAMFAvgYAccDataKey] doubleValue];
     double zAcc = [[uInfo objectForKey:RAMFAvgZAccDataKey] doubleValue];
+    double delayRatio = [[uInfo objectForKey:RAMFDelayRatio] doubleValue];
     
     if ([[self bubbleView] isHidden] == NO) {
         [[self bubbleView] setIndicatorWithAccelerationsX:xAcc Y:yAcc Z:zAcc];
+        [[self bubbleView] setLoadingRatio:delayRatio];
     }
 }
 
