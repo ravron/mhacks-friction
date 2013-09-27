@@ -8,8 +8,8 @@
 
 #import "RAMFAccelerometerModel.h"
 
-#define ACCEL_UPDATE_INTERVAL 0.01
-#define AVG_SIZE 40
+#define ACCEL_UPDATE_INTERVAL 0.5
+#define AVG_SIZE 10
 #define RAD_TO_DEG(radians) ((radians) * (180.0 / M_PI))
 
 // string constants related to notification sending
@@ -37,6 +37,11 @@ NSString *const RAMFNewAccDataNotification = @"RAMFNewAccDataNotification";
 @property (nonatomic, strong) NSMutableArray *avgAccDataArr;
 @property (nonatomic, strong) NSMutableArray *accDataArr;
 
+// beginningOfHold stores the start time of a static hold behavior.  e.g. the
+// phone is put into a satisfactory hold position at timestamp == 400, then
+// beginningOfHold = 400.  when there's no hold "streak" occurring, beginningOfHold
+// is 0 as a sentinel value.
+@property (nonatomic) NSTimeInterval beginningOfHold;
 @property (nonatomic) TrackingState trackState;
 
 @property (nonatomic) NSTimeInterval dataTimeOffset;
@@ -55,88 +60,12 @@ NSString *const RAMFNewAccDataNotification = @"RAMFNewAccDataNotification";
         _isUpdating = NO;
         _avgAccDataArr = [NSMutableArray array];
         
+        _beginningOfHold = 0.0;
         _trackState = TrackingStateNotTracking;
     }
     
     return self;
 }
-
-// old periodic updateAccelerometerData
-/*
-- (void)updateAccelerometerData
-{
-    CMAccelerometerData *data = [[self motionManager] accelerometerData];
-    double xyAccel = 0.0;
-    double xAccel, yAccel;
-    CMAcceleration accelStruct = [data acceleration];
-    
-    xAccel = accelStruct.x;
-    yAccel = accelStruct.y;
-    
-    xyAccel = sqrt(pow(xAccel, 2) + pow(yAccel, 2));
-    
-    if (self.isUpdating) {
-        NSTimeInterval delay = ACCEL_UPDATE_INTERVAL;
-        [self performSelector:@selector(updateAccelerometerData) withObject:nil afterDelay:delay];
-    }
-    
-    // add data to dataset
-    NSTimeInterval timestamp = [data timestamp];
-    
-    if (self.dataTimeOffset == 0.0) {
-        [self setDataTimeOffset:timestamp];
-    }
-    timestamp = timestamp - self.dataTimeOffset;
-    
-    NSNumber *wrappedTimestamp = [NSNumber numberWithDouble:timestamp];
-    NSNumber *wrappedRawAccel = [NSNumber numberWithDouble:xyAccel];
-    NSArray *stampedDatum = [NSArray arrayWithObjects:wrappedTimestamp, wrappedRawAccel, nil];
-    [[self dataset] addObject:stampedDatum];
-    
-    if ([[self dataset] count] >= self.averagingValue) {
-        int i;
-        long len = [[self dataset] count];
-        double sum = 0;
-        
-        for (i = 0; i < self.averagingValue; i++) {
-            sum += [[[[self dataset] objectAtIndex:(len - i - 1)] objectAtIndex:1] doubleValue];
-        }
-        sum /= self.averagingValue;
-        NSNumber *oldTimestamp = [[[self dataset] objectAtIndex:(len - self.averagingValue)] objectAtIndex:0];
-        NSNumber *avgRawAccel = [NSNumber numberWithDouble:sum];
-        NSArray *stampedAvgDatum = [NSArray arrayWithObjects:oldTimestamp, avgRawAccel, nil];
-        [[self avgDataset] addObject:stampedAvgDatum];
-        
-        if ([self trackState] == TrackingStateNotTracking
-            && sum > self.accelThreshold) {
-            [self setTrackState:TrackingStateRisingPush];
-        } else if ([self trackState] == TrackingStateRisingPush) {
-            NSArray *arr = [self avgDataset];
-            if (sum < [[[arr objectAtIndex:([arr count] - 2)] objectAtIndex:1] doubleValue]) {
-                [self setTrackState:TrackingStateFallingPush];
-            }
-        } else if ([self trackState] == TrackingStateFallingPush) {
-            NSArray *arr = [self avgDataset];
-            if (sum > [[[arr objectAtIndex:([arr count] - 2)] objectAtIndex:1] doubleValue]) {
-                [self setTrackState:TrackingStateRisingSlide];
-                [self setLocalMinimum:sum];
-            }
-        } else {
-            if (sum < self.accelThreshold) {
-                self.lastAverage = (sum + self.localMinimum) / 2;
-                double dForce = (self.lastAverage * 9.8) * .140;
-                double nForce = .140 * 9.8;
-                self.mu = dForce/nForce;
-                [self setTrackState:TrackingStateNotTracking];
-            }
-        }
-    }
-    
-    if (self.delegate) {
-        [[self delegate] accelDataUpdateAvailable];
-    }
-}
-*/
 
 - (void)setUpdating:(BOOL)isUpdating
 {
@@ -205,7 +134,7 @@ NSString *const RAMFNewAccDataNotification = @"RAMFNewAccDataNotification";
         sumZ += data.acceleration.z;
         i++;
     }
-//    NSLog(@"Averaged %d readings", i);
+    
     // note that this average is "usually"/"eventually" going to be
     // an average over AVG_SIZE elements; at the beginning of data collection,
     // though, it averages over all available data points until AVG_SIZE
@@ -245,7 +174,7 @@ NSString *const RAMFNewAccDataNotification = @"RAMFNewAccDataNotification";
         avgAngleToZ = M_PI;
     }
     
-//    NSLog(@"Model angles to x,y,z: %lf, %lf, %lf", rawAngleToX, rawAngleToY, rawAngleToZ);
+    BOOL hold = [self matchToHoldWithXValue:avgX yValue:avgY zValue:avgZ];
     
     // assemble dictionary with NSNumber-wrapped acceleration values, angles,
     // and constant keys
@@ -264,60 +193,18 @@ NSString *const RAMFNewAccDataNotification = @"RAMFNewAccDataNotification";
                         userInfo:accelerationDict];
 }
 
-#pragma mark - CPTScatterPlotDataSource
-/*
-- (double)doubleForPlot:(CPTPlot *)plot field:(NSUInteger)fieldEnum recordIndex:(NSUInteger)idx
+- (BOOL)matchToHoldWithXValue:(double)x yValue:(double)y zValue:(double)z
 {
-    NSNumber *val;
-    if (fieldEnum == CPTScatterPlotFieldX) {
-        val = [[[self activeDataset] objectAtIndex: idx] objectAtIndex:0];
-        return [val doubleValue];
-    } else if (fieldEnum == CPTScatterPlotFieldY) {
-        val = [[[self activeDataset] objectAtIndex: idx] objectAtIndex:1];
-        return [val doubleValue];
+    double magnitude = sqrt(pow(x, 2) + pow(y, 2) + pow(z, 2));
+    double windowSize = 0.015;
+    
+    if (z > -1 + windowSize || z < -1 - windowSize) {
+        return NO;
+    } else if (magnitude < 0.98 || magnitude > 1.02) {
+        return NO;
     }
-    else {
-        return 0;
-    }
+    
+    return YES;
 }
 
-- (NSUInteger)numberOfRecordsForPlot:(CPTPlot *)plot
-{
-    return [[self activeDataset] count];
-}
-
-- (NSArray *)xAxisExtrema
-{
-    NSNumber *min = [[[self dataset] objectAtIndex:0] objectAtIndex:0];
-    NSNumber *max = [[[self dataset] objectAtIndex:0] objectAtIndex:0];
-    
-    for (NSArray *pair in [self dataset]) {
-        if ([[pair objectAtIndex:0] doubleValue] < [min doubleValue]) {
-            min = [pair objectAtIndex:0];
-        }
-        if ([[pair objectAtIndex:0] doubleValue] > [max doubleValue]) {
-            max = [pair objectAtIndex:0];
-        }
-    }
-    
-    return [NSArray arrayWithObjects:min, max, nil];
-}
-
-- (NSArray *)yAxisExtrema
-{
-    NSNumber *min = [[[self dataset] objectAtIndex:0] objectAtIndex:1];
-    NSNumber *max = [[[self dataset] objectAtIndex:0] objectAtIndex:1];
-    
-    for (NSArray *pair in [self dataset]) {
-        if ([[pair objectAtIndex:1] doubleValue] < [min doubleValue]) {
-            min = [pair objectAtIndex:1];
-        }
-        if ([[pair objectAtIndex:1] doubleValue] > [max doubleValue]) {
-            max = [pair objectAtIndex:1];
-        }
-    }
-    
-    return [NSArray arrayWithObjects:min, max, nil];
-}
-*/
 @end

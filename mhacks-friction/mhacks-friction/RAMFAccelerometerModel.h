@@ -18,18 +18,24 @@ typedef enum _TrackingState {
     TrackingStateRisingSlide = 3
 } TrackingState;
 
+// raw and average X, Y, and Z data
 extern NSString *const RAMFRawXAccDataKey;
 extern NSString *const RAMFRawYAccDataKey;
 extern NSString *const RAMFRawZAccDataKey;
 extern NSString *const RAMFAvgXAccDataKey;
 extern NSString *const RAMFAvgYAccDataKey;
 extern NSString *const RAMFAvgZAccDataKey;
+// raw and average angles-to-X, -Y, and -Z data
 extern NSString *const RAMFRawXAngleDataKey;
 extern NSString *const RAMFRawYAngleDataKey;
 extern NSString *const RAMFRawZAngleDataKey;
 extern NSString *const RAMFAvgXAngleDataKey;
 extern NSString *const RAMFAvgYAngleDataKey;
 extern NSString *const RAMFAvgZAngleDataKey;
+// ratio, from 0 to 1, of how much of delay goal is currently met
+extern NSString *const RAMFDelayRatio;
+// actual notification key (name), sent out whenever new
+// data is available
 extern NSString *const RAMFNewAccDataNotification;
 
 

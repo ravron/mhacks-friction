@@ -41,9 +41,9 @@
     
     // SETUP
     
-    // width, color of enclosing circle
+    // stroke width, color of enclosing circle
     CGFloat outerEllipseWidth = 4.0;
-    CGColorRef outerEllipseColor = [[UIColor colorWithWhite:0.75 alpha:1] CGColor];
+    CGColorRef outerEllipseColor = [[UIColor colorWithWhite:0.55 alpha:1] CGColor];
     
     // ratio of moving dot diameter to size of view, color of dot
     CGFloat indicatorSizeRatio = 0.5;
@@ -52,6 +52,11 @@
     // as ratio of standoff distance to dot diameter
     CGFloat indicatorStandoffRatio = 0.05;
     
+    // ratio of centering mark diameter to dot diameter, should usually be > 1,
+    CGFloat centeringMarkSizeRatio = 1.05;
+    // centering mark stroke width, color
+    CGFloat centeringMarkWidth = 1.0;
+    CGColorRef centeringMarkColor = [[UIColor colorWithWhite:0.7 alpha:1] CGColor];
     
     // DRAWING
     
@@ -61,11 +66,6 @@
     CGContextSetLineWidth(c, outerEllipseWidth);
     CGContextSetStrokeColorWithColor(c, outerEllipseColor);
     CGContextStrokeEllipseInRect(c, ellipseRect);
-    
-    // orientation dot in upper-left corner, temporary
-    CGRect idRect = CGRectMake(rect.origin.x + outerEllipseWidth / 2,
-                               rect.origin.y + outerEllipseWidth / 2, 10, 10);
-    CGContextStrokeRect(c, idRect);
     
     // calculate indicator rect size
     CGRect indicatorRect;
@@ -92,6 +92,18 @@
     // draw indicator
     CGContextSetFillColorWithColor(c, indicatorColor);
     CGContextFillEllipseInRect(c, indicatorRect);
+    
+    // calculate centering mark rect size and position
+    CGRect centeringMarkRect;
+    centeringMarkRect.size.width  = indicatorRect.size.width * centeringMarkSizeRatio;
+    centeringMarkRect.size.height = indicatorRect.size.height * centeringMarkSizeRatio;
+    centeringMarkRect.origin.x = CGRectGetMidX(rect) - centeringMarkRect.size.width / 2;
+    centeringMarkRect.origin.y = CGRectGetMidY(rect) - centeringMarkRect.size.height / 2;
+    
+    // draw centering mark
+    CGContextSetStrokeColorWithColor(c, centeringMarkColor);
+    CGContextSetLineWidth(c, centeringMarkWidth);
+    CGContextStrokeEllipseInRect(c, centeringMarkRect);
 }
 
 - (void)setIndicatorWithAccelerationsX:(double)x Y:(double)y Z:(double)z

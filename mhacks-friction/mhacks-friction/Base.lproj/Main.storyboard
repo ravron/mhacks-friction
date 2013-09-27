@@ -13,20 +13,20 @@
                         <viewControllerLayoutGuide type="bottom" id="lkx-BZ-SK8"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="yAm-an-Gye">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
+                        <rect key="frame" x="0.0" y="0.0" width="480" height="320"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="fHV-2H-RQv" customClass="RAMFLevelBubbleView">
-                                <rect key="frame" x="55" y="135" width="210" height="210"/>
+                                <rect key="frame" x="150" y="70" width="180" height="180"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="210" id="AjE-MY-hMC"/>
-                                    <constraint firstAttribute="width" constant="210" id="Bey-K1-lik"/>
+                                    <constraint firstAttribute="height" constant="180" id="AjE-MY-hMC"/>
+                                    <constraint firstAttribute="width" constant="180" id="Bey-K1-lik"/>
                                 </constraints>
                             </view>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Y7u-oV-BUw">
-                                <rect key="frame" x="137" y="34" width="46" height="30"/>
+                                <rect key="frame" x="217" y="30" width="46" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" title="Button">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
@@ -35,18 +35,29 @@
                                     <action selector="testButtonPressed" destination="i2K-Vb-Dme" eventType="touchUpInside" id="qxt-tG-jDP"/>
                                 </connections>
                             </button>
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Place iPhone on surface" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="KHv-F5-6eN">
+                                <rect key="frame" x="118" y="258" width="245" height="28"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="23"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstAttribute="centerY" secondItem="fHV-2H-RQv" secondAttribute="centerY" id="LFU-tI-rde"/>
                             <constraint firstAttribute="centerX" secondItem="fHV-2H-RQv" secondAttribute="centerX" id="UJl-yN-mum"/>
                             <constraint firstItem="Y7u-oV-BUw" firstAttribute="top" relation="greaterThanOrEqual" secondItem="MzB-ON-Sdd" secondAttribute="bottom" constant="10" id="XXJ-yO-ENZ"/>
-                            <constraint firstItem="fHV-2H-RQv" firstAttribute="top" secondItem="Y7u-oV-BUw" secondAttribute="bottom" priority="750" constant="71" id="f8R-xk-gho"/>
+                            <constraint firstAttribute="centerX" secondItem="KHv-F5-6eN" secondAttribute="centerX" id="ZLH-Au-Gxq"/>
+                            <constraint firstItem="fHV-2H-RQv" firstAttribute="top" secondItem="Y7u-oV-BUw" secondAttribute="bottom" priority="250" constant="71" id="f8R-xk-gho"/>
+                            <constraint firstItem="KHv-F5-6eN" firstAttribute="top" secondItem="fHV-2H-RQv" secondAttribute="bottom" constant="8" id="lro-DM-SZx"/>
                             <constraint firstAttribute="centerX" secondItem="Y7u-oV-BUw" secondAttribute="centerX" id="sbn-1Z-TzS"/>
                         </constraints>
+                        <simulatedOrientationMetrics key="simulatedOrientationMetrics" orientation="landscapeRight"/>
                     </view>
                     <navigationItem key="navigationItem" id="i6T-8r-olz"/>
                     <keyCommands/>
+                    <simulatedOrientationMetrics key="simulatedOrientationMetrics" orientation="landscapeRight"/>
                     <connections>
                         <outlet property="bubbleView" destination="fHV-2H-RQv" id="5LM-yn-TDX"/>
                     </connections>

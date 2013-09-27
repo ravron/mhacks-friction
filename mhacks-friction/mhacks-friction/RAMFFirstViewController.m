@@ -35,7 +35,9 @@
     double yAcc = [[uInfo objectForKey:RAMFAvgYAccDataKey] doubleValue];
     double zAcc = [[uInfo objectForKey:RAMFAvgZAccDataKey] doubleValue];
     
-    [[self bubbleView] setIndicatorWithAccelerationsX:xAcc Y:yAcc Z:zAcc];
+    if ([[self bubbleView] isHidden] == NO) {
+        [[self bubbleView] setIndicatorWithAccelerationsX:xAcc Y:yAcc Z:zAcc];
+    }
 }
 
 - (void)didReceiveMemoryWarning
@@ -61,7 +63,11 @@
 }
 
 - (IBAction)testButtonPressed {
-    NSLog(@"%@", self.view.subviews);
+    [UIView animateWithDuration:0.5 animations:^{
+        [[self bubbleView] setAlpha:0.0];
+    } completion:^(BOOL finished){
+        [[self bubbleView] setHidden:YES];
+    }];
 }
 
 - (NSUInteger)supportedInterfaceOrientations
