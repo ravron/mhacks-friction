@@ -188,15 +188,18 @@ NSString *const RAMFNewAccDataNotification = @"RAMFNewAccDataNotification";
     }
     
     BOOL isHolding = [self matchToHoldWithMagnitude:avgVectorLength angleToZ:avgAngleToZ];
+    NSTimeInterval holdDuration = 0.0;
     if (isHolding == YES) {
         if ([self beginningOfHold] == 0.0) {
             // this is the beginning of a holding "streak"
             [self setBeginningOfHold:timestamp];
         } else {
             // the hold has been going on
+//            holdDuration = 
         }
     } else {
-        
+        // if hold is broken, reset beginningOfHold to sentinel 0
+        [self setBeginningOfHold:0.0];
     }
     
     // assemble dictionary with NSNumber-wrapped acceleration values, angles,
