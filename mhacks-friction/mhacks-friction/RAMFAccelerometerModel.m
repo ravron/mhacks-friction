@@ -8,9 +8,20 @@
 
 #import "RAMFAccelerometerModel.h"
 
-#define ACCEL_UPDATE_INTERVAL 0.5
-#define AVG_SIZE 10
+// convenience macro for rad to deg conversion
 #define RAD_TO_DEG(radians) ((radians) * (180.0 / M_PI))
+
+// numeric constants related to model behavior
+// desired period for accelerometer updates (min. 0.01)
+NSTimeInterval const accelerometerUpdateInterval = 0.01;
+// number of previous accelerometer values to average for averaged data
+NSUInteger const averageSize = 10;
+// how long to wait in holding position "invisibly" before contacting
+// view controller
+NSTimeInterval const holdStatePreDelay = 0.25;
+// how long to wait before deciding that hold state has been completed
+NSTimeInterval const holdStateDelay = 1.0;
+
 
 // string constants related to notification sending
 NSString *const RAMFRawXAccDataKey = @"RAMFRawXAccDataKey";
@@ -56,7 +67,7 @@ NSString *const RAMFNewAccDataNotification = @"RAMFNewAccDataNotification";
     
     if (self) {
         _motionManager = [[CMMotionManager alloc] init];
-        [_motionManager setAccelerometerUpdateInterval:ACCEL_UPDATE_INTERVAL];
+        [_motionManager setAccelerometerUpdateInterval:accelerometerUpdateInterval];
         _isUpdating = NO;
         _avgAccDataArr = [NSMutableArray array];
         
@@ -113,12 +124,14 @@ NSString *const RAMFNewAccDataNotification = @"RAMFNewAccDataNotification";
 {
     _accData = accData;
     
+    NSTimeInterval timestamp = [accData timestamp];
+    
     double rawX = accData.acceleration.x;
     double rawY = accData.acceleration.y;
     double rawZ = accData.acceleration.z;
     
     // check if we've accumulated enough data points for a full average
-    if ([[self avgAccDataArr] count] >= AVG_SIZE) {
+    if ([[self avgAccDataArr] count] >= averageSize) {
         // if yes, remove the oldest (index 0)
         [[self avgAccDataArr] removeObjectAtIndex:0];
     }
@@ -174,7 +187,17 @@ NSString *const RAMFNewAccDataNotification = @"RAMFNewAccDataNotification";
         avgAngleToZ = M_PI;
     }
     
-    BOOL hold = [self matchToHoldWithXValue:avgX yValue:avgY zValue:avgZ];
+    BOOL isHolding = [self matchToHoldWithMagnitude:avgVectorLength angleToZ:avgAngleToZ];
+    if (isHolding == YES) {
+        if ([self beginningOfHold] == 0.0) {
+            // this is the beginning of a holding "streak"
+            [self setBeginningOfHold:timestamp];
+        } else {
+            // the hold has been going on
+        }
+    } else {
+        
+    }
     
     // assemble dictionary with NSNumber-wrapped acceleration values, angles,
     // and constant keys
@@ -193,16 +216,12 @@ NSString *const RAMFNewAccDataNotification = @"RAMFNewAccDataNotification";
                         userInfo:accelerationDict];
 }
 
-- (BOOL)matchToHoldWithXValue:(double)x yValue:(double)y zValue:(double)z
+- (BOOL)matchToHoldWithMagnitude:(double)magnitude angleToZ:(double)angleToZ
 {
-    double magnitude = sqrt(pow(x, 2) + pow(y, 2) + pow(z, 2));
-    double windowSize = 0.015;
-    
-    if (z > -1 + windowSize || z < -1 - windowSize) {
+    if (magnitude < 0.98 || magnitude > 1.02)
         return NO;
-    } else if (magnitude < 0.98 || magnitude > 1.02) {
+    else if (angleToZ < M_PI * 0.98)
         return NO;
-    }
     
     return YES;
 }
