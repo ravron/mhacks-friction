@@ -10,8 +10,9 @@
 #import "RAMFAccelerometerModel.h"
 #import "CorePlot-CocoaTouch.h"
 #import "RAMFLevelBubbleView.h"
+#import <MessageUI/MFMailComposeViewController.h>
 
-@interface RAMFFirstViewController : UIViewController
+@interface RAMFFirstViewController : UIViewController <MFMailComposeViewControllerDelegate>
 
 @property (strong, nonatomic) RAMFAccelerometerModel *accModel;
 

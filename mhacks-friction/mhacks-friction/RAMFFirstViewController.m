@@ -65,11 +65,32 @@
 }
 
 - (IBAction)testButtonPressed {
-    [UIView animateWithDuration:0.5 animations:^{
-        [[self bubbleView] setAlpha:0.0];
-    } completion:^(BOOL finished){
-        [[self bubbleView] setHidden:YES];
-    }];
+//    [UIView animateWithDuration:0.5 animations:^{
+//        [[self bubbleView] setAlpha:0.0];
+//    } completion:^(BOOL finished){
+//        [[self bubbleView] setHidden:YES];
+//    }];
+    [[self accModel] setUpdating:NO];
+    MFMailComposeViewController *composer = [[MFMailComposeViewController alloc] init];
+    [composer setMailComposeDelegate:self];
+    [composer setSubject:@"Data for MuMeter Run"];
+    [composer setToRecipients:[NSArray arrayWithObject:@"nerylix@me.com"]];
+    
+    NSData *logData = [[self accModel] dataForLog];
+    
+    NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+    [formatter setDateFormat:@"ss-mm-HH-d-M"];
+    NSString *dateString = [formatter stringFromDate:[NSDate date]];
+    NSString *fileName = [NSString stringWithFormat:@"logfile-%@.csv", dateString];
+    
+    [composer addAttachmentData:logData mimeType:@"text/csv" fileName:fileName];
+    [self presentViewController:composer animated:YES completion:nil];
+}
+
+- (void)mailComposeController:(MFMailComposeViewController *)controller
+          didFinishWithResult:(MFMailComposeResult)result error:(NSError *)error
+{
+    [self dismissViewControllerAnimated:YES completion:nil];
 }
 
 - (NSUInteger)supportedInterfaceOrientations

@@ -39,6 +39,8 @@ NSString *const RAMFAvgZAngleDataKey = @"RAMFAvgZAngleDataKey";
 NSString *const RAMFDelayRatio       = @"RAMFDelayRatio";
 NSString *const RAMFNewAccDataNotification = @"RAMFNewAccDataNotification";
 
+//NSString *const RAMFLogFileName = @"datalog.txt";
+
 @interface RAMFAccelerometerModel ()
 
 @property (nonatomic, strong) CMMotionManager *motionManager;
@@ -58,6 +60,8 @@ NSString *const RAMFNewAccDataNotification = @"RAMFNewAccDataNotification";
 
 @property (nonatomic) NSTimeInterval dataTimeOffset;
 
+@property (nonatomic, strong) NSMutableString *dataString;
+
 @end
 
 @implementation RAMFAccelerometerModel
@@ -71,7 +75,7 @@ NSString *const RAMFNewAccDataNotification = @"RAMFNewAccDataNotification";
         [_motionManager setAccelerometerUpdateInterval:accelerometerUpdateInterval];
         _isUpdating = NO;
         _avgAccDataArr = [NSMutableArray array];
-        
+        _dataString = [NSMutableString string];
         _beginningOfHold = 0.0;
         _trackState = TrackingStateNotTracking;
     }
@@ -87,9 +91,11 @@ NSString *const RAMFNewAccDataNotification = @"RAMFNewAccDataNotification";
 
     // if we're turning on updating
     if (isUpdating && !_isUpdating) {
-        NSLog(@"Activating updates");
         [[self accDataArr] removeAllObjects];
         [self setDataTimeOffset:0];
+        
+        [self setDataString:[NSMutableString string]]; 
+        
         NSOperationQueue *queue = [[NSOperationQueue alloc] init];
         [[self motionManager] startAccelerometerUpdatesToQueue:queue
                                                    withHandler:
@@ -191,6 +197,7 @@ NSString *const RAMFNewAccDataNotification = @"RAMFNewAccDataNotification";
     BOOL isHolding = [self matchToHoldWithMagnitude:avgVectorLength angleToZ:avgAngleToZ];
     NSTimeInterval holdDuration = 0.0;
     double delayRatio = 0;
+    
     if (isHolding == YES) {
         if ([self beginningOfHold] <= 0.0) {
             // this is the beginning of a holding "streak"
@@ -229,6 +236,20 @@ NSString *const RAMFNewAccDataNotification = @"RAMFNewAccDataNotification";
     [center postNotificationName:RAMFNewAccDataNotification
                           object:self
                         userInfo:accelerationDict];
+    
+    double rawXY = sqrt(pow(rawX, 2) + pow(rawY, 2));
+    double avgXY = sqrt(pow(avgX, 2) + pow(avgY, 2));
+    
+    if (rawXY + avgXY > 0.09) {
+        NSString *logLine = [NSString stringWithFormat:@"%lf,%lf,%lf\n",
+                             timestamp, rawXY, avgXY];
+        [[self dataString] appendString:logLine];
+    }
+}
+
+- (NSData *)dataForLog
+{
+    return [[self dataString] dataUsingEncoding:NSASCIIStringEncoding];
 }
 
 - (BOOL)matchToHoldWithMagnitude:(double)magnitude angleToZ:(double)angleToZ

@@ -50,6 +50,8 @@ extern NSString *const RAMFNewAccDataNotification;
 @property (nonatomic, getter = isUpdating) BOOL updating;
 @property (nonatomic, readonly) TrackingState trackState;
 
+- (NSData *)dataForLog;
+
 //- (NSArray *)xAxisExtrema;
 //- (NSArray *)yAxisExtrema;
 
