@@ -223,9 +223,9 @@ NSString *const RAMFNewAccDataNotification = @"RAMFNewAccDataNotification";
     // assemble dictionary with NSNumber-wrapped acceleration values, angles,
     // and constant keys
     NSDictionary *accelerationDict =
-    @{RAMFRawXAccDataKey   : @(rawX), RAMFRawYAccDataKey : @(rawY),
-      RAMFRawZAccDataKey   : @(rawZ), RAMFAvgXAccDataKey : @(avgX),
-      RAMFAvgYAccDataKey   : @(avgY), RAMFAvgZAccDataKey : @(avgZ),
+    @{RAMFRawXAccDataKey   : @(rawX),        RAMFRawYAccDataKey   : @(rawY),
+      RAMFRawZAccDataKey   : @(rawZ),        RAMFAvgXAccDataKey   : @(avgX),
+      RAMFAvgYAccDataKey   : @(avgY),        RAMFAvgZAccDataKey   : @(avgZ),
       RAMFRawXAngleDataKey : @(rawAngleToX), RAMFRawYAngleDataKey : @(rawAngleToY),
       RAMFRawZAngleDataKey : @(rawAngleToZ), RAMFAvgXAngleDataKey : @(avgAngleToX),
       RAMFAvgYAngleDataKey : @(rawAngleToY), RAMFAvgZAngleDataKey : @(avgAngleToZ),
@@ -237,9 +237,11 @@ NSString *const RAMFNewAccDataNotification = @"RAMFNewAccDataNotification";
                           object:self
                         userInfo:accelerationDict];
     
+    // calculate the raw and avg X+Y vector magnitude
     double rawXY = sqrt(pow(rawX, 2) + pow(rawY, 2));
     double avgXY = sqrt(pow(avgX, 2) + pow(avgY, 2));
     
+    // only log to the massive csv NSString if over a threshold (magic number, whatever)
     if (rawXY + avgXY > 0.09) {
         NSString *logLine = [NSString stringWithFormat:@"%lf,%lf,%lf\n",
                              timestamp, rawXY, avgXY];

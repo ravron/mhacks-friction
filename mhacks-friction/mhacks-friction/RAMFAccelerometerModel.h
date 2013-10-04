@@ -38,6 +38,15 @@ extern NSString *const RAMFDelayRatio;
 // data is available
 extern NSString *const RAMFNewAccDataNotification;
 
+@class RAMFAccelerometerModel;
+
+// delegate protocol for the view controller that uses this model
+@protocol RAMFAccelerometerModelDelegate <NSObject>
+
+@required
+- (void)accelerometerModel:(RAMFAccelerometerModel *)model didReceiveNewOrientation:(NSDictionary *)orientation;
+
+@end
 
 @interface RAMFAccelerometerModel : NSObject
 {
@@ -56,3 +65,4 @@ extern NSString *const RAMFNewAccDataNotification;
 //- (NSArray *)yAxisExtrema;
 
 @end
+
